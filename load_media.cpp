@@ -50,7 +50,19 @@ bool load_media() {
     BITMAPS[IMG_TILE_WATER] = load_bitmap("data//img//tiles0009.png");
     BITMAPS[IMG_TILE_ARCTIC] = load_bitmap("data//img//tiles0010.png");
     BITMAPS[IMG_STATIC_CITY] = load_bitmap("data//img//city.png");
-
+    BITMAPS[IMG_UNIT_INFANTRY] = load_bitmap("data//img//units0001.png");
+    BITMAPS[IMG_UNIT_CAVALRY] = load_bitmap("data//img//units0002.png");
+    BITMAPS[IMG_UNIT_ARMOUR] = load_bitmap("data//img//units0003.png");
+    BITMAPS[IMG_UNIT_ARTILLERY] = load_bitmap("data//img//units0004.png");
+    BITMAPS[IMG_UNIT_WORKERS] = load_bitmap("data//img//units0005.png");
+    BITMAPS[IMG_UNIT_BATTLESHIP] = load_bitmap("data//img//units0006.png");
+    BITMAPS[IMG_UNIT_SUBMARINE] = load_bitmap("data//img//units0007.png");
+    BITMAPS[IMG_UNIT_SEATRANSPORT] = load_bitmap("data//img//units0008.png");
+    BITMAPS[IMG_UNIT_FIGHTER] = load_bitmap("data//img//units0009.png");
+    BITMAPS[IMG_UNIT_BOMBER] = load_bitmap("data//img//units0010.png");
+    BITMAPS[IMG_UNIT_MISSILE] = load_bitmap("data//img//units0011.png");
+    BITMAPS[IMG_UNIT_AIRTRANSPORT] = load_bitmap("data//img//units0012.png");
+    
     //load sounds
     // FORMAT AS FOLLOWS
     // SOUNDS[$enum_from_header] = load_sound("path.ogg");

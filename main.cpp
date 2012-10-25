@@ -18,7 +18,7 @@ int main ( int argc, char** argv )
     // initialize SDL video
     if ( SDL_Init( SDL_INIT_VIDEO&SDL_INIT_AUDIO&SDL_INIT_TIMER ) < 0 )
     {
-        printf( "Unable to init SDL: %s\n", SDL_GetError() );
+        fprintf(stderr, "Unable to init SDL: %s\n", SDL_GetError() );
         return 1;
     }
     // initialize SDL sound
@@ -28,7 +28,8 @@ int main ( int argc, char** argv )
     int audio_buffers = 4096;
     if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0) {
         fprintf(stderr, "Unable to initialize audio: %s\n", Mix_GetError());
-        exit(1);
+        // audio is something we can skip, really; non-essential
+        //exit(1);
     }
     if (TTF_Init() < 0) {
         fprintf(stderr, "Unable to initialize TTF: %s\n", TTF_GetError());
@@ -69,14 +70,18 @@ int main ( int argc, char** argv )
     
     print_full_picture(BITMAPS[IMG_TILE_FOREST]);
     
-    for (int i=0;i<100;i++) {
-        for (int j=0;j<100;j++) {
-            gs.gm.tiles[i][j]=rand()%10+1;
-            gs.gm.rivers[i][j]=rand()%2-rand()%3+1;
-            gs.gm.roads[i][j]=rand()%2-rand()%3+1;
-            //print_image_at(i*64,j*64,BITMAPS[gs.gm.tiles[i][j]]);
-        }
-    }
+    //for (int i=0;i<100;i++) {
+    //    for (int j=0;j<100;j++) {
+    //        gs.gm.tiles[i][j]=rand()%10+1;
+    //        gs.gm.rivers[i][j]=rand()%2-rand()%3+1;
+    //        gs.gm.roads[i][j]=rand()%2-rand()%3+1;
+    //        //print_image_at(i*64,j*64,BITMAPS[gs.gm.tiles[i][j]]);
+    //    }
+    //}
+    //gs.gm.tiles[1][1] = IMG_TILE_WATER;
+    //gs.gm.rivers[2][1] = 1;
+    //gs.gm.tiles[0][99] = IMG_UNIT_ARMOUR;
+    
     for (int i=0;i<MAX_CITIES;i++) {
         sprintf(gs.cities[i].name,"");
         gs.cities[i].x = -1;
@@ -86,8 +91,10 @@ int main ( int argc, char** argv )
     
     sprintf(gs.cities[0].name,"Buttsville");
     gs.cities[0].x = 1;
-    gs.cities[0].y = 2;
+    gs.cities[0].y = 5;
     gs.cities[0].size = 4;
+    
+    generate_map(0,0);
     
     print_map(0,0);
     
@@ -96,8 +103,76 @@ int main ( int argc, char** argv )
     //int lineRGBA(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     //lineRGBA(MAIN_SCREEN,20,20,50,50,50,50,50,255);
     
-    SDL_Flip(MAIN_SCREEN);
-    SDL_Delay(3000);
+    //SDL_Flip(MAIN_SCREEN);
+    //SDL_Delay(3000);
+    
+    int lolx=0, loly=0;
+    
+    bool done = false;
+    while (!done) {
+        
+        SDL_Event event;
+        while (SDL_PollEvent(&event))
+        {
+            // check for messages
+            switch (event.type)
+            {
+                // exit if the window is closed
+            case SDL_QUIT:
+                done = true;
+                break;
+
+                // check for keypresses
+            case SDL_KEYDOWN:
+                {
+                    if (event.key.keysym.sym == SDLK_LEFT) {
+                        lolx--; 
+                        if (lolx <= 0) lolx = 0;
+                        if (loly <= 0) loly = 0;
+                        if (lolx > MAX_GAME_MAP_X-10) lolx = MAX_GAME_MAP_X-10;
+                        if (loly > MAX_GAME_MAP_Y-7) loly = MAX_GAME_MAP_Y-7;
+                        print_map(lolx,loly);
+                        break;
+                    }
+                    if (event.key.keysym.sym == SDLK_RIGHT) {
+                        lolx++;
+                        if (lolx <= 0) lolx = 0;
+                        if (loly <= 0) loly = 0;
+                        if (lolx > MAX_GAME_MAP_X-10) lolx = MAX_GAME_MAP_X-10;
+                        if (loly > MAX_GAME_MAP_Y-7) loly = MAX_GAME_MAP_Y-7;
+                        print_map(lolx,loly);
+                        break;
+                    }
+                    if (event.key.keysym.sym == SDLK_UP) {
+                        loly--;
+                        if (lolx <= 0) lolx = 0;
+                        if (loly <= 0) loly = 0;
+                        if (lolx > MAX_GAME_MAP_X-10) lolx = MAX_GAME_MAP_X-10;
+                        if (loly > MAX_GAME_MAP_Y-7) loly = MAX_GAME_MAP_Y-7;
+                        print_map(lolx,loly);
+                        break;
+                    }
+                    if (event.key.keysym.sym == SDLK_DOWN) {
+                        loly++;
+                        if (lolx <= 0) lolx = 0;
+                        if (loly <= 0) loly = 0;
+                        if (lolx > MAX_GAME_MAP_X-10) lolx = MAX_GAME_MAP_X-10;
+                        if (loly > MAX_GAME_MAP_Y-7) loly = MAX_GAME_MAP_Y-7;
+                        print_map(lolx,loly);
+                        break;
+                    }
+                    if (event.key.keysym.sym == SDLK_ESCAPE) {
+                        // exit if ESCAPE PRESSED
+                        done = true;
+                        break;
+                    }
+                }
+            } // end switch
+        } // end of message processing
+        
+        SDL_Flip(MAIN_SCREEN);
+        SDL_Delay(100);
+    }
     //}
 
     // END GAME CODE

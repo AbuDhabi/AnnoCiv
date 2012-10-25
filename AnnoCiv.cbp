@@ -35,8 +35,12 @@
 		<Unit filename="GameMap.h" />
 		<Unit filename="GameState.h" />
 		<Unit filename="Point.h" />
+		<Unit filename="README" />
+		<Unit filename="Unit.h" />
 		<Unit filename="cb.bmp" />
 		<Unit filename="clean_up.cpp" />
+		<Unit filename="generate_map.cpp" />
+		<Unit filename="georgia.ttf" />
 		<Unit filename="globals.h" />
 		<Unit filename="header.h" />
 		<Unit filename="load_media.cpp" />
@@ -44,6 +48,7 @@
 		<Unit filename="print_full_picture.cpp" />
 		<Unit filename="print_image_at.cpp" />
 		<Unit filename="print_map.cpp" />
+		<Unit filename="put_text_at.cpp" />
 		<Extensions>
 			<envvars />
 			<code_completion />

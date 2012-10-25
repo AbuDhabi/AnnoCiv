@@ -1,6 +1,10 @@
 #ifndef HEADER_H_INCLUDED
 #define HEADER_H_INCLUDED
 
+// defines that don't fit anywhere else
+#define MAX_RIVERS 200
+#define MAX_RIVER_REROLL 20
+
 // image enums
 #define IMG_FULL_BLANK 0
 #define IMG_TILE_GRASSLAND 1
@@ -14,6 +18,18 @@
 #define IMG_TILE_WATER 9
 #define IMG_TILE_ARCTIC 10
 #define IMG_STATIC_CITY 11
+#define IMG_UNIT_INFANTRY 12
+#define IMG_UNIT_CAVALRY 13
+#define IMG_UNIT_ARMOUR 14
+#define IMG_UNIT_ARTILLERY 15
+#define IMG_UNIT_WORKERS 16
+#define IMG_UNIT_BATTLESHIP 17
+#define IMG_UNIT_SUBMARINE 18
+#define IMG_UNIT_SEATRANSPORT 19
+#define IMG_UNIT_FIGHTER 20
+#define IMG_UNIT_BOMBER 21
+#define IMG_UNIT_MISSILE 22
+#define IMG_UNIT_AIRTRANSPORT 23
 
 //sound enums
 
@@ -57,5 +73,7 @@ bool clean_up();
 int print_full_picture(SDL_Surface* image);
 int print_image_at(int x,int y,SDL_Surface* image);
 int print_map(int x,int y);
+int put_text_at(int x, int y, const char *text);
+int generate_map (int seed, int params);
 
 #endif // HEADER_H_INCLUDED
