@@ -266,6 +266,7 @@ int generate_map (int seed, int params) {
     // let's try rivers next
     // starting somewhere and randomly walking towards water
     // SHIT'S FUCKED
+    /*
     int xx,yy; int oxx, oyy; 
     int validopts[8];
     int xc, yc;
@@ -299,7 +300,7 @@ int generate_map (int seed, int params) {
             else if (valid_spot(xx-1,yy)) { xx--; yy;}
             else if (valid_spot(xx-1,yy-1)) { xx--; yy--;}
             else {break;}
-            /*
+            /// *
             counter=0;
             for (int i=0;i<8;i++) validopts[i] = 0;
             if (valid_spot(xx+1,yy+1)) { validopts[counter] = 0; counter++; }
@@ -320,7 +321,7 @@ int generate_map (int seed, int params) {
             else if (number == 6) { xx--; yy; }
             else if (number == 7) { xx--; yy--; }
             else { break; } // what the shit?
-            */
+            // * /
 
             
             // add river here
@@ -342,7 +343,9 @@ int generate_map (int seed, int params) {
                 gs.gm.roads[i][j] = 0;
             }
         }
+        
     }
+    */
 //00:39 <~Vornicus> After each step of your random walk, add all 8 tiles around 
 //                  the previous step to the visited list.
 //00:42 <@AnnoDomini> Intredasting.

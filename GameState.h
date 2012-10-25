@@ -5,6 +5,8 @@
 typedef struct GameState {
     GameMap gm;
     City cities[MAX_CITIES];
+    Unit units[MAX_UNITS];
+    Faction factions[MAX_FACTIONS];
 } GameState;
 
 #endif // GAMESTATE_H_INCLUDED

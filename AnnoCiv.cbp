@@ -32,6 +32,7 @@
 			<Add library="SDL_gfx" />
 		</Linker>
 		<Unit filename="City.h" />
+		<Unit filename="Faction.h" />
 		<Unit filename="GameMap.h" />
 		<Unit filename="GameState.h" />
 		<Unit filename="Point.h" />
@@ -45,10 +46,16 @@
 		<Unit filename="header.h" />
 		<Unit filename="load_media.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="main_game_interface.cpp" />
+		<Unit filename="main_menu.cpp" />
+		<Unit filename="new_game_setup.cpp" />
 		<Unit filename="print_full_picture.cpp" />
 		<Unit filename="print_image_at.cpp" />
+		<Unit filename="print_interface.cpp" />
 		<Unit filename="print_map.cpp" />
 		<Unit filename="put_text_at.cpp" />
+		<Unit filename="save_and_load.cpp" />
+		<Unit filename="show_intro.cpp" />
 		<Extensions>
 			<envvars />
 			<code_completion />

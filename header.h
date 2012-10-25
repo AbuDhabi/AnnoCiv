@@ -4,6 +4,15 @@
 // defines that don't fit anywhere else
 #define MAX_RIVERS 200
 #define MAX_RIVER_REROLL 20
+#define CODE_INTRO 1
+#define CODE_MAIN_MENU 2
+#define CODE_LOAD_GAME 3
+#define CODE_EXIT_GAME 4
+#define CODE_SAVE_GAME 5
+#define CODE_MAIN_GAME_INTERFACE 6
+#define CODE_START_NEW_GAME 7
+#define CHOICE_SAVE 8
+#define CHOICE_LOAD 9
 
 // image enums
 #define IMG_FULL_BLANK 0
@@ -30,6 +39,10 @@
 #define IMG_UNIT_BOMBER 21
 #define IMG_UNIT_MISSILE 22
 #define IMG_UNIT_AIRTRANSPORT 23
+#define IMG_FULL_INTRO 24
+#define IMG_FULL_MENU 25
+#define IMG_FULL_SAVELOAD 26
+#define IMG_FULL_NEWGAMESETUP 27
 
 //sound enums
 
@@ -63,6 +76,8 @@
 // custom structs/classes go here
 #include "Point.h"
 #include "City.h"
+#include "Faction.h"
+#include "Unit.h"
 #include "GameMap.h"
 #include "GameState.h"
 
@@ -75,5 +90,11 @@ int print_image_at(int x,int y,SDL_Surface* image);
 int print_map(int x,int y);
 int put_text_at(int x, int y, const char *text);
 int generate_map (int seed, int params);
+int show_intro();
+int main_menu();
+int main_game_interface();
+int save_load_interface(int which);
+int new_game_setup();
+int print_interface();
 
 #endif // HEADER_H_INCLUDED

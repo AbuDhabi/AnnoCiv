@@ -30,9 +30,9 @@ bool load_media() {
         SOUNDS[i] = NULL;
     }
     
-    FONT_GEORGIA = TTF_OpenFont("georgia.ttf", 16);
+    FONT_GEORGIA = TTF_OpenFont("data//font//LiberationSans-Regular.ttf", 16);
     if (FONT_GEORGIA == NULL){
-        printf("Unable to load font: %s %s \n", "georgia.ttf", TTF_GetError());
+        printf("Unable to load font: %s %s \n", "LiberationSans-Regular.ttf", TTF_GetError());
         // Handle the error here.
     }
     // load images
@@ -62,6 +62,10 @@ bool load_media() {
     BITMAPS[IMG_UNIT_BOMBER] = load_bitmap("data//img//units0010.png");
     BITMAPS[IMG_UNIT_MISSILE] = load_bitmap("data//img//units0011.png");
     BITMAPS[IMG_UNIT_AIRTRANSPORT] = load_bitmap("data//img//units0012.png");
+    BITMAPS[IMG_FULL_INTRO] = load_bitmap("data//img//blank.png");
+    BITMAPS[IMG_FULL_MENU] = load_bitmap("data//img//blank.png");
+    BITMAPS[IMG_FULL_SAVELOAD] = load_bitmap("data//img//blank.png");
+    BITMAPS[IMG_FULL_NEWGAMESETUP] = load_bitmap("data//img//blank.png");
     
     //load sounds
     // FORMAT AS FOLLOWS

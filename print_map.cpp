@@ -68,6 +68,9 @@ int print_map(int x,int y) {
                     if (i==gs.cities[k].x && j==gs.cities[k].y) {
                         print_image_at((i-x)*64,(j-y)*64,BITMAPS[IMG_STATIC_CITY]);
                         put_text_at((i-x)*64,(j-y+1)*64,gs.cities[k].name);
+                        char temp[80];
+                        sprintf(temp,"%d",gs.cities[k].size);
+                        put_text_at((i-x+1)*64-24,(j-y+1)*64-15,temp);
                     }
                 }
             }

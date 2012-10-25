@@ -65,10 +65,21 @@ int main ( int argc, char** argv )
     };
     
     // GAME CODE HERE
+    
+    show_intro();
+    
+    int state = main_menu();
+    while (state != CODE_EXIT_GAME) {
+        if (state == CODE_MAIN_MENU) state = main_menu();
+        if (state == CODE_MAIN_GAME_INTERFACE) state = main_game_interface();
+        if (state == CODE_LOAD_GAME) state = save_load_interface(CHOICE_LOAD);
+        if (state == CODE_START_NEW_GAME) state = new_game_setup();
+        if (state == CODE_SAVE_GAME) state = save_load_interface(CHOICE_SAVE);
+    }
 
     //while (true) {
     
-    print_full_picture(BITMAPS[IMG_TILE_FOREST]);
+    //print_full_picture(BITMAPS[IMG_TILE_FOREST]);
     
     //for (int i=0;i<100;i++) {
     //    for (int j=0;j<100;j++) {
@@ -81,22 +92,7 @@ int main ( int argc, char** argv )
     //gs.gm.tiles[1][1] = IMG_TILE_WATER;
     //gs.gm.rivers[2][1] = 1;
     //gs.gm.tiles[0][99] = IMG_UNIT_ARMOUR;
-    
-    for (int i=0;i<MAX_CITIES;i++) {
-        sprintf(gs.cities[i].name,"");
-        gs.cities[i].x = -1;
-        gs.cities[i].y = -1;
-        gs.cities[i].size = 0;
-    }
-    
-    sprintf(gs.cities[0].name,"Buttsville");
-    gs.cities[0].x = 1;
-    gs.cities[0].y = 5;
-    gs.cities[0].size = 4;
-    
-    generate_map(0,0);
-    
-    print_map(0,0);
+
     
     
     //int lineColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color);
@@ -106,73 +102,6 @@ int main ( int argc, char** argv )
     //SDL_Flip(MAIN_SCREEN);
     //SDL_Delay(3000);
     
-    int lolx=0, loly=0;
-    
-    bool done = false;
-    while (!done) {
-        
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            // check for messages
-            switch (event.type)
-            {
-                // exit if the window is closed
-            case SDL_QUIT:
-                done = true;
-                break;
-
-                // check for keypresses
-            case SDL_KEYDOWN:
-                {
-                    if (event.key.keysym.sym == SDLK_LEFT) {
-                        lolx--; 
-                        if (lolx <= 0) lolx = 0;
-                        if (loly <= 0) loly = 0;
-                        if (lolx > MAX_GAME_MAP_X-10) lolx = MAX_GAME_MAP_X-10;
-                        if (loly > MAX_GAME_MAP_Y-7) loly = MAX_GAME_MAP_Y-7;
-                        print_map(lolx,loly);
-                        break;
-                    }
-                    if (event.key.keysym.sym == SDLK_RIGHT) {
-                        lolx++;
-                        if (lolx <= 0) lolx = 0;
-                        if (loly <= 0) loly = 0;
-                        if (lolx > MAX_GAME_MAP_X-10) lolx = MAX_GAME_MAP_X-10;
-                        if (loly > MAX_GAME_MAP_Y-7) loly = MAX_GAME_MAP_Y-7;
-                        print_map(lolx,loly);
-                        break;
-                    }
-                    if (event.key.keysym.sym == SDLK_UP) {
-                        loly--;
-                        if (lolx <= 0) lolx = 0;
-                        if (loly <= 0) loly = 0;
-                        if (lolx > MAX_GAME_MAP_X-10) lolx = MAX_GAME_MAP_X-10;
-                        if (loly > MAX_GAME_MAP_Y-7) loly = MAX_GAME_MAP_Y-7;
-                        print_map(lolx,loly);
-                        break;
-                    }
-                    if (event.key.keysym.sym == SDLK_DOWN) {
-                        loly++;
-                        if (lolx <= 0) lolx = 0;
-                        if (loly <= 0) loly = 0;
-                        if (lolx > MAX_GAME_MAP_X-10) lolx = MAX_GAME_MAP_X-10;
-                        if (loly > MAX_GAME_MAP_Y-7) loly = MAX_GAME_MAP_Y-7;
-                        print_map(lolx,loly);
-                        break;
-                    }
-                    if (event.key.keysym.sym == SDLK_ESCAPE) {
-                        // exit if ESCAPE PRESSED
-                        done = true;
-                        break;
-                    }
-                }
-            } // end switch
-        } // end of message processing
-        
-        SDL_Flip(MAIN_SCREEN);
-        SDL_Delay(100);
-    }
     //}
 
     // END GAME CODE
