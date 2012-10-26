@@ -9,12 +9,43 @@ int do_game_setup_stuff(int args) {
         gs.cities[i].size = 0;
     }
     
-    sprintf(gs.cities[0].name,"Buttsville");
-    gs.cities[0].x = 1;
-    gs.cities[0].y = 5;
-    gs.cities[0].size = 56;
+    gs.selected_unit = -1;
+    gs.selected_city = -1;
+    
+    //sprintf(gs.cities[0].name,"Buttsville");
+    //gs.cities[0].x = 1;
+    //gs.cities[0].y = 5;
+    //gs.cities[0].size = 56;
     
     generate_map(0,0);
+    
+    SDL_Color color;
+    
+    int rx, ry;
+    for (int i=0;i<MAX_FACTIONS;i++) {
+        gs.factions[i].type = FACTION_TYPE_AI;
+        sprintf(gs.factions[i].name,"Random AI %d",i);
+        gs.factions[i].type = FACTION_TYPE_AI;
+        color.b = rand()%256; color.g = rand()%256; color.r = rand()%256;
+        gs.factions[i].color = color;
+        do {
+            rx = rand()%MAX_GAME_MAP_X;
+            ry = rand()%MAX_GAME_MAP_Y;
+        } while (gs.gm.tiles[rx][ry] == IMG_TILE_WATER);
+        sprintf(gs.cities[i].name,"City %d",i);
+        gs.cities[i].x = rx;
+        gs.cities[i].y = ry;
+        gs.cities[i].size = 1;
+        gs.cities[i].faction_id = i;
+        gs.gm.roads[rx][ry] = 1;
+        gs.units[i] = PROTOTYPE_WORKERS;
+        gs.units[i].faction_id = i;
+        gs.units[i].x = rx;
+        gs.units[i].y = ry;
+    }
+    
+    gs.factions[0].type = FACTION_TYPE_PLAYER;
+    sprintf(gs.factions[0].name,"Mr Human");
     
     return 0;
 }

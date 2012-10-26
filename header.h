@@ -96,5 +96,6 @@ int main_game_interface();
 int save_load_interface(int which);
 int new_game_setup();
 int print_interface();
+bool are_coords_valid(int x, int y);
 
 #endif // HEADER_H_INCLUDED

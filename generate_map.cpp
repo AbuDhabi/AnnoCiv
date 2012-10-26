@@ -10,47 +10,55 @@
 
 // RIVERS ARE FUCKED UP GOD DAMN
 
+bool are_coords_valid(int x, int y) {
+    if (x <0) return false;
+    if (y <0) return false;
+    if (x >= MAX_GAME_MAP_X) return false;
+    if (y >= MAX_GAME_MAP_Y) return false;
+    return true;
+}
+
 bool any_surrounding_tile_match(int x, int y, int tile_code) {
-    if (gs.gm.tiles[x+1][y+1] == tile_code) { return true; }
-    if (gs.gm.tiles[x+1][y] == tile_code) { return true; }
-    if (gs.gm.tiles[x+1][y-1] == tile_code) { return true; }
-    if (gs.gm.tiles[x][y+1] == tile_code) { return true; }
-    if (gs.gm.tiles[x][y-1] == tile_code) { return true; }
-    if (gs.gm.tiles[x-1][y+1] == tile_code) { return true; }
-    if (gs.gm.tiles[x-1][y] == tile_code) { return true; }
-    if (gs.gm.tiles[x-1][y-1] == tile_code) { return true; }
+    if (gs.gm.tiles[x+1][y+1] == tile_code && are_coords_valid(x+1,y+1)) { return true; }
+    if (gs.gm.tiles[x+1][y] == tile_code && are_coords_valid(x+1,y)) { return true; }
+    if (gs.gm.tiles[x+1][y-1] == tile_code && are_coords_valid(x+1,y-1)) { return true; }
+    if (gs.gm.tiles[x][y+1] == tile_code && are_coords_valid(x,y+1)) { return true; }
+    if (gs.gm.tiles[x][y-1] == tile_code && are_coords_valid(x,y-1)) { return true; }
+    if (gs.gm.tiles[x-1][y+1] == tile_code && are_coords_valid(x-1,y+1)) { return true; }
+    if (gs.gm.tiles[x-1][y] == tile_code && are_coords_valid(x-1,y)) { return true; }
+    if (gs.gm.tiles[x-1][y-1] == tile_code && are_coords_valid(x-1,y-1)) { return true; }
     
     return false;
 }
 
 bool any_surrounding_unvisited_river(int x, int y) {
-    if ((gs.gm.rivers[x+1][y+1] == 1) && (gs.gm.roads[x+1][y+1] == 0)) { return true; }
-    if ((gs.gm.rivers[x+1][y] == 1) && (gs.gm.roads[x+1][y] == 0)) { return true; }
-    if ((gs.gm.rivers[x+1][y-1] == 1) && (gs.gm.roads[x+1][y-1] == 0)) { return true; }
-    if ((gs.gm.rivers[x][y+1] == 1) && (gs.gm.roads[x][y+1] == 0)) { return true; }
-    if ((gs.gm.rivers[x][y-1] == 1) && (gs.gm.roads[x][y-1] == 0)) { return true; }
-    if ((gs.gm.rivers[x-1][y+1] == 1) && (gs.gm.roads[x-1][y+1] == 0)) { return true; }
-    if ((gs.gm.rivers[x-1][y] == 1) && (gs.gm.roads[x-1][y] == 0)) { return true; }
-    if ((gs.gm.rivers[x-1][y-1] == 1) && (gs.gm.roads[x-1][y-1] == 0)) { return true; }
+    if ((gs.gm.rivers[x+1][y+1] == 1) && (gs.gm.roads[x+1][y+1] == 0) && are_coords_valid(x+1,y+1)) { return true; }
+    if ((gs.gm.rivers[x+1][y] == 1) && (gs.gm.roads[x+1][y] == 0) && are_coords_valid(x+1,y)) { return true; }
+    if ((gs.gm.rivers[x+1][y-1] == 1) && (gs.gm.roads[x+1][y-1] == 0) && are_coords_valid(x+1,y-1)) { return true; }
+    if ((gs.gm.rivers[x][y+1] == 1) && (gs.gm.roads[x][y+1] == 0) && are_coords_valid(x,y+1)) { return true; }
+    if ((gs.gm.rivers[x][y-1] == 1) && (gs.gm.roads[x][y-1] == 0) && are_coords_valid(x,y-1)) { return true; }
+    if ((gs.gm.rivers[x-1][y+1] == 1) && (gs.gm.roads[x-1][y+1] == 0) && are_coords_valid(x-1,y+1)) { return true; }
+    if ((gs.gm.rivers[x-1][y] == 1) && (gs.gm.roads[x-1][y] == 0) && are_coords_valid(x-1,y)) { return true; }
+    if ((gs.gm.rivers[x-1][y-1] == 1) && (gs.gm.roads[x-1][y-1] == 0) && are_coords_valid(x-1,y-1)) { return true; }
     
     return false;
 }
 
 bool any_available_spaces_to_go(int x, int y) {
-    if ((x+1 >=0 && y+1 >=0 && x+1<MAX_GAME_MAP_X && y+1 <MAX_GAME_MAP_Y) && (gs.gm.roads[x+1][y+1] == 0)) { return true; }
-    if ((x+1 >=0 && y >=0   && x+1<MAX_GAME_MAP_X && y <MAX_GAME_MAP_Y)   && (gs.gm.roads[x+1][y] == 0)) { return true; }
-    if ((x+1 >=0 && y-1 >=0 && x+1<MAX_GAME_MAP_X && y-1 <MAX_GAME_MAP_Y) && (gs.gm.roads[x+1][y-1] == 0)) { return true; }
-    if ((x >=0   && y+1 >=0 && x<MAX_GAME_MAP_X   && y+1 <MAX_GAME_MAP_Y) && (gs.gm.roads[x][y+1] == 0)) { return true; }
-    if ((x >=0   && y-1 >=0 && x<MAX_GAME_MAP_X   && y-1 <MAX_GAME_MAP_Y) && (gs.gm.roads[x][y-1] == 0)) { return true; }
-    if ((x-1 >=0 && y+1 >=0 && x-1<MAX_GAME_MAP_X && y+1 <MAX_GAME_MAP_Y) && (gs.gm.roads[x-1][y+1] == 0)) { return true; }
-    if ((x-1 >=0 && y >=0   && x-1<MAX_GAME_MAP_X && y <MAX_GAME_MAP_Y)   && (gs.gm.roads[x-1][y] == 0)) { return true; }
-    if ((x-1 >=0 && y-1 >=0 && x-1<MAX_GAME_MAP_X && y-1 <MAX_GAME_MAP_Y) && (gs.gm.roads[x-1][y-1] == 0)) { return true; }
+    if (are_coords_valid(x+1,y+1) && (gs.gm.roads[x+1][y+1] == 0)) { return true; }
+    if (are_coords_valid(x+1,y) && (gs.gm.roads[x+1][y] == 0)) { return true; }
+    if (are_coords_valid(x+1,y-1) && (gs.gm.roads[x+1][y-1] == 0)) { return true; }
+    if (are_coords_valid(x,y+1) && (gs.gm.roads[x][y+1] == 0)) { return true; }
+    if (are_coords_valid(x,y-1) && (gs.gm.roads[x][y-1] == 0)) { return true; }
+    if (are_coords_valid(x-1,y+1) && (gs.gm.roads[x-1][y+1] == 0)) { return true; }
+    if (are_coords_valid(x-1,y) && (gs.gm.roads[x-1][y] == 0)) { return true; }
+    if (are_coords_valid(x-1,y-1) && (gs.gm.roads[x-1][y-1] == 0)) { return true; }
     
     return false;
 }
 
 bool valid_spot(int x, int y) {
-    if ((x >=0 && y >=0 && x<MAX_GAME_MAP_X && y <MAX_GAME_MAP_Y) && (gs.gm.roads[x+1][y+1] == 0)) return true;
+    if (are_coords_valid(x,y) && (gs.gm.roads[x][y] == 0)) return true;
     return false;
 }
 
@@ -265,6 +273,68 @@ int generate_map (int seed, int params) {
     
     // let's try rivers next
     // starting somewhere and randomly walking towards water
+    int xx,yy; int oxx, oyy;
+    int counter;
+    int validopts[8];
+    for (int k=0;k<MAX_RIVERS;k++) {
+        do { // generate non-water, non-river-adjacent initial tile
+            xx = rand()%MAX_GAME_MAP_X;
+            yy = rand()%MAX_GAME_MAP_Y;
+        } while (gs.gm.tiles[xx][yy] == IMG_TILE_WATER || gs.gm.rivers[xx][yy] == 1 || any_surrounding_unvisited_river(xx,yy));
+        gs.gm.rivers[xx][yy] = 1; // place river here
+        
+        while (!any_surrounding_tile_match(xx,yy,IMG_TILE_WATER) 
+               && !any_surrounding_unvisited_river(xx,yy)) {
+            // save old coords
+            oxx = xx;
+            oyy = yy;
+            // pick a random valid neighbour to go to, or call it quits if none exist
+            if (!any_available_spaces_to_go(xx, yy)) { break; }
+            
+            counter=0;
+            for (int i=0;i<8;i++) validopts[i] = 0;
+            if (valid_spot(xx+1,yy+1)) { validopts[counter] = 0; counter++; }
+            if (valid_spot(xx+1,yy)) { validopts[counter] = 1; counter++; }
+            if (valid_spot(xx+1,yy-1)) { validopts[counter] = 2; counter++; }
+            if (valid_spot(xx,yy+1)) { validopts[counter] = 3; counter++; }
+            if (valid_spot(xx,yy-1)) { validopts[counter] = 4; counter++; }
+            if (valid_spot(xx-1,yy+1)) { validopts[counter] = 5; counter++; }
+            if (valid_spot(xx-1,yy)) { validopts[counter] = 6; counter++; }
+            if (valid_spot(xx-1,yy-1)) { validopts[counter] = 7; counter++; }
+            if (counter>0) number=validopts[rand()%counter]; else break;
+            if      (number == 0) { xx++; yy++; }
+            else if (number == 1) { xx++; yy; }
+            else if (number == 2) { xx++; yy--; }
+            else if (number == 3) { xx; yy++; }
+            else if (number == 4) { xx; yy--; }
+            else if (number == 5) { xx--; yy++; }
+            else if (number == 6) { xx--; yy; }
+            else if (number == 7) { xx--; yy--; }
+            else { break; } // what the shit?
+            
+            // add river here
+            gs.gm.rivers[xx][yy] = 1;
+            // visited spots get tracked
+            if (valid_spot(oxx+1,oyy+1)) gs.gm.roads[oxx+1][oyy+1] = 1;
+            if (valid_spot(oxx+1,oyy))   gs.gm.roads[oxx+1][oyy] = 1;
+            if (valid_spot(oxx+1,oyy-1)) gs.gm.roads[oxx+1][oyy-1] = 1;
+            if (valid_spot(oxx,oyy+1))   gs.gm.roads[oxx][oyy+1] = 1;
+            if (valid_spot(oxx,oyy))     gs.gm.roads[oxx][oyy] = 1;
+            if (valid_spot(oxx,oyy-1))   gs.gm.roads[oxx][oyy-1] = 1;
+            if (valid_spot(oxx-1,oyy+1)) gs.gm.roads[oxx-1][oyy+1] = 1;
+            if (valid_spot(oxx-1,oyy))   gs.gm.roads[oxx-1][oyy] = 1;
+            if (valid_spot(oxx-1,oyy-1)) gs.gm.roads[oxx-1][oyy-1] = 1;            
+        }
+        // clean up visited
+        for (int i=0;i<MAX_GAME_MAP_X;i++) {
+            for (int j=0;j<MAX_GAME_MAP_Y;j++) {
+                gs.gm.roads[i][j] = 0;
+            }
+        }
+            
+    }
+    
+    
     // SHIT'S FUCKED
     /*
     int xx,yy; int oxx, oyy; 

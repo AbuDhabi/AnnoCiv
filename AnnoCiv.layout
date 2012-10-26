@@ -1,37 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="GameMap.h" open="1" top="0" tabpos="10">
+	<File name="City.h" open="0" top="0" tabpos="0">
+		<Cursor position="198" topLine="0" />
+	</File>
+	<File name="Faction.h" open="0" top="0" tabpos="0">
+		<Cursor position="321" topLine="0" />
+	</File>
+	<File name="GameMap.h" open="0" top="0" tabpos="10">
 		<Cursor position="190" topLine="0" />
 	</File>
-	<File name="GameState.h" open="1" top="0" tabpos="9">
-		<Cursor position="106" topLine="0" />
+	<File name="GameState.h" open="0" top="0" tabpos="9">
+		<Cursor position="242" topLine="0" />
 	</File>
-	<File name="clean_up.cpp" open="1" top="0" tabpos="3">
+	<File name="Unit.h" open="0" top="0" tabpos="0">
+		<Cursor position="521" topLine="1" />
+	</File>
+	<File name="clean_up.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="42" topLine="0" />
 	</File>
-	<File name="generate_map.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="498" topLine="318" />
+	<File name="generate_map.cpp" open="0" top="0" tabpos="11">
+		<Cursor position="500" topLine="6" />
 	</File>
-	<File name="globals.h" open="1" top="0" tabpos="6">
-		<Cursor position="352" topLine="0" />
+	<File name="globals.h" open="0" top="0" tabpos="6">
+		<Cursor position="583" topLine="7" />
 	</File>
-	<File name="header.h" open="1" top="0" tabpos="2">
-		<Cursor position="907" topLine="39" />
+	<File name="header.h" open="0" top="0" tabpos="2">
+		<Cursor position="2242" topLine="0" />
 	</File>
-	<File name="load_media.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="1777" topLine="41" />
+	<File name="load_media.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="3054" topLine="56" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="2849" topLine="0" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="392" topLine="0" />
 	</File>
-	<File name="print_full_picture.cpp" open="1" top="0" tabpos="5">
+	<File name="main_game_interface.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="2682" topLine="0" />
+	</File>
+	<File name="main_menu.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="849" topLine="21" />
+	</File>
+	<File name="new_game_setup.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1160" topLine="29" />
+	</File>
+	<File name="print_full_picture.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="print_image_at.cpp" open="1" top="0" tabpos="7">
+	<File name="print_image_at.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="print_map.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="1654" topLine="58" />
+	<File name="print_interface.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="264" topLine="0" />
+	</File>
+	<File name="print_map.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="6405" topLine="0" />
+	</File>
+	<File name="save_and_load.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1016" topLine="7" />
+	</File>
+	<File name="show_intro.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="0" topLine="18" />
 	</File>
 </CodeBlocks_layout_file>
