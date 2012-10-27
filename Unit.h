@@ -6,6 +6,8 @@
 #define MOVE_TYPE_GROUND 2
 #define MOVE_TYPE_SEA 3
 
+// missing: status (sentry, fortified, etc), method for handling loaded units
+
 typedef struct Unit {
     int type; // same as unit image designations
     int x;
@@ -13,7 +15,8 @@ typedef struct Unit {
     int maxhp; // maximum hit points
     int hp; // current hit points
     int power; // combat power
-    int move; // move points
+    int maxmove; // move points
+    int curmove; // current move points left
     int move_type; // air/ground/sea
     int load; // how many other units it can carry
     int faction_id; // id of the spawning faction

@@ -13,8 +13,14 @@ int print_interface() {
         put_text_at(0+5,7*64+5,temp);
     }
     if (gs.selected_type == SELECTED_UNIT && gs.selected_thing >= 0) {
-        sprintf(temp,"Unit %d (%d,%d)",gs.units[gs.selected_thing].type,gs.units[gs.selected_thing].x,gs.units[gs.selected_thing].y);
+        // name and location 
+        unit_type_to_text(gs.units[gs.selected_thing].type,temp);
+        sprintf(temp,"%s (%d,%d)",temp,gs.units[gs.selected_thing].x,gs.units[gs.selected_thing].y);
         put_text_at(10*64+5,0+5,temp);
+        sprintf(temp,"P %d, M %d/%d",gs.units[gs.selected_thing].power,gs.units[gs.selected_thing].curmove,gs.units[gs.selected_thing].maxmove);
+        put_text_at(10*64+5,0+20,temp);
+        sprintf(temp,"HP %d/%d",gs.units[gs.selected_thing].hp,gs.units[gs.selected_thing].maxhp);
+        put_text_at(10*64+5,0+35,temp);
     }
 
     return 0;

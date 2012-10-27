@@ -2,6 +2,7 @@
 #include "globals.h"
 
 int print_map(int x,int y) {
+    int lastunit = get_last_unit_id();
     for (int i=x;i<x+10;i++) {
         for (int j=y;j<y+7;j++) {
             // tiles
@@ -58,31 +59,6 @@ int print_map(int x,int y) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+16,(j-y)*64+32,(i-x)*64+48,(j-y)*64+32,0,0,0,255);
                 }
             }
-            // cities and units
-            // any city on the tile?
-            for (int k=0;k<MAX_CITIES;k++) {
-                if (gs.cities[k].size > 0) {
-                    if (i==gs.cities[k].x && j==gs.cities[k].y) {
-                        print_image_at((i-x)*64,(j-y)*64,BITMAPS[IMG_STATIC_CITY]);
-                        put_text_at((i-x)*64,(j-y+1)*64,gs.cities[k].name);
-                        char temp[80];
-                        sprintf(temp,"%d",gs.cities[k].size);
-                        put_text_at((i-x+1)*64-24,(j-y+1)*64-15,temp);
-                    }
-                }
-            }
-            // units
-            for (int k=0;k<MAX_UNITS;k++) {
-                if (gs.units[k].hp > 0) {
-                    if (i==gs.units[k].x && j==gs.units[k].y) {
-                        print_image_at((i-x)*64,(j-y)*64,BITMAPS[gs.units[k].type]);
-                        //put_text_at((i-x)*64,(j-y+1)*64,gs.cities[k].name);
-                        //char temp[80];
-                        //sprintf(temp,"%d",gs.cities[k].size);
-                        //put_text_at((i-x+1)*64-24,(j-y+1)*64-15,temp);
-                    }
-                }
-            }
         }
     }
     // cities and units
@@ -96,12 +72,17 @@ int print_map(int x,int y) {
                         put_text_at((i-x)*64,(j-y+1)*64,gs.cities[k].name);
                         char temp[80];
                         sprintf(temp,"%d",gs.cities[k].size);
-                        put_text_at((i-x+1)*64-24,(j-y+1)*64-15,temp);
+                        boxRGBA(MAIN_SCREEN,(i-x+1)*64-24,(j-y+1)*64-15,(i-x+1)*64,(j-y+1)*64,gs.factions[gs.cities[k].faction_id].color.r,gs.factions[gs.cities[k].faction_id].color.g,gs.factions[gs.cities[k].faction_id].color.b,gs.factions[gs.cities[k].faction_id].color.unused);
+                        rectangleRGBA(MAIN_SCREEN,(i-x+1)*64-24,(j-y+1)*64-15,(i-x+1)*64,(j-y+1)*64,0,0,0,255);
+                        if (gs.cities[k].size > 9) 
+                            put_text_at((i-x+1)*64-20,(j-y+1)*64-17,temp); 
+                        else 
+                            put_text_at((i-x+1)*64-10,(j-y+1)*64-17,temp);
                     }
                 }
             }
             // units
-            for (int k=0;k<MAX_UNITS;k++) {
+            for (int k=0;k<lastunit;k++) {
                 if (gs.units[k].hp > 0) {
                     if (i==gs.units[k].x && j==gs.units[k].y) {
                         print_image_at((i-x)*64,(j-y)*64,BITMAPS[gs.units[k].type]);

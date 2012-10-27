@@ -31,7 +31,10 @@ int do_game_setup_stuff(int args) {
         gs.factions[i].type = FACTION_TYPE_AI;
         sprintf(gs.factions[i].name,"Random AI %d",i);
         gs.factions[i].type = FACTION_TYPE_AI;
-        color.b = rand()%256; color.g = rand()%256; color.r = rand()%256; color.unused = 255;
+        for (int k=0;k<MAX_GAME_MAP_X;k++) 
+            for (int l=0;l<MAX_GAME_MAP_Y; l++)
+                gs.factions[i].fog[k][l] = 1;
+        color.b = rand()%128+128; color.g = rand()%128+128; color.r = rand()%128+128; color.unused = 255;
         gs.factions[i].color = color;
         do {
             rx = rand()%MAX_GAME_MAP_X;
@@ -43,11 +46,12 @@ int do_game_setup_stuff(int args) {
         gs.cities[i].size = 1;
         gs.cities[i].faction_id = i;
         gs.gm.roads[rx][ry] = 1;
-        gs.units[i] = PROTOTYPE_WORKERS;
+        gs.units[i] = PROTOTYPE_AIRTRANSPORT;
         gs.units[i].faction_id = i;
         gs.units[i].x = rx;
         gs.units[i].y = ry;
     }
+    gs.cities[0].size = 12;
     
     gs.factions[0].type = FACTION_TYPE_PLAYER;
     sprintf(gs.factions[0].name,"Mr Human");

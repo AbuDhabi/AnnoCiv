@@ -40,6 +40,7 @@
 		<Unit filename="Unit.h" />
 		<Unit filename="cb.bmp" />
 		<Unit filename="clean_up.cpp" />
+		<Unit filename="do_turn.cpp" />
 		<Unit filename="generate_map.cpp" />
 		<Unit filename="georgia.ttf" />
 		<Unit filename="globals.h" />
@@ -56,6 +57,7 @@
 		<Unit filename="put_text_at.cpp" />
 		<Unit filename="save_and_load.cpp" />
 		<Unit filename="show_intro.cpp" />
+		<Unit filename="unit_ops.cpp" />
 		<Extensions>
 			<envvars />
 			<code_completion />

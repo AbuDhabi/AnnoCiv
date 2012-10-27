@@ -13,6 +13,8 @@
 #define CODE_START_NEW_GAME 7
 #define CHOICE_SAVE 8
 #define CHOICE_LOAD 9
+#define MAX_GAME_MAP_X 100
+#define MAX_GAME_MAP_Y 100
 
 // image enums
 #define IMG_FULL_BLANK 0
@@ -97,5 +99,8 @@ int save_load_interface(int which);
 int new_game_setup();
 int print_interface();
 bool are_coords_valid(int x, int y);
+int get_last_unit_id();
+int do_turn(); 
+void unit_type_to_text(int id, char * output);
 
 #endif // HEADER_H_INCLUDED

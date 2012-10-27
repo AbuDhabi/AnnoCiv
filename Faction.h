@@ -12,6 +12,7 @@
 typedef struct Faction {
     int type; // human, ai, barbarian, other, etc
     char name[80]; 
+    int fog[MAX_GAME_MAP_X][MAX_GAME_MAP_Y]; // 0 means revealed, 1 means black
     SDL_Color color;
 } Faction;
 
