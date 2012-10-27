@@ -1,14 +1,19 @@
 #ifndef GAMESTATE_H_INCLUDED
 #define GAMESTATE_H_INCLUDED
 
+#define SELECTED_CITY 1
+#define SELECTED_UNIT 2
+
 
 typedef struct GameState {
     GameMap gm;
     City cities[MAX_CITIES];
     Unit units[MAX_UNITS];
     Faction factions[MAX_FACTIONS];
-    int selected_unit;
-    int selected_city;
+    int selected_thing;
+    int selected_type;
+    int curx;
+    int cury;
 } GameState;
 
 #endif // GAMESTATE_H_INCLUDED

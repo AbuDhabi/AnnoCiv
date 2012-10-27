@@ -21,4 +21,22 @@ IQ required to destroy the world
 Roads -> Railroads/Highways
    Roads work like in vanilla. Railroads work twice as good. Highways work three times as good. No free transportation to wherever you want. Well, maybe with teleporters.
 
+Technology akin to MoO and EU3
+   Division into broad groups of techs, with numeric ratings. None of this specific tech tree stuff. Bonus points if we can skip certain techs, so it's impossible to get them without trading/looting. 
 
+Design your own units
+   Chassis bases define what kind of unit it is, but otherwise, go wild. At the basic level, only one unit of its type - but you get to define what kind of stuff they carry. Maybe even keeping the cavalry thing beyond invention of tanks.
+
+Non-specific unit technologies
+   I don't care if your Atrocity units use nerve gas, tactical nukes, retrovirii or gray-goo nanomachines. I do care about how much extra damage they do.
+
+Budgeting
+   Cities should work similarly to planets in MoO. Set budgets for what they produce and stuff.
+      - Money: brings cash to treasury
+      - Production: builds units
+      - Research: puts RPs into the research pool
+      - Infrastructure: improves tiles
+      - Population: quickens growth
+
+No need for specific screens
+   Side and bottom bars are plenty enough for selected items such as units or cities.

@@ -85,30 +85,31 @@ int generate_map (int seed, int params) {
         }
     }
     // passes of adding water, assigning to rivers as a placeholder
-    for (int k=0;k<10;k++) {
+    for (int k=0;k<5;k++) {
         for (int i=0;i<MAX_GAME_MAP_X;i++) {
             for (int j=0;j<MAX_GAME_MAP_Y;j++) {
                 if (gs.gm.tiles[i][j] == IMG_TILE_WATER) {
-                    if (rand()%100 && j-1 > 0) gs.gm.rivers[i][j-1] = IMG_TILE_WATER;
-                    if (rand()%100 && j-1 > 0 && i+1 < MAX_GAME_MAP_X) gs.gm.rivers[i+1][j-1] = IMG_TILE_WATER;
-                    if (rand()%100 && j-1 > 0 && i-1 > 0) gs.gm.rivers[i-1][j-1] = IMG_TILE_WATER;
-                    if (rand()%100 && i+1 < MAX_GAME_MAP_X) gs.gm.rivers[i+1][j] = IMG_TILE_WATER;
-                    if (rand()%100 && i-1 > 0) gs.gm.rivers[i-1][j] = IMG_TILE_WATER;
-                    if (rand()%100 && j+1 < MAX_GAME_MAP_Y && i+1 < MAX_GAME_MAP_X) gs.gm.rivers[i+1][j+1] = IMG_TILE_WATER;
-                    if (rand()%100 && j+1 < MAX_GAME_MAP_Y) gs.gm.rivers[i][j+1] = IMG_TILE_WATER;
-                    if (rand()%100 && i-1 > 0 && j+1 < MAX_GAME_MAP_Y) gs.gm.rivers[i-1][j+1] = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && j-1 > 0) gs.gm.rivers[i][j-1] = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && j-1 > 0 && i+1 < MAX_GAME_MAP_X) gs.gm.rivers[i+1][j-1] = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && j-1 > 0 && i-1 > 0) gs.gm.rivers[i-1][j-1] = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && i+1 < MAX_GAME_MAP_X) gs.gm.rivers[i+1][j] = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && i-1 > 0) gs.gm.rivers[i-1][j] = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && j+1 < MAX_GAME_MAP_Y && i+1 < MAX_GAME_MAP_X) gs.gm.rivers[i+1][j+1] = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && j+1 < MAX_GAME_MAP_Y) gs.gm.rivers[i][j+1] = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && i-1 > 0 && j+1 < MAX_GAME_MAP_Y) gs.gm.rivers[i-1][j+1] = IMG_TILE_WATER;
+                }
+            }
+        }
+        for (int i=0;i<MAX_GAME_MAP_X;i++) {
+            for (int j=0;j<MAX_GAME_MAP_Y;j++) {
+                if (gs.gm.rivers[i][j] == IMG_TILE_WATER ) {
+                    gs.gm.tiles[i][j]=IMG_TILE_WATER;
+                    gs.gm.rivers[i][j] = 0;
                 }
             }
         }
     }
-    for (int i=0;i<MAX_GAME_MAP_X;i++) {
-        for (int j=0;j<MAX_GAME_MAP_Y;j++) {
-            if (gs.gm.rivers[i][j] == IMG_TILE_WATER ) {
-                gs.gm.tiles[i][j]=IMG_TILE_WATER;
-                gs.gm.rivers[i][j] = 0;
-            }
-        }
-    }
+
     //now filling out the ground tiles, according to zones of climate
     for (int i=0;i<MAX_GAME_MAP_X;i++) {
         for (int j=0;j<MAX_GAME_MAP_Y;j++) {
@@ -303,12 +304,12 @@ int generate_map (int seed, int params) {
             if (valid_spot(xx-1,yy-1)) { validopts[counter] = 7; counter++; }
             if (counter>0) number=validopts[rand()%counter]; else break;
             if      (number == 0) { xx++; yy++; }
-            else if (number == 1) { xx++; yy; }
+            else if (number == 1) { xx++;  }
             else if (number == 2) { xx++; yy--; }
-            else if (number == 3) { xx; yy++; }
-            else if (number == 4) { xx; yy--; }
+            else if (number == 3) {  yy++; }
+            else if (number == 4) {  yy--; }
             else if (number == 5) { xx--; yy++; }
-            else if (number == 6) { xx--; yy; }
+            else if (number == 6) { xx--; }
             else if (number == 7) { xx--; yy--; }
             else { break; } // what the shit?
             

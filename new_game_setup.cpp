@@ -2,15 +2,20 @@
 #include "globals.h"
 
 int do_game_setup_stuff(int args) {
+    for (int i=0;i<MAX_UNITS;i++) {
+        gs.units[i] = PROTOTYPE_INFANTRY;
+        gs.units[i].hp = 0; // so that they don't show up on cycling
+    }
     for (int i=0;i<MAX_CITIES;i++) {
         sprintf(gs.cities[i].name,"Butts");
         gs.cities[i].x = -1;
         gs.cities[i].y = -1;
         gs.cities[i].size = 0;
     }
-    
-    gs.selected_unit = -1;
-    gs.selected_city = -1;
+    gs.curx = 0;
+    gs.cury = 0;
+    gs.selected_thing = -1;
+    gs.selected_type = -1;
     
     //sprintf(gs.cities[0].name,"Buttsville");
     //gs.cities[0].x = 1;
@@ -26,7 +31,7 @@ int do_game_setup_stuff(int args) {
         gs.factions[i].type = FACTION_TYPE_AI;
         sprintf(gs.factions[i].name,"Random AI %d",i);
         gs.factions[i].type = FACTION_TYPE_AI;
-        color.b = rand()%256; color.g = rand()%256; color.r = rand()%256;
+        color.b = rand()%256; color.g = rand()%256; color.r = rand()%256; color.unused = 255;
         gs.factions[i].color = color;
         do {
             rx = rand()%MAX_GAME_MAP_X;

@@ -12,8 +12,8 @@ typedef struct Unit {
     int y;
     int maxhp; // maximum hit points
     int hp; // current hit points
-    int move; // move points
     int power; // combat power
+    int move; // move points
     int move_type; // air/ground/sea
     int load; // how many other units it can carry
     int faction_id; // id of the spawning faction
