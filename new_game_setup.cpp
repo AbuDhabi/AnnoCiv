@@ -50,6 +50,11 @@ int do_game_setup_stuff(int args) {
         gs.units[i].faction_id = i;
         gs.units[i].x = rx;
         gs.units[i].y = ry;
+        gs.cities[i].budget_infrastructure = rand()%21;
+        gs.cities[i].budget_money = rand()%21;
+        gs.cities[i].budget_population = rand()%21;
+        gs.cities[i].budget_production = rand()%21;
+        gs.cities[i].budget_research = rand()%21;
     }
     gs.cities[0].size = 12;
     

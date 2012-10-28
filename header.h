@@ -102,5 +102,6 @@ bool are_coords_valid(int x, int y);
 int get_last_unit_id();
 int do_turn(); 
 void unit_type_to_text(int id, char * output);
+float appraise_city_value(int city_id);
 
 #endif // HEADER_H_INCLUDED

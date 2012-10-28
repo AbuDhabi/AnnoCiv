@@ -6,6 +6,7 @@
 
 
 typedef struct GameState {
+    long unsigned int turn;
     GameMap gm;
     City cities[MAX_CITIES];
     Unit units[MAX_UNITS];
