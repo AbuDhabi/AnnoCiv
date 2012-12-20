@@ -14,10 +14,18 @@ int count_cities() {
 }
 
 void sanitize_coords() {
+    // sanitizing shown map coordinates
+    // it shouldn't go off the map, or show beyond the map screen
     if (gs.curx < 0) gs.curx = 0;
     if (gs.cury < 0) gs.cury = 0;
     if (gs.curx > MAX_GAME_MAP_X-10) gs.curx = MAX_GAME_MAP_X-10;
     if (gs.cury > MAX_GAME_MAP_Y-7) gs.cury = MAX_GAME_MAP_Y-7;
+    // sanitizing selected tile/unit/city rectangle cursor
+    // it shouldn't be off the map
+    if (gs.selx < 0) gs.selx = 0;
+    if (gs.sely < 0) gs.sely = 0;
+    if (gs.selx > MAX_GAME_MAP_X) gs.selx = MAX_GAME_MAP_X;
+    if (gs.sely > MAX_GAME_MAP_Y) gs.sely = MAX_GAME_MAP_Y;
 }
 bool sanitize_unit_coords(int i) { // true if modified anything, false if not
     int counter=0;
@@ -37,12 +45,27 @@ bool any_friendly_city_there(int faction, int x, int y) {
 
 bool is_unit_allowed_there(int i) { 
     // Jesus could walk on water, but infantry probably can't.
-    if (gs.units[i].move_type == MOVE_TYPE_GROUND && gs.gm.tiles[gs.units[i].x][gs.units[i].y] == IMG_TILE_WATER) return false;
+    if (gs.units[i].type == UNIT_TYPE_GROUND && gs.gm.tiles[gs.units[i].x][gs.units[i].y].tile_id == IMG_TILE_WATER) return false;
     // this is not a game about Vikings
-    if (gs.units[i].move_type == MOVE_TYPE_SEA 
-        && ((gs.gm.tiles[gs.units[i].x][gs.units[i].y] != IMG_TILE_WATER) 
+    if (gs.units[i].type == UNIT_TYPE_SEA 
+        && ((gs.gm.tiles[gs.units[i].x][gs.units[i].y].tile_id != IMG_TILE_WATER) 
             || any_friendly_city_there(gs.units[i].faction_id,gs.units[i].x,gs.units[i].y) )) return false;
     return true;
+}
+
+void detect_and_do_combat(int unit_id) {
+    int atk_faction = gs.units[unit_id].faction_id;
+    int atkx = gs.units[unit_id].x;
+    int atky = gs.units[unit_id].y;
+    for (int i=0;i<MAX_UNITS;i++) {
+        // for combat, two units of differing allegiances must exist on the same space
+        // and that the units must have positive hp
+        if (gs.units[i].faction_id != atk_faction && gs.units[i].x == atkx && gs.units[i].y == atky &&
+            gs.units[i].hp > 0) {
+            unit_combat(unit_id,i,gs.gm.tiles[atkx][atky]);
+        }
+    }
+    
 }
 
 int main_game_interface() {
@@ -67,7 +90,7 @@ int main_game_interface() {
             case SDL_QUIT:
                 done = true;
                 break;
-
+            /// TODO: Implement diagonal movement
                 // check for keypresses
             case SDL_KEYDOWN:
                 {
@@ -79,11 +102,16 @@ int main_game_interface() {
                                 gs.units[gs.selected_thing].curmove--;
                                 gs.curx = gs.units[gs.selected_thing].x-5;
                                 gs.cury = gs.units[gs.selected_thing].y-3;
+                                gs.selx = gs.units[gs.selected_thing].x;
+                                gs.sely = gs.units[gs.selected_thing].y;
+                                // combat here
+                                detect_and_do_combat(gs.selected_thing);
                             } else {
                                 gs.units[gs.selected_thing].x = oldx; 
                             }
                         } else {
                             gs.curx--; 
+                            gs.selx--;
                         }
                         sanitize_coords();
                         print_map(gs.curx,gs.cury);
@@ -97,11 +125,16 @@ int main_game_interface() {
                                 gs.units[gs.selected_thing].curmove--;
                                 gs.curx = gs.units[gs.selected_thing].x-5;
                                 gs.cury = gs.units[gs.selected_thing].y-3;
+                                gs.selx = gs.units[gs.selected_thing].x;
+                                gs.sely = gs.units[gs.selected_thing].y;
+                                // combat here
+                                detect_and_do_combat(gs.selected_thing);
                             } else {
                                 gs.units[gs.selected_thing].x = oldx; 
                             }
                         } else {
                             gs.curx++; 
+                            gs.selx++;
                         }
                         sanitize_coords();
                         print_map(gs.curx,gs.cury);
@@ -115,11 +148,16 @@ int main_game_interface() {
                                 gs.units[gs.selected_thing].curmove--;
                                 gs.curx = gs.units[gs.selected_thing].x-5;
                                 gs.cury = gs.units[gs.selected_thing].y-3;
+                                gs.selx = gs.units[gs.selected_thing].x;
+                                gs.sely = gs.units[gs.selected_thing].y;
+                                // combat here
+                                detect_and_do_combat(gs.selected_thing);
                             } else {
                                 gs.units[gs.selected_thing].y = oldy; 
                             }
                         } else {
                             gs.cury--; 
+                            gs.sely--;
                         }
                         sanitize_coords();
                         print_map(gs.curx,gs.cury);
@@ -133,16 +171,22 @@ int main_game_interface() {
                                 gs.units[gs.selected_thing].curmove--;
                                 gs.curx = gs.units[gs.selected_thing].x-5;
                                 gs.cury = gs.units[gs.selected_thing].y-3;
+                                gs.selx = gs.units[gs.selected_thing].x;
+                                gs.sely = gs.units[gs.selected_thing].y;
+                                // combat here
+                                detect_and_do_combat(gs.selected_thing);
                             } else {
                                 gs.units[gs.selected_thing].y = oldy; 
                             }
                         } else {
                             gs.cury++; 
+                            gs.sely++;
                         }
                         sanitize_coords();
                         print_map(gs.curx,gs.cury);
                         break;
                     }
+                    /// BUG: For some reason cycling cities doesn't give cursor focus
                     if (event.key.keysym.sym == SDLK_c) {
                         // find the next extant city
                         // sanity check for now, redo later
@@ -156,6 +200,8 @@ int main_game_interface() {
                             if (gs.selected_thing >= MAX_CITIES) gs.selected_thing = 0;
                             gs.curx = gs.cities[gs.selected_thing].x;
                             gs.cury = gs.cities[gs.selected_thing].y;
+                            gs.selx = gs.units[gs.selected_thing].x;
+                            gs.sely = gs.units[gs.selected_thing].y;
                         } while (gs.cities[gs.selected_thing].size < 1);
                         gs.curx -= 5; gs.cury -= 3;
                         sanitize_coords();
@@ -175,10 +221,35 @@ int main_game_interface() {
                             if (gs.selected_thing >= MAX_UNITS) gs.selected_thing = 0;
                             gs.curx = gs.units[gs.selected_thing].x;
                             gs.cury = gs.units[gs.selected_thing].y;
+                            gs.selx = gs.units[gs.selected_thing].x;
+                            gs.sely = gs.units[gs.selected_thing].y;
                         } while (gs.units[gs.selected_thing].hp < 1);
                         gs.curx -= 5; gs.cury -= 3;
                         sanitize_coords();
                         print_map(gs.curx,gs.cury);
+                        break;
+                    }
+                    if (event.key.keysym.sym == SDLK_s) {
+                        return CODE_SAVE_GAME;
+                    }
+                    if (event.key.keysym.sym == SDLK_ESCAPE) {
+                        return CODE_MAIN_MENU;
+                    }
+                    if (event.key.keysym.sym == SDLK_BACKSPACE) {
+                        // end turn hack
+                        do_turn();
+                        break;
+                    }
+                    // Build city command!
+                    if (event.key.keysym.sym == SDLK_b) {
+                        // make sure a unit is actually selected and can build
+                        if (gs.selected_type != SELECTED_UNIT) break; // no unit selected
+                        if (gs.selected_thing == -1) break; // nothing selected
+                        if ((gs.units[gs.selected_thing].flags1&UNIT_FLAG1_SETTLER) == 0) break; // unit can't build
+                        /// TODO: Checks for if there is a city too close
+                        gs.units[gs.selected_thing].hp = 0; // kill the unit
+                        // build the city
+                        build_new_city(gs.units[gs.selected_thing].x,gs.units[gs.selected_thing].y,gs.units[gs.selected_thing].faction_id);
                         break;
                     }
                     if (event.key.keysym.sym == SDLK_s) {

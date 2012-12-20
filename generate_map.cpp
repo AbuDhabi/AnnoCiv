@@ -19,14 +19,14 @@ bool are_coords_valid(int x, int y) {
 }
 
 bool any_surrounding_tile_match(int x, int y, int tile_code) {
-    if (gs.gm.tiles[x+1][y+1] == tile_code && are_coords_valid(x+1,y+1)) { return true; }
-    if (gs.gm.tiles[x+1][y] == tile_code && are_coords_valid(x+1,y)) { return true; }
-    if (gs.gm.tiles[x+1][y-1] == tile_code && are_coords_valid(x+1,y-1)) { return true; }
-    if (gs.gm.tiles[x][y+1] == tile_code && are_coords_valid(x,y+1)) { return true; }
-    if (gs.gm.tiles[x][y-1] == tile_code && are_coords_valid(x,y-1)) { return true; }
-    if (gs.gm.tiles[x-1][y+1] == tile_code && are_coords_valid(x-1,y+1)) { return true; }
-    if (gs.gm.tiles[x-1][y] == tile_code && are_coords_valid(x-1,y)) { return true; }
-    if (gs.gm.tiles[x-1][y-1] == tile_code && are_coords_valid(x-1,y-1)) { return true; }
+    if (gs.gm.tiles[x+1][y+1].tile_id == tile_code && are_coords_valid(x+1,y+1)) { return true; }
+    if (gs.gm.tiles[x+1][y].tile_id == tile_code && are_coords_valid(x+1,y)) { return true; }
+    if (gs.gm.tiles[x+1][y-1].tile_id == tile_code && are_coords_valid(x+1,y-1)) { return true; }
+    if (gs.gm.tiles[x][y+1].tile_id == tile_code && are_coords_valid(x,y+1)) { return true; }
+    if (gs.gm.tiles[x][y-1].tile_id == tile_code && are_coords_valid(x,y-1)) { return true; }
+    if (gs.gm.tiles[x-1][y+1].tile_id == tile_code && are_coords_valid(x-1,y+1)) { return true; }
+    if (gs.gm.tiles[x-1][y].tile_id == tile_code && are_coords_valid(x-1,y)) { return true; }
+    if (gs.gm.tiles[x-1][y-1].tile_id == tile_code && are_coords_valid(x-1,y-1)) { return true; }
     
     return false;
 }
@@ -68,7 +68,7 @@ int generate_map (int seed, int params) {
     // just making sure everything is initialized somehow
     for (int i=0;i<MAX_GAME_MAP_X;i++) {
         for (int j=0;j<MAX_GAME_MAP_Y;j++) {
-            gs.gm.tiles[i][j]=0;
+            gs.gm.tiles[i][j]=TILE_ARCTIC;
             gs.gm.rivers[i][j]=0;
             gs.gm.roads[i][j]=0;
         }
@@ -78,9 +78,9 @@ int generate_map (int seed, int params) {
     for (int i=0;i<MAX_GAME_MAP_X;i++) {
         for (int j=0;j<MAX_GAME_MAP_Y;j++) {
             if (rand()%100 < 5 ) {
-                gs.gm.tiles[i][j]=IMG_TILE_WATER;
+                gs.gm.tiles[i][j]=TILE_WATER;
             } else {
-                gs.gm.tiles[i][j]=IMG_TILE_GRASSLAND;
+                gs.gm.tiles[i][j]=TILE_GRASSLAND;
             }
         }
     }
@@ -88,7 +88,7 @@ int generate_map (int seed, int params) {
     for (int k=0;k<5;k++) {
         for (int i=0;i<MAX_GAME_MAP_X;i++) {
             for (int j=0;j<MAX_GAME_MAP_Y;j++) {
-                if (gs.gm.tiles[i][j] == IMG_TILE_WATER) {
+                if (gs.gm.tiles[i][j].tile_id == IMG_TILE_WATER) {
                     if (rand()%100 < 10 && j-1 > 0) gs.gm.rivers[i][j-1] = IMG_TILE_WATER;
                     if (rand()%100 < 10 && j-1 > 0 && i+1 < MAX_GAME_MAP_X) gs.gm.rivers[i+1][j-1] = IMG_TILE_WATER;
                     if (rand()%100 < 10 && j-1 > 0 && i-1 > 0) gs.gm.rivers[i-1][j-1] = IMG_TILE_WATER;
@@ -103,7 +103,7 @@ int generate_map (int seed, int params) {
         for (int i=0;i<MAX_GAME_MAP_X;i++) {
             for (int j=0;j<MAX_GAME_MAP_Y;j++) {
                 if (gs.gm.rivers[i][j] == IMG_TILE_WATER ) {
-                    gs.gm.tiles[i][j]=IMG_TILE_WATER;
+                    gs.gm.tiles[i][j]=TILE_WATER;
                     gs.gm.rivers[i][j] = 0;
                 }
             }
@@ -113,28 +113,28 @@ int generate_map (int seed, int params) {
     //now filling out the ground tiles, according to zones of climate
     for (int i=0;i<MAX_GAME_MAP_X;i++) {
         for (int j=0;j<MAX_GAME_MAP_Y;j++) {
-            if (gs.gm.tiles[i][j] == IMG_TILE_WATER) continue;
+            if (gs.gm.tiles[i][j].tile_id == IMG_TILE_WATER) continue;
             if (j<MAX_GAME_MAP_Y*0.10 || j>=MAX_GAME_MAP_Y*0.90) { // extremely cold
                 number = rand()%10+1;
                 switch (number) {
                     case 1:
                     case 2:
                     case 3:
-                        gs.gm.tiles[i][j]=IMG_TILE_ARCTIC;
+                        gs.gm.tiles[i][j]=TILE_ARCTIC;
                         break;
                     case 4:
                     case 5:
                     case 6:
-                        gs.gm.tiles[i][j]=IMG_TILE_TUNDRA;
+                        gs.gm.tiles[i][j]=TILE_TUNDRA;
                         break;
                     case 7:
                     case 8:
                     case 9:
                     case 10:
-                        gs.gm.tiles[i][j]=IMG_TILE_TUNDRA;
+                        gs.gm.tiles[i][j]=TILE_TUNDRA;
                         break;
                     default:
-                        gs.gm.tiles[i][j]=IMG_TILE_WATER;
+                        gs.gm.tiles[i][j]=TILE_WATER;
                         break;
                 }
             } else if ((j>=MAX_GAME_MAP_Y*0.10 && j<MAX_GAME_MAP_Y*0.20) || (j>=MAX_GAME_MAP_Y*0.80 && j<MAX_GAME_MAP_Y*0.90)) { // cold
@@ -142,32 +142,32 @@ int generate_map (int seed, int params) {
                 switch (number) {
                     case 1:
                     case 2:
-                        gs.gm.tiles[i][j]=IMG_TILE_TUNDRA;
+                        gs.gm.tiles[i][j]=TILE_TUNDRA;
                         break;
                     case 3:
                     case 4:
-                        gs.gm.tiles[i][j]=IMG_TILE_FOREST;
+                        gs.gm.tiles[i][j]=TILE_FOREST;
                         break;
                     case 5:
-                        gs.gm.tiles[i][j]=IMG_TILE_GRASSLAND;
+                        gs.gm.tiles[i][j]=TILE_GRASSLAND;
                         break;
                     case 6:
-                        gs.gm.tiles[i][j]=IMG_TILE_HILLS;
+                        gs.gm.tiles[i][j]=TILE_HILLS;
                         break;                    
                     case 7:
-                        gs.gm.tiles[i][j]=IMG_TILE_MOUNTAIN;
+                        gs.gm.tiles[i][j]=TILE_MOUNTAIN;
                         break;                    
                     case 8:
-                        gs.gm.tiles[i][j]=IMG_TILE_SWAMP;
+                        gs.gm.tiles[i][j]=TILE_SWAMP;
                         break;                    
                     case 9:
-                        gs.gm.tiles[i][j]=IMG_TILE_SWAMP;
+                        gs.gm.tiles[i][j]=TILE_SWAMP;
                         break;                     
                     case 10:
-                        gs.gm.tiles[i][j]=IMG_TILE_FOREST;
+                        gs.gm.tiles[i][j]=TILE_FOREST;
                         break;
                     default:
-                        gs.gm.tiles[i][j]=IMG_TILE_WATER;
+                        gs.gm.tiles[i][j]=TILE_WATER;
                         break;
                 }
             } else if ((j>=MAX_GAME_MAP_Y*0.20 && j<MAX_GAME_MAP_Y*0.30) || (j>=MAX_GAME_MAP_Y*0.70 && j<MAX_GAME_MAP_Y*0.80)) { // temperate
@@ -175,30 +175,30 @@ int generate_map (int seed, int params) {
                 switch (number) {
                     case 1:
                     case 2:
-                        gs.gm.tiles[i][j]=IMG_TILE_GRASSLAND;
+                        gs.gm.tiles[i][j]=TILE_GRASSLAND;
                         break;
                     case 3:
                     case 4:
-                        gs.gm.tiles[i][j]=IMG_TILE_FOREST;
+                        gs.gm.tiles[i][j]=TILE_FOREST;
                         break;
                     case 5:
-                        gs.gm.tiles[i][j]=IMG_TILE_GRASSLAND;
+                        gs.gm.tiles[i][j]=TILE_GRASSLAND;
                         break;
                     case 6:
-                        gs.gm.tiles[i][j]=IMG_TILE_HILLS;
+                        gs.gm.tiles[i][j]=TILE_HILLS;
                         break;                    
                     case 7:
-                        gs.gm.tiles[i][j]=IMG_TILE_MOUNTAIN;
+                        gs.gm.tiles[i][j]=TILE_MOUNTAIN;
                         break;                    
                     case 8:
-                        gs.gm.tiles[i][j]=IMG_TILE_SWAMP;
+                        gs.gm.tiles[i][j]=TILE_SWAMP;
                         break;                    
                     case 9:
                     case 10:
-                        gs.gm.tiles[i][j]=IMG_TILE_FOREST;
+                        gs.gm.tiles[i][j]=TILE_FOREST;
                         break;
                     default:
-                        gs.gm.tiles[i][j]=IMG_TILE_WATER;
+                        gs.gm.tiles[i][j]=TILE_WATER;
                         break;
                 }
             } else if ((j>=MAX_GAME_MAP_Y*0.30 && j<MAX_GAME_MAP_Y*0.40) || (j>=MAX_GAME_MAP_Y*0.60 && j<MAX_GAME_MAP_Y*0.70)) { // hot and dry
@@ -206,30 +206,30 @@ int generate_map (int seed, int params) {
                 switch (number) {
                     case 1:
                     case 2:
-                        gs.gm.tiles[i][j]=IMG_TILE_DESERT;
+                        gs.gm.tiles[i][j]=TILE_DESERT;
                         break;
                     case 3:
                     case 4:
-                        gs.gm.tiles[i][j]=IMG_TILE_GRASSLAND;
+                        gs.gm.tiles[i][j]=TILE_GRASSLAND;
                         break;
                     case 5:
-                        gs.gm.tiles[i][j]=IMG_TILE_GRASSLAND;
+                        gs.gm.tiles[i][j]=TILE_GRASSLAND;
                         break;
                     case 6:
-                        gs.gm.tiles[i][j]=IMG_TILE_HILLS;
+                        gs.gm.tiles[i][j]=TILE_HILLS;
                         break;                    
                     case 7:
-                        gs.gm.tiles[i][j]=IMG_TILE_MOUNTAIN;
+                        gs.gm.tiles[i][j]=TILE_MOUNTAIN;
                         break;                    
                     case 8:
-                        gs.gm.tiles[i][j]=IMG_TILE_DESERT;
+                        gs.gm.tiles[i][j]=TILE_DESERT;
                         break;                    
                     case 9:
                     case 10:
-                        gs.gm.tiles[i][j]=IMG_TILE_DESERT;
+                        gs.gm.tiles[i][j]=TILE_DESERT;
                         break;
                     default:
-                        gs.gm.tiles[i][j]=IMG_TILE_WATER;
+                        gs.gm.tiles[i][j]=TILE_WATER;
                         break;
                 }
             } else { // hot and wet
@@ -237,30 +237,30 @@ int generate_map (int seed, int params) {
                 switch (number) {
                     case 1:
                     case 2:
-                        gs.gm.tiles[i][j]=IMG_TILE_JUNGLE;
+                        gs.gm.tiles[i][j]=TILE_JUNGLE;
                         break;
                     case 3:
                     case 4:
-                        gs.gm.tiles[i][j]=IMG_TILE_JUNGLE;
+                        gs.gm.tiles[i][j]=TILE_JUNGLE;
                         break;
                     case 5:
-                        gs.gm.tiles[i][j]=IMG_TILE_GRASSLAND;
+                        gs.gm.tiles[i][j]=TILE_GRASSLAND;
                         break;
                     case 6:
-                        gs.gm.tiles[i][j]=IMG_TILE_HILLS;
+                        gs.gm.tiles[i][j]=TILE_HILLS;
                         break;                    
                     case 7:
-                        gs.gm.tiles[i][j]=IMG_TILE_MOUNTAIN;
+                        gs.gm.tiles[i][j]=TILE_MOUNTAIN;
                         break;                    
                     case 8:
-                        gs.gm.tiles[i][j]=IMG_TILE_SWAMP;
+                        gs.gm.tiles[i][j]=TILE_SWAMP;
                         break;                    
                     case 9:
                     case 10:
-                        gs.gm.tiles[i][j]=IMG_TILE_JUNGLE;
+                        gs.gm.tiles[i][j]=TILE_JUNGLE;
                         break;
                     default:
-                        gs.gm.tiles[i][j]=IMG_TILE_WATER;
+                        gs.gm.tiles[i][j]=TILE_WATER;
                         break;
                 }
             }
@@ -281,7 +281,7 @@ int generate_map (int seed, int params) {
         do { // generate non-water, non-river-adjacent initial tile
             xx = rand()%MAX_GAME_MAP_X;
             yy = rand()%MAX_GAME_MAP_Y;
-        } while (gs.gm.tiles[xx][yy] == IMG_TILE_WATER || gs.gm.rivers[xx][yy] == 1 || any_surrounding_unvisited_river(xx,yy));
+        } while (gs.gm.tiles[xx][yy].tile_id == IMG_TILE_WATER || gs.gm.rivers[xx][yy] == 1 || any_surrounding_unvisited_river(xx,yy));
         gs.gm.rivers[xx][yy] = 1; // place river here
         
         while (!any_surrounding_tile_match(xx,yy,IMG_TILE_WATER) 

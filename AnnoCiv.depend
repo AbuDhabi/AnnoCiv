@@ -3,7 +3,7 @@
 	"header.h"
 	"globals.h"
 
-1351461636 /home/jpkociak/programming/AnnoCiv/header.h
+1355956468 /home/jpkociak/programming/AnnoCiv/header.h
 	<cstdlib>
 	<stdlib.h>
 	<stdlib.h>
@@ -21,10 +21,13 @@
 	<time.h>
 	"Point.h"
 	"City.h"
+	"Language.h"
 	"Faction.h"
 	"Unit.h"
+	"Tile.h"
 	"GameMap.h"
 	"GameState.h"
+	"Research.h"
 
 1286726393 /usr/include/SDL/SDL.h
 	"SDL_main.h"
@@ -229,13 +232,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1351267791 /home/jpkociak/programming/AnnoCiv/globals.h
+1355839956 /home/jpkociak/programming/AnnoCiv/globals.h
 
 1351205586 source:/home/jpkociak/programming/AnnoCiv/load_media.cpp
 	"header.h"
 	"globals.h"
 
-1351357729 source:/home/jpkociak/programming/AnnoCiv/main.cpp
+1355948726 source:/home/jpkociak/programming/AnnoCiv/main.cpp
 	"header.h"
 	"globals.h"
 
@@ -243,15 +246,15 @@
 	"header.h"
 	"globals.h"
 
-1351367114 /home/jpkociak/programming/AnnoCiv/GameMap.h
+1355839845 /home/jpkociak/programming/AnnoCiv/GameMap.h
 
-1351446832 /home/jpkociak/programming/AnnoCiv/GameState.h
+1355813098 /home/jpkociak/programming/AnnoCiv/GameState.h
 
 1350766840 source:/home/jpkociak/programming/AnnoCiv/print_image_at.cpp
 	"header.h"
 	"globals.h"
 
-1351354201 source:/home/jpkociak/programming/AnnoCiv/print_map.cpp
+1355847325 source:/home/jpkociak/programming/AnnoCiv/print_map.cpp
 	"header.h"
 	"globals.h"
 
@@ -259,7 +262,7 @@
 	<math.h>
 	"SDL.h"
 
-1351457462 /home/jpkociak/programming/AnnoCiv/City.h
+1355962407 /home/jpkociak/programming/AnnoCiv/City.h
 
 1351093919 /home/jpkociak/programming/AnnoCiv/Point.h
 
@@ -269,13 +272,13 @@
 	"header.h"
 	"globals.h"
 
-1351326753 source:/home/jpkociak/programming/AnnoCiv/generate_map.cpp
+1355839905 source:/home/jpkociak/programming/AnnoCiv/generate_map.cpp
 	"header.h"
 	"globals.h"
 
-1351370037 /home/jpkociak/programming/AnnoCiv/Unit.h
+1355962343 /home/jpkociak/programming/AnnoCiv/Unit.h
 
-1351367483 /home/jpkociak/programming/AnnoCiv/Faction.h
+1355946409 /home/jpkociak/programming/AnnoCiv/Faction.h
 
 1351170074 source:/home/jpkociak/programming/AnnoCiv/show_intro.cpp
 	"header.h"
@@ -285,7 +288,7 @@
 	"header.h"
 	"globals.h"
 
-1351364169 source:/home/jpkociak/programming/AnnoCiv/main_game_interface.cpp
+1355853921 source:/home/jpkociak/programming/AnnoCiv/main_game_interface.cpp
 	"header.h"
 	"globals.h"
 
@@ -293,23 +296,41 @@
 	"header.h"
 	"globals.h"
 
-1351458190 source:/home/jpkociak/programming/AnnoCiv/new_game_setup.cpp
+1355956507 source:/home/jpkociak/programming/AnnoCiv/new_game_setup.cpp
 	"header.h"
 	"globals.h"
 
-1351461867 source:/home/jpkociak/programming/AnnoCiv/print_interface.cpp
+1355815367 source:/home/jpkociak/programming/AnnoCiv/print_interface.cpp
 	"header.h"
 	"globals.h"
 
-1351368833 source:/home/jpkociak/programming/AnnoCiv/unit_ops.cpp
+1355840384 source:/home/jpkociak/programming/AnnoCiv/unit_ops.cpp
 	"header.h"
 	"globals.h"
 
-1351360203 source:/home/jpkociak/programming/AnnoCiv/do_turn.cpp
+1355846656 source:/home/jpkociak/programming/AnnoCiv/do_turn.cpp
 	"header.h"
 	"globals.h"
 
-1351462006 source:/home/jpkociak/programming/AnnoCiv/city_ops.cpp
+1355846575 source:/home/jpkociak/programming/AnnoCiv/city_ops.cpp
+	"header.h"
+	"globals.h"
+
+1355832422 source:/home/jpkociak/programming/AnnoCiv/do_ai.cpp
+	"header.h"
+	"globals.h"
+
+1355962426 /home/jpkociak/programming/AnnoCiv/Tile.h
+
+1355846429 source:/home/jpkociak/programming/AnnoCiv/tile_ops.cpp
+	"header.h"
+	"globals.h"
+
+1355853949 /home/jpkociak/programming/AnnoCiv/Research.h
+
+1355945318 /home/jpkociak/programming/AnnoCiv/Language.h
+
+1355957341 source:/home/jpkociak/programming/AnnoCiv/language_ops.cpp
 	"header.h"
 	"globals.h"
 

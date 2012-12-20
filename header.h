@@ -78,10 +78,14 @@
 // custom structs/classes go here
 #include "Point.h"
 #include "City.h"
+#include "Language.h"
 #include "Faction.h"
 #include "Unit.h"
+#include "Tile.h"
 #include "GameMap.h"
 #include "GameState.h"
+#include "Research.h"
+
 
 
 // function declarations go here
@@ -103,5 +107,16 @@ int get_last_unit_id();
 int do_turn(); 
 void unit_type_to_text(int id, char * output);
 float appraise_city_value(int city_id);
+int do_ai(int faction_id);
+void unit_flags_to_text(Unit u, char* output);
+int build_new_city(int x, int y, int faction);
+void unit_combat(int attacker_id, int defender_id, Tile place);
+int get_tile_food(int x, int y);
+int get_tile_prod(int x, int y);
+int get_tile_comm(int x, int y);
+int resolve_city_turn(int city_id);
+void make_up_word(char * output, Language lang, int syllables);
+Language create_language();
+void capitalize_first(char* inout);
 
 #endif // HEADER_H_INCLUDED

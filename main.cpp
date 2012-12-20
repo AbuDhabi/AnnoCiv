@@ -1,7 +1,14 @@
 #include "header.h"
 #include "globals.h"
 
+/// TODO: Make better colours, because they are too similar to one another.
+/// BUG: Memory leak! In the normal running somewhere, no input required.
+/// TODO: convert all sprintf into snprintf (this can't really be done too automatically)
+
 // global variables go here, with initializations perhaps
+// the all important debugging flag
+bool DEBUG = true;
+// game window dimensions
 int MAXX = 800;
 int MAXY = 600;
 SDL_Surface* BITMAPS[255]; //255 is more than I'll need
@@ -11,18 +18,22 @@ SDL_Surface* MAIN_SCREEN;
 SDL_Color DEFAULT_COLOR = {0x00,0x00,0x00,0xFF}; // black opaque
 // more global variables, remember to extern them
 GameState gs; 
-Unit PROTOTYPE_INFANTRY = {IMG_UNIT_INFANTRY,-1,-1,10,10,0,1,1,MOVE_TYPE_GROUND,0,-1};
-Unit PROTOTYPE_CAVALRY = {IMG_UNIT_CAVALRY,-1,-1,10,10,0,2,2,MOVE_TYPE_GROUND,0,-1};
-Unit PROTOTYPE_ARMOUR = {IMG_UNIT_ARMOUR,-1,-1,10,10,0,2,2,MOVE_TYPE_GROUND,0,-1};
-Unit PROTOTYPE_ARTILLERY = {IMG_UNIT_ARTILLERY,-1,-1,10,10,0,1,1,MOVE_TYPE_GROUND,0,-1};
-Unit PROTOTYPE_BATTLESHIP = {IMG_UNIT_BATTLESHIP,-1,-1,10,10,0,5,5,MOVE_TYPE_SEA,0,-1};
-Unit PROTOTYPE_SUBMARINE = {IMG_UNIT_SUBMARINE,-1,-1,10,10,0,5,5,MOVE_TYPE_SEA,0,-1};
-Unit PROTOTYPE_SEATRANSPORT = {IMG_UNIT_SEATRANSPORT,-1,-1,10,10,0,5,5,MOVE_TYPE_SEA,5,-1};
-Unit PROTOTYPE_FIGHTER = {IMG_UNIT_FIGHTER,-1,-1,10,10,0,20,20,MOVE_TYPE_AIR,0,-1};
-Unit PROTOTYPE_BOMBER = {IMG_UNIT_BOMBER,-1,-1,10,10,0,15,15,MOVE_TYPE_AIR,0,-1};
-Unit PROTOTYPE_AIRTRANSPORT = {IMG_UNIT_AIRTRANSPORT,-1,-1,10,10,0,10,10,MOVE_TYPE_AIR,1,-1};
-Unit PROTOTYPE_MISSILE = {IMG_UNIT_MISSILE,-1,-1,10,10,0,40,40,MOVE_TYPE_AIR,0,-1};
-Unit PROTOTYPE_WORKERS = {IMG_UNIT_WORKERS,-1,-1,10,10,0,2,2,MOVE_TYPE_GROUND,0,-1};
+// these are available to all at start, but are guesstimates at this point
+// type, x, y, maxhp, hp, power, maxmove, curmove, faction, flags 1, flags 2, cost, upkeep
+Unit PROTOTYPE_INFANTRY = {UNIT_TYPE_GROUND,-1,-1,10,10,1,2,2,-1,0,0,10,0};
+Unit PROTOTYPE_SETTLERS = {UNIT_TYPE_GROUND,-1,-1,10,10,1,2,2,-1,UNIT_FLAG1_SETTLER,0,10,0};
+// tile prototypes are defined here
+// id,defense bonus, food, prod, comm, move cost
+Tile TILE_ARCTIC = {IMG_TILE_ARCTIC,1.0,0,0,0,1};
+Tile TILE_DESERT = {IMG_TILE_DESERT,1.0,0,1,0,1};
+Tile TILE_FOREST = {IMG_TILE_FOREST,1.5,1,2,0,2};
+Tile TILE_GRASSLAND = {IMG_TILE_GRASSLAND,1.0,2,1,0,1};
+Tile TILE_HILLS = {IMG_TILE_HILLS,2.0,1,0,0,2};
+Tile TILE_JUNGLE = {IMG_TILE_JUNGLE,1.5,1,0,0,2};
+Tile TILE_MOUNTAIN = {IMG_TILE_MOUNTAIN,3.0,0,2,0,3};
+Tile TILE_SWAMP = {IMG_TILE_SWAMP,1.5,1,0,0,2};
+Tile TILE_TUNDRA = {IMG_TILE_TUNDRA,1.0,1,0,0,1};
+Tile TILE_WATER = {IMG_TILE_WATER,1.0,1,0,2,1};
 
 
 int main ( int argc, char** argv )

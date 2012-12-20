@@ -7,6 +7,12 @@
 #define BUDGET_INFRASTRUCTURE 4
 #define BUDGET_POPULATION 5
 
+/// TODO: Make a city growth scheme
+/// TODO: Make a unit production scheme
+/// TODO: Make a research scheme
+/// TODO: Make a treasury scheme
+/// TODO: Make an infrastructure scheme
+
 int change_budget(int city_id, int branch, int new_amount) {
     //int counter; int accumulated;
     int value_to_set;
@@ -35,9 +41,11 @@ int change_budget(int city_id, int branch, int new_amount) {
     return 0;
 }
 
+/// TODO: improve this somehow
+
 float appraise_city_value(int city_id) {
     // to do: forbid settling edges or deal with it
-    // this is mostly a crude hack
+    // this is mostly a less crude hack
     int x, y;
     x = gs.cities[city_id].x-1;
     y = gs.cities[city_id].y-1;
@@ -45,28 +53,41 @@ float appraise_city_value(int city_id) {
     float food=0, prod=0, comm=0;
     for (int i=0;i<3;i++) {
         for (int j=0;j<3;j++) {
-            if (gs.gm.tiles[x+i][y+j] == IMG_TILE_ARCTIC) { food += 0; prod += 0; comm += 0.0; }
-            if (gs.gm.tiles[x+i][y+j] == IMG_TILE_TUNDRA) { food += 1; prod += 0.5; comm += 0.5; }
-            if (gs.gm.tiles[x+i][y+j] == IMG_TILE_GRASSLAND) { food += 2; prod += 0.5; comm += 0.5; }
-            if (gs.gm.tiles[x+i][y+j] == IMG_TILE_FOREST) { food += 1; prod += 1; comm += 0.0; }
-            if (gs.gm.tiles[x+i][y+j] == IMG_TILE_SWAMP) { food += 1; prod += 1; comm += 0.0; }
-            if (gs.gm.tiles[x+i][y+j] == IMG_TILE_DESERT) { food += 0; prod += 1; comm += 0.5; }
-            if (gs.gm.tiles[x+i][y+j] == IMG_TILE_HILLS) { food += 1; prod += 2; comm += 0.0; }
-            if (gs.gm.tiles[x+i][y+j] == IMG_TILE_MOUNTAIN) { food += 0; prod += 4; comm += 0.0; }
-            if (gs.gm.tiles[x+i][y+j] == IMG_TILE_JUNGLE) { food += 1; prod += 0.5; comm += 0.0; }
-            if (gs.gm.tiles[x+i][y+j] == IMG_TILE_WATER) { food += 1; prod += 0; comm += 1; }
-            prod += 0.5 * gs.gm.roads[x+i][y+j]; // add half road development to production
-            comm += gs.gm.roads[x+i][y+j]; // add full road dev to commerce
-            prod += 0.5 * gs.gm.rivers[x+i][y+j]; // half river to production
-            comm += gs.gm.rivers[x+i][y+j]; // full river to commerce
-            food += gs.gm.rivers[x+i][y+j]; // full river to food
+            if (x+i >= 0 && y+j >=0 && x+i < MAX_GAME_MAP_X && y+j < MAX_GAME_MAP_Y) { 
+                food = get_tile_food(x+i,y+j);
+                prod = get_tile_prod(x+i,y+j);
+                comm = get_tile_comm(x+i,y+j);
+            }
             
         }
     }
     
-    value = (food/2.0 + prod + 2.0*comm);
+    value = (food + prod + comm);
     if (gs.cities[city_id].size < 9) value = value * gs.cities[city_id].size / 9.0;
     
     
     return value;
+}
+
+int build_new_city(int x, int y, int faction) {
+    // find an empty city slot
+    int cityfree = -1;
+    for (int i=0;i<MAX_CITIES;i++) 
+        if (gs.cities[i].size == 0) cityfree = i;
+    if (cityfree == -1) return 1; // no free cities, mon
+    gs.cities[cityfree].size = 1;
+    gs.cities[cityfree].faction_id = faction;
+    gs.cities[cityfree].x = x;
+    gs.cities[cityfree].y = y;
+    /// TODO: Improve naming
+    /// Implement that language system
+    sprintf(gs.cities[cityfree].name,"Your Mom #%d",cityfree);
+    
+    return 0;
+}
+
+int resolve_city_turn(int city_id) {
+    
+    
+    return 0;
 }

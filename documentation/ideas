@@ -14,6 +14,15 @@ Limited types of units
       - Bombers
       - Air Transports
       - Missiles?
+   Let's limit it further:
+      - Land Unit
+      - Naval Unit
+      - Air Unit
+      Everything else should be doable otherwise. 
+         - Land units, with appropriate technologies and expenditures, can go on water. These are transports, and they generally suck if attacked, but otherwise are pretty good. They keep the traits of the unit they were made from, so a shipful of combat units will still have a chance to win, while workers will doubtlessly perish.
+         - Air transport would be instantaneous between cities. Maybe teleporters too, which would work more efficiently. Combat air units would immediately return to city after attacking, unless you set them for suicide attacks - a little more damage, but you lose the unit afterwards.
+         - Subs are tricky, but could be simulated as focus on stealth and sealane interdiction and stuff. 
+         - Pretty much every civ will have distinguishable units via unit options. Designing units would be great. Just like in SMAC! The units are just the chassis. What they actually are depends on what options they are given, like the ability to work terrain. Perhaps I could do the units as military symbols, proper things! And you get to save a few specially designed unit types. And those produced remain what they are. You can upgrade them later, for a cost, if you like. How many slots is enough? 8? 64? 8 sounds like a good number. It's not like I'm using more than Engineers, Mech Inf, Howitzers, Bombers, Fighters and Battleships in C2 anyway!
 
 IQ required to destroy the world
    Instead of a strict time limit, there's this. Chances are, some clever devil will figure out how to destroy the world with highly advanced technology eventually. So as IQ rises and technology improves, so does the chance that someone will destroy the planet through sheer, unthinking idiocy.
@@ -23,6 +32,14 @@ Roads -> Railroads/Highways
 
 Technology akin to MoO and EU3
    Division into broad groups of techs, with numeric ratings. None of this specific tech tree stuff. Bonus points if we can skip certain techs, so it's impossible to get them without trading/looting. 
+   -Information & Communication - writing, printing, computers, networks, etc.
+   -Society & Government - types of civics available, dealing with large empires, etc.
+   -Military - weapons, tactics, doctrines, strategy, etc.
+   -Production & Engineering - machines, robots, production, unit chassises, etc.
+   -Commerce & Trade - making money, converting resources, trade, banking, etc.
+   -Agriculture & Energy - resource extraction, farming, mining, energy collection, etc.
+   I'm thinking of making it proportionally harder to advance to higher levels as other technologies are left in the dirt, in a cliche move to discourage minmaxing. For example, if InfCom and AgrEne are low, and you want to push ProdEng, you're going to have problems because you can't get good automation software or high quality raw materials.
+   
 
 Design your own units
    Chassis bases define what kind of unit it is, but otherwise, go wild. At the basic level, only one unit of its type - but you get to define what kind of stuff they carry. Maybe even keeping the cavalry thing beyond invention of tanks. This is sort of like a cut-down version of what SMAC has.
@@ -37,6 +54,7 @@ Budgeting
       - Research: puts RPs into the research pool
       - Infrastructure: improves tiles
       - Population: quickens growth
+   But how do I meld that with tile-based civ resources? Perhaps by having the various resources be multipliers to budgeting, as well as setting some other limits. You can try all you want to increase population growth in the arctic, but it will consume all your stuff and your maximum is probably not that high, either. On a bunch of plains, it will be less difficult. Same with money and reasearch - those thrive in places with lots of commerce. Production might not be very effective in places where there are scant natural resources to build on. Infrastructure likewise, because you have to make it somehow. 
 
 No need for specific screens
    Side and bottom bars are plenty enough for selected items such as units or cities.
@@ -48,3 +66,26 @@ Custom disasters due to high tech
       - Engineered Plague
       - Nuclear Holocaust
       - Internet-consuming Virus
+
+Ideology/religion
+   Heretics heretics heretics! Pick and choose? 
+      Secular         Theism           Socialism
+      Orthodox        Atheism          Authoritarianism
+      Reformed        Polytheism       Liberalism
+      Universal       Equalitarianism  Capitalism
+   Axes... 
+      - Theism (Non, poly, etc.)
+      - Traditionalism (orthodox, reformed, universal, etc.)
+      - Castism (equalitarianism, predestinationism, etc.)
+      - Authoritarianism (fascism, libertarianism, etc.)
+      - Maybe some more
+Or maybe something simpler.
+   Manism (primitive), Shamanism (priestly), Deism (advanced), Humanism (decadent). 
+
+Languages
+   1. Make list of syllables.
+   2. For each civilization, randomly select a number of syllables.
+   3. Use the civ's syllables to make words. Different civs have different sets.
+
+
+

@@ -2,10 +2,12 @@
 #include "globals.h"
 
 int do_game_setup_stuff(int args) {
+    
     for (int i=0;i<MAX_UNITS;i++) {
         gs.units[i] = PROTOTYPE_INFANTRY;
         gs.units[i].hp = 0; // so that they don't show up on cycling
     }
+    
     for (int i=0;i<MAX_CITIES;i++) {
         sprintf(gs.cities[i].name,"Butts");
         gs.cities[i].x = -1;
@@ -14,6 +16,8 @@ int do_game_setup_stuff(int args) {
     }
     gs.curx = 0;
     gs.cury = 0;
+    gs.selx = 0;
+    gs.sely = 0;
     gs.selected_thing = -1;
     gs.selected_type = -1;
     
@@ -25,8 +29,10 @@ int do_game_setup_stuff(int args) {
     generate_map(0,0);
     
     SDL_Color color;
-    
+
     int rx, ry;
+    char temp[80];
+    temp[0] = 0;
     for (int i=0;i<MAX_FACTIONS;i++) {
         gs.factions[i].type = FACTION_TYPE_AI;
         sprintf(gs.factions[i].name,"Random AI %d",i);
@@ -35,18 +41,21 @@ int do_game_setup_stuff(int args) {
             for (int l=0;l<MAX_GAME_MAP_Y; l++)
                 gs.factions[i].fog[k][l] = 1;
         color.b = rand()%128+128; color.g = rand()%128+128; color.r = rand()%128+128; color.unused = 255;
+        gs.factions[i].language = create_language();
         gs.factions[i].color = color;
         do {
             rx = rand()%MAX_GAME_MAP_X;
             ry = rand()%MAX_GAME_MAP_Y;
-        } while (gs.gm.tiles[rx][ry] == IMG_TILE_WATER);
-        sprintf(gs.cities[i].name,"City %d",i);
+        } while (gs.gm.tiles[rx][ry].tile_id == IMG_TILE_WATER);
+        make_up_word(temp,gs.factions[i].language,rand()%4+1);
+        capitalize_first(temp);
+        sprintf(gs.cities[i].name,temp);
         gs.cities[i].x = rx;
         gs.cities[i].y = ry;
         gs.cities[i].size = 1;
         gs.cities[i].faction_id = i;
         gs.gm.roads[rx][ry] = 1;
-        gs.units[i] = PROTOTYPE_AIRTRANSPORT;
+        gs.units[i] = PROTOTYPE_SETTLERS;
         gs.units[i].faction_id = i;
         gs.units[i].x = rx;
         gs.units[i].y = ry;

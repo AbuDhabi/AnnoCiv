@@ -13,8 +13,10 @@ typedef struct GameState {
     Faction factions[MAX_FACTIONS];
     int selected_thing;
     int selected_type;
-    int curx;
-    int cury;
+    int curx; // current looking at map x, top left corner
+    int cury; // ''
+    int selx; // selected (pointing at) x
+    int sely; // ''
 } GameState;
 
 #endif // GAMESTATE_H_INCLUDED

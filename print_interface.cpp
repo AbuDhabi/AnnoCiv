@@ -6,7 +6,7 @@ int print_interface() {
     boxRGBA(MAIN_SCREEN,10*64,0,MAXX,7*64,240,0,0,255);
     // botbar
     boxRGBA(MAIN_SCREEN,0,7*64,MAXX,MAXY,0,0,240,255);
-    // debugging
+    // sidebar and bottombar information printing
     char temp[80];
     if (gs.selected_type == SELECTED_CITY && gs.selected_thing >= 0) {
         // name location
@@ -38,6 +38,15 @@ int print_interface() {
         sprintf(temp,"HP %d/%d",gs.units[gs.selected_thing].hp,gs.units[gs.selected_thing].maxhp);
         put_text_at(10*64+5,0+35,temp);
     }
+    
+    // debug stuff
+    if (DEBUG) {
+        sprintf (temp,"selx %d, sely %d", gs.selx, gs.sely);
+        put_text_at(0,0,temp);
+        sprintf (temp,"curx %d, cury %d", gs.curx, gs.cury);
+        put_text_at(0,10,temp);
+    }
 
     return 0;
 }
+

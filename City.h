@@ -3,6 +3,8 @@
 
 #define MAX_CITIES 255
 
+/// TODO: Update this shit to the new paradigm
+
 typedef struct City {
     char name[80];
     int x, y; // location
@@ -13,6 +15,9 @@ typedef struct City {
     short budget_research; // it is a priority
     short budget_infrastructure; // value/(sum-of-values) is how much you get
     short budget_population;  // based on city stuff
+    float accumulated_production;
+    int production_order; // probably the same values as IMG_
+    float accumulated_food; 
 
 } City;
 
