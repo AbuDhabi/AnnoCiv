@@ -1,9 +1,6 @@
 #ifndef LANGUAGE_H_INCLUDED
 #define LANGUAGE_H_INCLUDED
 
-/// TODO: Make giant list of syllables
-/// TODO: Make functions that select a subset
-
 #define MAX_SYLLABLES 255
 
 typedef struct Syllable {

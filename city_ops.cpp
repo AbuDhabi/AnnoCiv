@@ -12,6 +12,7 @@
 /// TODO: Make a research scheme
 /// TODO: Make a treasury scheme
 /// TODO: Make an infrastructure scheme
+/// TODO: Make a city turn resolution that isn't a placeholder
 
 int change_budget(int city_id, int branch, int new_amount) {
     //int counter; int accumulated;
@@ -54,9 +55,9 @@ float appraise_city_value(int city_id) {
     for (int i=0;i<3;i++) {
         for (int j=0;j<3;j++) {
             if (x+i >= 0 && y+j >=0 && x+i < MAX_GAME_MAP_X && y+j < MAX_GAME_MAP_Y) { 
-                food = get_tile_food(x+i,y+j);
-                prod = get_tile_prod(x+i,y+j);
-                comm = get_tile_comm(x+i,y+j);
+                food += get_tile_food(x+i,y+j);
+                prod += get_tile_prod(x+i,y+j);
+                comm += get_tile_comm(x+i,y+j);
             }
             
         }
@@ -80,14 +81,61 @@ int build_new_city(int x, int y, int faction) {
     gs.cities[cityfree].x = x;
     gs.cities[cityfree].y = y;
     /// TODO: Improve naming
-    /// Implement that language system
     sprintf(gs.cities[cityfree].name,"Your Mom #%d",cityfree);
     
     return 0;
 }
 
+// resolves city turn, with all things relevant handled
+// growth, resources, contributions, constructions, etc
+// ONE city only
 int resolve_city_turn(int city_id) {
-    
+    // this is mostly a placeholder so far
+    city_growth(city_id);
     
     return 0;
 }
+
+// returns number of food units
+int get_city_food(int city_id) {
+    int x, y;
+    x = gs.cities[city_id].x-1;
+    y = gs.cities[city_id].y-1;
+    int food=0;
+    for (int i=0;i<3;i++) {
+        for (int j=0;j<3;j++) {
+            if (x+i >= 0 && y+j >=0 && x+i < MAX_GAME_MAP_X && y+j < MAX_GAME_MAP_Y) { 
+                food += get_tile_food(x+i,y+j);
+            }
+        }
+    }
+    return food;
+}
+
+// checks whether the city should grow or diminish
+int city_growth(int city_id) {
+    // a sanity check - dead cities need not apply
+    if (gs.cities[city_id].size < 1) return 0;
+    
+    // does the city have enough food?
+    if (get_city_food(city_id) > gs.cities[city_id].size) {
+        // for now, let it grow as long as it has more food than required
+        gs.cities[city_id].growth_counter++;
+        if (gs.cities[city_id].growth_counter > 10) {
+            gs.cities[city_id].growth_counter = 0; // reset counter
+            gs.cities[city_id].size++; // grow city!
+        }
+        return 1; // growth
+    } else if (get_city_food(city_id) == gs.cities[city_id].size) {
+        return 0; // stagnant
+    } else { // not enough food
+        gs.cities[city_id].growth_counter--; // decrement growth counter
+        // too much starvation! people starve to death, bad player
+        if (gs.cities[city_id].growth_counter < 0) {
+            gs.cities[city_id].growth_counter = 0; // reset this
+            gs.cities[city_id].size--; // decrement city
+        }
+        return -1; // ungrowth!
+    }
+}
+

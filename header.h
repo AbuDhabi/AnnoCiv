@@ -118,5 +118,8 @@ int resolve_city_turn(int city_id);
 void make_up_word(char * output, Language lang, int syllables);
 Language create_language();
 void capitalize_first(char* inout);
+int get_city_food(int city_id);
+int city_growth(int city_id);
+
 
 #endif // HEADER_H_INCLUDED

@@ -16,8 +16,8 @@ typedef struct City {
     short budget_infrastructure; // value/(sum-of-values) is how much you get
     short budget_population;  // based on city stuff
     float accumulated_production;
-    int production_order; // probably the same values as IMG_
-    float accumulated_food; 
+    int production_order; // I will need to figure out what goes here, custom unit ID?
+    int growth_counter; // city growth thing, more means growth
 
 } City;
 
