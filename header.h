@@ -79,8 +79,8 @@
 #include "Point.h"
 #include "City.h"
 #include "Language.h"
-#include "Faction.h"
 #include "Unit.h"
+#include "Faction.h"
 #include "Tile.h"
 #include "GameMap.h"
 #include "GameState.h"
@@ -120,6 +120,9 @@ Language create_language();
 void capitalize_first(char* inout);
 int get_city_food(int city_id);
 int city_growth(int city_id);
-
+Unit mould_unit(int type, int flags);
+int get_symbol_offset_x(int count);
+int get_symbol_offset_y(int count);
+int city_production(int city_id);
 
 #endif // HEADER_H_INCLUDED

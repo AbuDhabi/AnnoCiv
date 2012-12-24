@@ -16,8 +16,8 @@ Language create_language() {
     for (int i=0;i<MAX_SYLLABLES;i++) {
         preconsonants = rand()%3; // 0-2
         midvowels = rand()%2+1; // 1-2
-        postconsonants = rand()%4; // 0-3
-        // 1-7
+        postconsonants = rand()%3; // 0-2
+        // 1-6
         counter = 0;
         for (int z=0;z<preconsonants;z++) {
             sprintf(demp,temp);

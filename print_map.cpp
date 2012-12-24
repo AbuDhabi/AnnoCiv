@@ -86,15 +86,155 @@ int print_map(int x,int y) {
             /// BUG: the 9th unit for some reason doesn't print
             int r,g,b;
             int healthbar_length;
+            int symbolcount=0;
+            Sint16 vx[3], vy[3];
             for (int k=0;k<lastunit;k++) {
                 if (gs.units[k].hp > 0) {
                     if (i==gs.units[k].x && j==gs.units[k].y) {
-                        /// TODO: Figure out military designations, and implement them to be drawn procedurally
-                        // this thing just draws an infantry unit graphic
+                        /// TODO: complete figuring out the edge cases
+                        /// TODO: Make the unimplemented graphical symbols and stuff
+                        /// TODO: also make symbol placement so that everything is visible
+                        // the basic box with black outline
                         boxRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+16,(i-x)*64+52,(j-y)*64+48,gs.factions[gs.cities[k].faction_id].color.r,gs.factions[gs.cities[k].faction_id].color.g,gs.factions[gs.cities[k].faction_id].color.b,gs.factions[gs.cities[k].faction_id].color.unused);
                         rectangleRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+16,(i-x)*64+52,(j-y)*64+48,0,0,0,255);
-                        lineRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+16,(i-x)*64+52,(j-y)*64+48,0,0,0,255);
-                        lineRGBA(MAIN_SCREEN,(i-x)*64+52,(j-y)*64+16,(i-x)*64+12,(j-y)*64+48,0,0,0,255);
+                        if (gs.units[k].type == UNIT_TYPE_GROUND) {
+                            // figure out which basic type it is
+                            if (gs.units[k].flags & (UNIT_FLAG_CAVALRY|UNIT_FLAG_SCOUT)) {
+                                // this is a recon/cavalry unit
+                                // one diagonal line
+                                lineRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+48,(i-x)*64+52,(j-y)*64+12,0,0,0,255);
+                            } else {
+                                // otherwise assume it's infantry
+                                lineRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+16,(i-x)*64+52,(j-y)*64+48,0,0,0,255);
+                                lineRGBA(MAIN_SCREEN,(i-x)*64+52,(j-y)*64+16,(i-x)*64+12,(j-y)*64+48,0,0,0,255);
+                            }
+                        } else if (gs.units[k].type == UNIT_TYPE_AIR) {
+                            // print a lopsided 8 or something like that here
+                            // first triangle
+                            vx[0] = (i-x)*64+20; vx[1] = (i-x)*64+32; vx[2] = (i-x)*64+20;
+                            vy[0] = (j-y)*64+28; vy[1] = (j-y)*64+32; vy[2] = (j-y)*64+36;
+                            polygonRGBA(MAIN_SCREEN, vx,vy, 3, 0, 0,0, 255);
+                            // second triangle
+                            vx[0] = (i-x)*64+44; vx[1] = (i-x)*64+32; vx[2] = (i-x)*64+44;
+                            vy[0] = (j-y)*64+28; vy[1] = (j-y)*64+32; vy[2] = (j-y)*64+36;
+                            polygonRGBA(MAIN_SCREEN, vx,vy, 3, 0, 0,0, 255);
+                            
+                        } else if (gs.units[k].type == UNIT_TYPE_SEA) {
+                            // print an anchor here
+                            // the fiddly bit
+                            arcRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+36,6,-1,180,0,0,0,255);
+                            // vertical line
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+42,(i-x)*64+32,(j-y)*64+22,0,0,0,255);
+                            // horizontal line
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+28,(j-y)*64+28,(i-x)*64+36,(j-y)*64+28,0,0,0,255);
+                            symbolcount++;
+                        }
+                        // now for modifiers
+                        if (gs.units[k].flags & UNIT_FLAG_ANTIAIR) {
+                            // top of a dome at the bottom of the box
+                            arcRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+73,32,230,310,0,0,0,255);
+                            // centerx, centery, radius, degrees starting at right-center going down, end degrees, rgba
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_ANTITANK) {
+                            // triangle across whole
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+48,(i-x)*64+32,(j-y)*64+16,0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+52,(j-y)*64+48,(i-x)*64+32,(j-y)*64+16,0,0,0,255);
+                            
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_ARMORED) {
+                            // stylized tank treads in center
+                            ellipseRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+32,15,8,0,0,0,255);
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_ARTILLERY) {
+                            // dot in the middle
+                            filledCircleRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),
+                                                         (j-y)*64+32+get_symbol_offset_y(symbolcount),2,0,0,0,255);
+                            symbolcount++;
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_ATROCITY) {
+                            // perhaps a skull? or a twist of the CBRN defence
+                            
+                        }
+                        // cavalry already handled
+                        if (gs.units[k].flags & UNIT_FLAG_ELITE) {
+                            //boxed SF for special forces maybe
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_ENGINEER) {
+                            // lopsided E in the middle
+                            // horizontal line
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+20,(j-y)*64+32,
+                                                 (i-x)*64+44,(j-y)*64+32,0,0,0,255);
+                            // vertical 1
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+20,(j-y)*64+32,
+                                                 (i-x)*64+20,(j-y)*64+36,0,0,0,255);
+                            // vertical 2
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+32,
+                                                 (i-x)*64+32,(j-y)*64+36,0,0,0,255);
+                            // vertical 3
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+44,(j-y)*64+32,
+                                                 (i-x)*64+44,(j-y)*64+36,0,0,0,255);
+                            symbolcount++;
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_FANATIC) {
+                            // not sure what I'd use here
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_GUERILLA) {
+                            // also not sure, perhaps the mountain
+                            // lets go with a tree
+                            // first triangle
+                            vx[0] = (i-x)*64+28; vx[1] = (i-x)*64+32; vx[2] = (i-x)*64+36;
+                            vy[0] = (j-y)*64+32; vy[1] = (j-y)*64+28; vy[2] = (j-y)*64+32;
+                            for (int i=0;i<3;i++) vx[i] += get_symbol_offset_x(symbolcount);
+                            for (int i=0;i<3;i++) vy[i] += get_symbol_offset_y(symbolcount);
+                            filledPolygonRGBA(MAIN_SCREEN, vx,vy, 3, 0, 0,0, 255);
+                            // second triangle
+                            vx[0] = (i-x)*64+28; vx[1] = (i-x)*64+32; vx[2] = (i-x)*64+36;
+                            vy[0] = (j-y)*64+36; vy[1] = (j-y)*64+32; vy[2] = (j-y)*64+36;
+                            for (int i=0;i<3;i++) vx[i] += get_symbol_offset_x(symbolcount);
+                            for (int i=0;i<3;i++) vy[i] += get_symbol_offset_y(symbolcount);
+                            filledPolygonRGBA(MAIN_SCREEN, vx,vy, 3, 0, 0,0, 255);
+                            // vertical line
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+28+get_symbol_offset_y(symbolcount),
+                                                 (i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+38+get_symbol_offset_y(symbolcount),0,0,0,255);
+                            symbolcount++;
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_INFILTRATOR) {
+                            // boxed SOF for special operations forces, probably
+                            put_text_at((i-x)*64+16,(j-y)*64+24,"SOF");
+                            symbolcount++;
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_MECHANIZED) {
+                            // vertical line
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+20,(j-y)*64+16,(i-x)*64+20,(j-y)*64+48,0,0,0,255);
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_MISSILE) {
+                            // two chevrons in the middle
+                            // chevron 1
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+28+get_symbol_offset_y(symbolcount),
+                                                 (i-x)*64+28+get_symbol_offset_x(symbolcount),(j-y)*64+32+get_symbol_offset_y(symbolcount),0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+28+get_symbol_offset_y(symbolcount),
+                                                 (i-x)*64+36+get_symbol_offset_x(symbolcount),(j-y)*64+32+get_symbol_offset_y(symbolcount),0,0,0,255);
+                            // chevron 2
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+30+get_symbol_offset_y(symbolcount),
+                                                 (i-x)*64+28+get_symbol_offset_x(symbolcount),(j-y)*64+34+get_symbol_offset_y(symbolcount),0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+30+get_symbol_offset_y(symbolcount),
+                                                 (i-x)*64+36+get_symbol_offset_x(symbolcount),(j-y)*64+34+get_symbol_offset_y(symbolcount),0,0,0,255);
+                            symbolcount++;
+                        }
+                        // scout already handled
+                        if (gs.units[k].flags & UNIT_FLAG_SETTLER) {
+                            // Boxed SET? or maybe a little housey
+                            //put_text_at((i-x)*64+16,(j-y)*64+24,"SET");
+                            // chevron
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+24,(i-x)*64+28,(j-y)*64+28,0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+24,(i-x)*64+36,(j-y)*64+28,0,0,0,255);
+                            // box
+                            rectangleRGBA(MAIN_SCREEN,(i-x)*64+28,(j-y)*64+28,(i-x)*64+36,(j-y)*64+36,0,0,0,255);
+                            symbolcount++;
+                        }
+                        if (gs.units[k].flags & UNIT_FLAG_STEALTH) {
+                            // EW in middle for Electronic Warfare?
+                        }
                         // a simple health bar
                         // now with more colours!
                         healthbar_length = (int)(63*((gs.units[k].hp*1.0)/(gs.units[k].maxhp*1.0)));
@@ -132,4 +272,36 @@ int print_map(int x,int y) {
     
 
     return 0;
+}
+
+//  7 1 5 
+//  3 0 4 
+//  6 2 8  
+
+// returns the x offset for symbol placement
+int get_symbol_offset_x(int count) {
+    if (count == 1) return 0;
+    else if (count == 2) return 0;
+    else if (count == 3) return -12;
+    else if (count == 4) return +12;
+    else if (count == 5) return +12;
+    else if (count == 6) return -12;
+    else if (count == 7) return -12;
+    else if (count == 8) return +12;
+    return 0; // if count == 0
+}
+//  7 1 5 
+//  3 0 4 
+//  6 2 8 
+// returns the x offset for symbol placement
+int get_symbol_offset_y(int count) {
+    if (count == 1) return -10;
+    else if (count == 2) return +10;
+    else if (count == 3) return 0;
+    else if (count == 4) return 0;
+    else if (count == 5) return -10;
+    else if (count == 6) return +10;
+    else if (count == 7) return -10;
+    else if (count == 8) return +10;
+    return 0; // if count == 0
 }

@@ -3,7 +3,7 @@
 	"header.h"
 	"globals.h"
 
-1356200244 /home/jpkociak/programming/AnnoCiv/header.h
+1356381058 /home/jpkociak/programming/AnnoCiv/header.h
 	<cstdlib>
 	<stdlib.h>
 	<stdlib.h>
@@ -22,8 +22,8 @@
 	"Point.h"
 	"City.h"
 	"Language.h"
-	"Faction.h"
 	"Unit.h"
+	"Faction.h"
 	"Tile.h"
 	"GameMap.h"
 	"GameState.h"
@@ -238,7 +238,7 @@
 	"header.h"
 	"globals.h"
 
-1355948726 source:/home/jpkociak/programming/AnnoCiv/main.cpp
+1356348429 source:/home/jpkociak/programming/AnnoCiv/main.cpp
 	"header.h"
 	"globals.h"
 
@@ -254,7 +254,7 @@
 	"header.h"
 	"globals.h"
 
-1355847325 source:/home/jpkociak/programming/AnnoCiv/print_map.cpp
+1356379150 source:/home/jpkociak/programming/AnnoCiv/print_map.cpp
 	"header.h"
 	"globals.h"
 
@@ -276,9 +276,9 @@
 	"header.h"
 	"globals.h"
 
-1355962343 /home/jpkociak/programming/AnnoCiv/Unit.h
+1356348429 /home/jpkociak/programming/AnnoCiv/Unit.h
 
-1355946409 /home/jpkociak/programming/AnnoCiv/Faction.h
+1356342486 /home/jpkociak/programming/AnnoCiv/Faction.h
 
 1351170074 source:/home/jpkociak/programming/AnnoCiv/show_intro.cpp
 	"header.h"
@@ -288,7 +288,7 @@
 	"header.h"
 	"globals.h"
 
-1355853921 source:/home/jpkociak/programming/AnnoCiv/main_game_interface.cpp
+1356350659 source:/home/jpkociak/programming/AnnoCiv/main_game_interface.cpp
 	"header.h"
 	"globals.h"
 
@@ -296,7 +296,7 @@
 	"header.h"
 	"globals.h"
 
-1355957367 source:/home/jpkociak/programming/AnnoCiv/new_game_setup.cpp
+1356382414 source:/home/jpkociak/programming/AnnoCiv/new_game_setup.cpp
 	"header.h"
 	"globals.h"
 
@@ -304,7 +304,7 @@
 	"header.h"
 	"globals.h"
 
-1355840384 source:/home/jpkociak/programming/AnnoCiv/unit_ops.cpp
+1356375224 source:/home/jpkociak/programming/AnnoCiv/unit_ops.cpp
 	"header.h"
 	"globals.h"
 
@@ -312,7 +312,7 @@
 	"header.h"
 	"globals.h"
 
-1356200199 source:/home/jpkociak/programming/AnnoCiv/city_ops.cpp
+1356200598 source:/home/jpkociak/programming/AnnoCiv/city_ops.cpp
 	"header.h"
 	"globals.h"
 
@@ -330,7 +330,7 @@
 
 1356192722 /home/jpkociak/programming/AnnoCiv/Language.h
 
-1355957341 source:/home/jpkociak/programming/AnnoCiv/language_ops.cpp
+1356351160 source:/home/jpkociak/programming/AnnoCiv/language_ops.cpp
 	"header.h"
 	"globals.h"
 

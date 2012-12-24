@@ -245,7 +245,7 @@ int main_game_interface() {
                         // make sure a unit is actually selected and can build
                         if (gs.selected_type != SELECTED_UNIT) break; // no unit selected
                         if (gs.selected_thing == -1) break; // nothing selected
-                        if ((gs.units[gs.selected_thing].flags1&UNIT_FLAG1_SETTLER) == 0) break; // unit can't build
+                        if ((gs.units[gs.selected_thing].flags&UNIT_FLAG_SETTLER) == 0) break; // unit can't build
                         /// TODO: Checks for if there is a city too close
                         gs.units[gs.selected_thing].hp = 0; // kill the unit
                         // build the city

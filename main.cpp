@@ -19,9 +19,9 @@ SDL_Color DEFAULT_COLOR = {0x00,0x00,0x00,0xFF}; // black opaque
 // more global variables, remember to extern them
 GameState gs; 
 // these are available to all at start, but are guesstimates at this point
-// type, x, y, maxhp, hp, power, maxmove, curmove, faction, flags 1, flags 2, cost, upkeep
-Unit PROTOTYPE_INFANTRY = {UNIT_TYPE_GROUND,-1,-1,10,10,1,2,2,-1,0,0,10,0};
-Unit PROTOTYPE_SETTLERS = {UNIT_TYPE_GROUND,-1,-1,10,10,1,2,2,-1,UNIT_FLAG1_SETTLER,0,10,0};
+// type, x, y, maxhp, hp, power, maxmove, curmove, faction, flags, cost, upkeep
+Unit PROTOTYPE_INFANTRY = {UNIT_TYPE_GROUND,-1,-1,10,10,1,2,2,-1,0,10,0};
+Unit PROTOTYPE_SETTLERS = {UNIT_TYPE_GROUND,-1,-1,10,10,1,2,2,-1,UNIT_FLAG_SETTLER,10,0};
 // tile prototypes are defined here
 // id,defense bonus, food, prod, comm, move cost
 Tile TILE_ARCTIC = {IMG_TILE_ARCTIC,1.0,0,0,0,1};

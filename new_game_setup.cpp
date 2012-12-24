@@ -55,7 +55,7 @@ int do_game_setup_stuff(int args) {
         gs.cities[i].size = 1;
         gs.cities[i].faction_id = i;
         gs.gm.roads[rx][ry] = 1;
-        gs.units[i] = PROTOTYPE_SETTLERS;
+        gs.units[i] = mould_unit(UNIT_TYPE_AIR,UNIT_FLAG_ANTIAIR|UNIT_FLAG_GUERILLA|UNIT_FLAG_ARTILLERY|UNIT_FLAG_ENGINEER|UNIT_FLAG_MISSILE);
         gs.units[i].faction_id = i;
         gs.units[i].x = rx;
         gs.units[i].y = ry;

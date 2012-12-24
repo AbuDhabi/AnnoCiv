@@ -7,7 +7,7 @@
 #define BUDGET_INFRASTRUCTURE 4
 #define BUDGET_POPULATION 5
 
-/// TODO: Make a city growth scheme
+/// TODO: Improve city growth scheme
 /// TODO: Make a unit production scheme
 /// TODO: Make a research scheme
 /// TODO: Make a treasury scheme
@@ -137,5 +137,15 @@ int city_growth(int city_id) {
         }
         return -1; // ungrowth!
     }
+}
+
+// handles city production
+int city_production(int city_id) {
+    
+    
+    
+    
+    
+    return 0;
 }
 
