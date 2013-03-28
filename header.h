@@ -124,5 +124,7 @@ Unit mould_unit(int type, int flags);
 int get_symbol_offset_x(int count);
 int get_symbol_offset_y(int count);
 int city_production(int city_id);
+int spawn_unit(Unit unit, int x, int y, int faction);
+int write_to_log (char * text);
 
 #endif // HEADER_H_INCLUDED

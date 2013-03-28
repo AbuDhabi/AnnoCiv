@@ -2,6 +2,7 @@
 #define CITY_H_INCLUDED
 
 #define MAX_CITIES 255
+#define CITY_NO_PRODUCTION 0 // to put in the production type and order fields
 
 /// TODO: Update this shit to the new paradigm
 
@@ -16,6 +17,7 @@ typedef struct City {
     short budget_infrastructure; // value/(sum-of-values) is how much you get
     short budget_population;  // based on city stuff
     float accumulated_production;
+    int production_type; // unit type (ground, air, sea)
     unsigned int production_order; // unit flag
     int growth_counter; // city growth thing, more means growth
 

@@ -1,14 +1,22 @@
 #ifndef UNIT_H_INCLUDED
 #define UNIT_H_INCLUDED
 
-#define MAX_UNITS 65535
-#define UNIT_TYPE_AIR 1
-#define UNIT_TYPE_GROUND 2
-#define UNIT_TYPE_SEA 3
+// PRIMARY is the base type, and is shown on the icon
+// SECONDARY is a subtype, and is shown on the icon, there may be more than one. Specials go here. Mere bonuses don't.
+// Otherwise, they are tertiary and not shown on the icon, but on the sidebar
 
-#define UNIT_FLAG_SETTLER 1 // can make cities, eats food?
-#define UNIT_FLAG_ENGINEER 2 // can terraform terrain
-#define UNIT_FLAG_CAVALRY 4 // more move, early
+#define MAX_UNITS 65535
+#define TOO_MANY_UNITS 1
+#define UNIT_INACTIVE -1
+#define UNIT_ACTIVE 1
+
+#define UNIT_TYPE_AIR 1 // PRIMARY
+#define UNIT_TYPE_GROUND 2 // PRIMARY
+#define UNIT_TYPE_SEA 3 // PRIMARY
+
+#define UNIT_FLAG_SETTLER 1 // can make cities, eats food? // SECONDARY
+#define UNIT_FLAG_ENGINEER 2 // can terraform terrain // SECONDARY
+#define UNIT_FLAG_CAVALRY 4 // more move, early (merge with scouts?)
 #define UNIT_FLAG_MECHANIZED 8 // even more move, later
 #define UNIT_FLAG_ARMORED 16 // more hit points, etc, less move
 #define UNIT_FLAG_ELITE 32 // more combat power in general
@@ -19,13 +27,14 @@
 #define UNIT_FLAG_MISSILE 1024 // additional firepower
 #define UNIT_FLAG_ANTIAIR 2048 // good vs air units
 #define UNIT_FLAG_ANTITANK 4096 // good vs mechanized/armored units
-#define UNIT_FLAG_ATROCITY 8192 // more firepower, but damages reputation
+#define UNIT_FLAG_ATROCITY 8192 // more firepower, but damages reputation // SECONDARY
 #define UNIT_FLAG_SCOUT 16384 // sees 2 squares around, can detects invisibles
-#define UNIT_FLAG_INFILTRATOR 32768 // can perform spy tricks
+#define UNIT_FLAG_INFILTRATOR 32768 // can perform spy tricks // SECONDARY
 
 // missing: status (sentry, fortified, etc)
 
 typedef struct Unit {
+    int active; // whether the unit is active or not
     int type; // as defined above
     int x;
     int y;

@@ -8,7 +8,7 @@ Unit get_unit(int id) {
 int get_last_unit_id() {
     int id=0;
     for (int i=0;i<MAX_UNITS;i++) {
-        if (gs.units[i].hp >0) id = i;
+        if (gs.units[i].active == UNIT_ACTIVE) id = i;
     }
     return id;
 }
@@ -51,6 +51,10 @@ void unit_combat(int attacker_id, int defender_id, Tile place) {
             // end hack
         }
     }
+    
+    // making sure dead units are deactivated
+    if (gs.units[attacker_id].hp < 1) gs.units[attacker_id].active = UNIT_INACTIVE;
+    if (gs.units[defender_id].hp < 1) gs.units[defender_id].active = UNIT_INACTIVE;
      
     
     // total placeholder
@@ -103,6 +107,7 @@ Unit mould_unit(int type, int flags) {
     if (temp.flags & UNIT_FLAG_ARMORED) {
         // more hp, more cost, less move
         temp.hp += 10;
+        temp.maxhp += 10;
         temp.maxmove -= 1;
         temp.curmove -= 1;
         temp.cost += 20;
@@ -205,4 +210,25 @@ Unit mould_unit(int type, int flags) {
     
     
     return temp;
+}
+
+// put the unit into the unit registry
+int spawn_unit(Unit unit, int x, int y, int faction) {
+    // find spot for unit
+    bool found = false;
+    int i=0; 
+    while (!found) {
+        if (gs.units[i].active == UNIT_INACTIVE) found = true;
+        if (!found && i == MAX_UNITS) return TOO_MANY_UNITS; // error code
+        if (found) i--;
+        i++;
+    }
+    unit.x = x;
+    unit.y = y;
+    unit.faction_id = faction;
+    unit.active = UNIT_ACTIVE;
+    gs.units[i] = unit;
+    
+    
+    return 0;
 }

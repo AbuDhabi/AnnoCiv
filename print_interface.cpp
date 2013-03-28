@@ -14,6 +14,8 @@ int print_interface() {
         put_text_at(0+5,7*64+5,temp);
         sprintf(temp,"City Value: %4.2f",appraise_city_value(gs.selected_thing));
         put_text_at(200+5,7*64+5,temp);
+        sprintf(temp,"Production: %d-%d", gs.cities[gs.selected_thing].production_type,gs.cities[gs.selected_thing].production_order);
+        put_text_at(200+5,7*64+20,temp);
         // budget
         sprintf(temp,"Money: %d",gs.cities[gs.selected_thing].budget_money);
         put_text_at(0+5,7*64+35,temp);
@@ -45,6 +47,10 @@ int print_interface() {
         put_text_at(0,0,temp);
         sprintf (temp,"curx %d, cury %d", gs.curx, gs.cury);
         put_text_at(0,10,temp);
+        sprintf (temp,"selected thing %d, selected type %d", gs.selected_thing, gs.selected_type);
+        put_text_at(0,20,temp);
+        sprintf (temp,"last unit ID: %d", get_last_unit_id());
+        put_text_at(0,30,temp);
     }
 
     return 0;

@@ -5,7 +5,7 @@ int do_game_setup_stuff(int args) {
     
     for (int i=0;i<MAX_UNITS;i++) {
         gs.units[i] = PROTOTYPE_INFANTRY;
-        gs.units[i].hp = 0; // so that they don't show up on cycling
+        gs.units[i].active = UNIT_INACTIVE; // so that they don't show up on cycling
     }
     
     for (int i=0;i<MAX_CITIES;i++) {
@@ -55,10 +55,11 @@ int do_game_setup_stuff(int args) {
         gs.cities[i].size = 1;
         gs.cities[i].faction_id = i;
         gs.gm.roads[rx][ry] = 1;
-        gs.units[i] = mould_unit(UNIT_TYPE_AIR,UNIT_FLAG_ANTIAIR|UNIT_FLAG_GUERILLA|UNIT_FLAG_ARTILLERY|UNIT_FLAG_ENGINEER|UNIT_FLAG_MISSILE);
-        gs.units[i].faction_id = i;
-        gs.units[i].x = rx;
-        gs.units[i].y = ry;
+        //gs.units[i] = mould_unit(UNIT_TYPE_AIR,UNIT_FLAG_ANTIAIR|UNIT_FLAG_GUERILLA|UNIT_FLAG_ARTILLERY|UNIT_FLAG_ENGINEER|UNIT_FLAG_MISSILE);
+        //gs.units[i].faction_id = i;
+        //gs.units[i].x = rx;
+        //gs.units[i].y = ry;
+        //gs.units[i].active = UNIT_ACTIVE;
         gs.cities[i].budget_infrastructure = rand()%21;
         gs.cities[i].budget_money = rand()%21;
         gs.cities[i].budget_population = rand()%21;

@@ -3,7 +3,7 @@
 
 int count_units() {
     int counter=0;
-    for (int i=0;i<MAX_UNITS;i++) if (gs.units[i].hp > 0) counter++;
+    for (int i=0;i<MAX_UNITS;i++) if (gs.units[i].active == UNIT_ACTIVE) counter++;
     return counter;
 }
 
@@ -73,12 +73,12 @@ int main_game_interface() {
     //int city=-1;
     // sanity checks, do take care to see that they are always used whenever unit count changes
     int unitcount, citycount;
-    unitcount = count_units();
-    citycount = count_cities();
     int oldx, oldy;
     
     bool done = false;
     while (!done) {
+        unitcount = count_units();
+        citycount = count_cities();
         
         SDL_Event event;
         while (SDL_PollEvent(&event))
@@ -90,11 +90,10 @@ int main_game_interface() {
             case SDL_QUIT:
                 done = true;
                 break;
-            /// TODO: Implement diagonal movement
                 // check for keypresses
             case SDL_KEYDOWN:
                 {
-                    if (event.key.keysym.sym == SDLK_LEFT) {
+                    if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_KP4) {
                         if (gs.selected_type == SELECTED_UNIT && gs.selected_thing >= 0) {
                             oldx = gs.units[gs.selected_thing].x;
                             gs.units[gs.selected_thing].x--; 
@@ -117,7 +116,7 @@ int main_game_interface() {
                         print_map(gs.curx,gs.cury);
                         break;
                     }
-                    if (event.key.keysym.sym == SDLK_RIGHT) {
+                    if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_KP6) {
                         if (gs.selected_type == SELECTED_UNIT && gs.selected_thing >= 0) {
                             oldx = gs.units[gs.selected_thing].x;
                             gs.units[gs.selected_thing].x++; 
@@ -140,7 +139,7 @@ int main_game_interface() {
                         print_map(gs.curx,gs.cury);
                         break;
                     }
-                    if (event.key.keysym.sym == SDLK_UP) {
+                    if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_KP8) {
                         if (gs.selected_type == SELECTED_UNIT && gs.selected_thing >= 0) {
                             oldy = gs.units[gs.selected_thing].y;
                             gs.units[gs.selected_thing].y--; 
@@ -163,7 +162,7 @@ int main_game_interface() {
                         print_map(gs.curx,gs.cury);
                         break;
                     }
-                    if (event.key.keysym.sym == SDLK_DOWN) {
+                    if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_KP2) {
                         if (gs.selected_type == SELECTED_UNIT && gs.selected_thing >= 0) {
                             oldy = gs.units[gs.selected_thing].y;
                             gs.units[gs.selected_thing].y++; 
@@ -186,8 +185,120 @@ int main_game_interface() {
                         print_map(gs.curx,gs.cury);
                         break;
                     }
-                    /// BUG: For some reason cycling cities doesn't give cursor focus
-                    if (event.key.keysym.sym == SDLK_c) {
+                    if (event.key.keysym.sym == SDLK_KP7) { // up-left
+                        if (gs.selected_type == SELECTED_UNIT && gs.selected_thing >= 0) {
+                            oldx = gs.units[gs.selected_thing].x;
+                            oldy = gs.units[gs.selected_thing].y;
+                            gs.units[gs.selected_thing].x--; 
+                            gs.units[gs.selected_thing].y--;
+                            if (!sanitize_unit_coords(gs.selected_thing) && gs.units[gs.selected_thing].curmove > 0 && is_unit_allowed_there(gs.selected_thing)) { 
+                                gs.units[gs.selected_thing].curmove--;
+                                gs.curx = gs.units[gs.selected_thing].x-5;
+                                gs.cury = gs.units[gs.selected_thing].y-3;
+                                gs.selx = gs.units[gs.selected_thing].x;
+                                gs.sely = gs.units[gs.selected_thing].y;
+                                // combat here
+                                detect_and_do_combat(gs.selected_thing);
+                            } else {
+                                gs.units[gs.selected_thing].x = oldx; 
+                                gs.units[gs.selected_thing].y = oldy; 
+                            }
+                        } else {
+                            gs.curx--; 
+                            gs.cury--;
+                            gs.selx--;
+                            gs.sely--;
+                        }
+                        sanitize_coords();
+                        print_map(gs.curx,gs.cury);
+                        break;
+                    }
+                    if (event.key.keysym.sym == SDLK_KP9) { // up-right
+                        if (gs.selected_type == SELECTED_UNIT && gs.selected_thing >= 0) {
+                            oldx = gs.units[gs.selected_thing].x;
+                            oldy = gs.units[gs.selected_thing].y;
+                            gs.units[gs.selected_thing].x++; 
+                            gs.units[gs.selected_thing].y--;
+                            if (!sanitize_unit_coords(gs.selected_thing) && gs.units[gs.selected_thing].curmove > 0 && is_unit_allowed_there(gs.selected_thing)) { 
+                                gs.units[gs.selected_thing].curmove--;
+                                gs.curx = gs.units[gs.selected_thing].x-5;
+                                gs.cury = gs.units[gs.selected_thing].y-3;
+                                gs.selx = gs.units[gs.selected_thing].x;
+                                gs.sely = gs.units[gs.selected_thing].y;
+                                // combat here
+                                detect_and_do_combat(gs.selected_thing);
+                            } else {
+                                gs.units[gs.selected_thing].x = oldx; 
+                                gs.units[gs.selected_thing].y = oldy; 
+                            }
+                        } else {
+                            gs.curx++; 
+                            gs.cury--;
+                            gs.selx++;
+                            gs.sely--;
+                        }
+                        sanitize_coords();
+                        print_map(gs.curx,gs.cury);
+                        break;
+                    }
+                    if (event.key.keysym.sym == SDLK_KP1) { // down-left
+                        if (gs.selected_type == SELECTED_UNIT && gs.selected_thing >= 0) {
+                            oldx = gs.units[gs.selected_thing].x;
+                            oldy = gs.units[gs.selected_thing].y;
+                            gs.units[gs.selected_thing].x--; 
+                            gs.units[gs.selected_thing].y++;
+                            if (!sanitize_unit_coords(gs.selected_thing) && gs.units[gs.selected_thing].curmove > 0 && is_unit_allowed_there(gs.selected_thing)) { 
+                                gs.units[gs.selected_thing].curmove--;
+                                gs.curx = gs.units[gs.selected_thing].x-5;
+                                gs.cury = gs.units[gs.selected_thing].y-3;
+                                gs.selx = gs.units[gs.selected_thing].x;
+                                gs.sely = gs.units[gs.selected_thing].y;
+                                // combat here
+                                detect_and_do_combat(gs.selected_thing);
+                            } else {
+                                gs.units[gs.selected_thing].x = oldx; 
+                                gs.units[gs.selected_thing].y = oldy; 
+                            }
+                        } else {
+                            gs.curx--; 
+                            gs.cury++;
+                            gs.selx--;
+                            gs.sely++;
+                        }
+                        sanitize_coords();
+                        print_map(gs.curx,gs.cury);
+                        break;
+                    }
+                    if (event.key.keysym.sym == SDLK_KP3) { // down-right
+                        if (gs.selected_type == SELECTED_UNIT && gs.selected_thing >= 0) {
+                            oldx = gs.units[gs.selected_thing].x;
+                            oldy = gs.units[gs.selected_thing].y;
+                            gs.units[gs.selected_thing].x++; 
+                            gs.units[gs.selected_thing].y++;
+                            if (!sanitize_unit_coords(gs.selected_thing) && gs.units[gs.selected_thing].curmove > 0 && is_unit_allowed_there(gs.selected_thing)) { 
+                                gs.units[gs.selected_thing].curmove--;
+                                gs.curx = gs.units[gs.selected_thing].x-5;
+                                gs.cury = gs.units[gs.selected_thing].y-3;
+                                gs.selx = gs.units[gs.selected_thing].x;
+                                gs.sely = gs.units[gs.selected_thing].y;
+                                // combat here
+                                detect_and_do_combat(gs.selected_thing);
+                            } else {
+                                gs.units[gs.selected_thing].x = oldx; 
+                                gs.units[gs.selected_thing].y = oldy; 
+                            }
+                        } else {
+                            gs.curx++; 
+                            gs.cury++;
+                            gs.selx++;
+                            gs.sely++;
+                        }
+                        sanitize_coords();
+                        print_map(gs.curx,gs.cury);
+                        break;
+                    }
+                    /// BUG: The city with 12 pop isn't getting cursor focus
+                    if (event.key.keysym.sym == SDLK_c) { // cycle city
                         // find the next extant city
                         // sanity check for now, redo later
                         if (gs.selected_type == SELECTED_UNIT || gs.selected_type == -1 || gs.selected_thing == -1) { 
@@ -208,14 +319,15 @@ int main_game_interface() {
                         print_map(gs.curx,gs.cury);
                         break;
                     }
-                    if (event.key.keysym.sym == SDLK_u) {
+                    if (event.key.keysym.sym == SDLK_u) { // cycle unit
                         // find the next extant unit
                         // sanity check for now, redo later
                         if (gs.selected_type == SELECTED_CITY || gs.selected_type == -1 || gs.selected_thing == -1) { 
                             gs.selected_type = SELECTED_UNIT;
                             gs.selected_thing = -1;
                         }
-                        if (unitcount == 0) break;
+                        if (unitcount == 0) break; // no active units, go away
+                        // finds the closest active unit and centers on it
                         do {
                             gs.selected_thing++;
                             if (gs.selected_thing >= MAX_UNITS) gs.selected_thing = 0;
@@ -223,21 +335,10 @@ int main_game_interface() {
                             gs.cury = gs.units[gs.selected_thing].y;
                             gs.selx = gs.units[gs.selected_thing].x;
                             gs.sely = gs.units[gs.selected_thing].y;
-                        } while (gs.units[gs.selected_thing].hp < 1);
+                        } while (gs.units[gs.selected_thing].active == UNIT_INACTIVE);
                         gs.curx -= 5; gs.cury -= 3;
                         sanitize_coords();
                         print_map(gs.curx,gs.cury);
-                        break;
-                    }
-                    if (event.key.keysym.sym == SDLK_s) {
-                        return CODE_SAVE_GAME;
-                    }
-                    if (event.key.keysym.sym == SDLK_ESCAPE) {
-                        return CODE_MAIN_MENU;
-                    }
-                    if (event.key.keysym.sym == SDLK_BACKSPACE) {
-                        // end turn hack
-                        do_turn();
                         break;
                     }
                     // Build city command!
@@ -252,13 +353,28 @@ int main_game_interface() {
                         build_new_city(gs.units[gs.selected_thing].x,gs.units[gs.selected_thing].y,gs.units[gs.selected_thing].faction_id);
                         break;
                     }
-                    if (event.key.keysym.sym == SDLK_s) {
-                        return CODE_SAVE_GAME;
+                    if (event.key.keysym.sym == SDLK_p) { // production
+                        if (gs.selected_type != SELECTED_CITY) break; // no city selected
+                        if (gs.selected_thing == -1) break; // nothing selected
+                        
+                        // placeholder code until I can think of something better
+                        // toggles production of random unit
+                        if (gs.cities[gs.selected_thing].production_order == CITY_NO_PRODUCTION) {
+                            gs.cities[gs.selected_thing].production_order = rand()%65536; // fix this later, should be a parameter or something
+                            gs.cities[gs.selected_thing].production_type = rand()%3+1; // random type
+                        } else {
+                            gs.cities[gs.selected_thing].production_order = CITY_NO_PRODUCTION;
+                        }
+                        
+                        
                     }
-                    if (event.key.keysym.sym == SDLK_ESCAPE) {
+                    if (event.key.keysym.sym == SDLK_s) { // save
+                        return CODE_SAVE_GAME;
+                    } 
+                    if (event.key.keysym.sym == SDLK_ESCAPE) { // quit
                         return CODE_MAIN_MENU;
                     }
-                    if (event.key.keysym.sym == SDLK_BACKSPACE) {
+                    if (event.key.keysym.sym == SDLK_BACKSPACE) { // turn
                         // end turn hack
                         do_turn();
                         break;

@@ -83,12 +83,11 @@ int print_map(int x,int y) {
                 }
             }
             // units
-            /// BUG: the 9th unit for some reason doesn't print
             int r,g,b;
             int healthbar_length;
             int symbolcount=0;
             Sint16 vx[3], vy[3];
-            for (int k=0;k<lastunit;k++) {
+            for (int k=0;k<=lastunit;k++) {
                 if (gs.units[k].hp > 0) {
                     if (i==gs.units[k].x && j==gs.units[k].y) {
                         /// TODO: complete figuring out the edge cases

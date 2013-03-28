@@ -92,6 +92,7 @@ int build_new_city(int x, int y, int faction) {
 int resolve_city_turn(int city_id) {
     // this is mostly a placeholder so far
     city_growth(city_id);
+    city_production(city_id);
     
     return 0;
 }
@@ -141,10 +142,17 @@ int city_growth(int city_id) {
 
 // handles city production
 int city_production(int city_id) {
-    
-    
-    
-    
+    // check if the city is to produce anything
+    if (gs.cities[city_id].production_type != CITY_NO_PRODUCTION && gs.cities[city_id].production_order != CITY_NO_PRODUCTION) {
+        // spawn a unit with designated type and flags
+        int type = gs.cities[city_id].production_type;
+        int flags = gs.cities[city_id].production_order;
+        int x = gs.cities[city_id].x;
+        int y = gs.cities[city_id].y;
+        int faction = gs.cities[city_id].faction_id;
+        Unit unit = mould_unit(type, flags);
+        spawn_unit(unit,x,y,faction);
+    }
     
     return 0;
 }
