@@ -297,7 +297,6 @@ int main_game_interface() {
                         print_map(gs.curx,gs.cury);
                         break;
                     }
-                    /// BUG: The city with 12 pop isn't getting cursor focus
                     if (event.key.keysym.sym == SDLK_c) { // cycle city
                         // find the next extant city
                         // sanity check for now, redo later
@@ -311,8 +310,8 @@ int main_game_interface() {
                             if (gs.selected_thing >= MAX_CITIES) gs.selected_thing = 0;
                             gs.curx = gs.cities[gs.selected_thing].x;
                             gs.cury = gs.cities[gs.selected_thing].y;
-                            gs.selx = gs.units[gs.selected_thing].x;
-                            gs.sely = gs.units[gs.selected_thing].y;
+                            gs.selx = gs.cities[gs.selected_thing].x;
+                            gs.sely = gs.cities[gs.selected_thing].y;
                         } while (gs.cities[gs.selected_thing].size < 1);
                         gs.curx -= 5; gs.cury -= 3;
                         sanitize_coords();

@@ -255,8 +255,6 @@ int print_map(int x,int y) {
     //mody = (3)*64; // ''
     
     // cursor printing
-    /// BUG: city 0 doesn't give a cursor
-    /// cursor instead jumps to a unit, the 0th unit?
     for (int i=x;i<x+10;i++) {
         for (int j=y;j<y+7;j++) {
             // is the cursor location on this spot?

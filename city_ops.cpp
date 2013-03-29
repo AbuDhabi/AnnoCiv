@@ -8,7 +8,7 @@
 #define BUDGET_POPULATION 5
 
 /// TODO: Improve city growth scheme
-/// TODO: Make a unit production scheme
+/// TODO: Improve unit production scheme
 /// TODO: Make a research scheme
 /// TODO: Make a treasury scheme
 /// TODO: Make an infrastructure scheme
@@ -140,6 +140,7 @@ int city_growth(int city_id) {
     }
 }
 
+/// TODO: Make this actually do something useful
 // handles city production
 int city_production(int city_id) {
     // check if the city is to produce anything

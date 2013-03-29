@@ -51,6 +51,7 @@
 		<Unit filename="header.h" />
 		<Unit filename="language_ops.cpp" />
 		<Unit filename="load_media.cpp" />
+		<Unit filename="log.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main_game_interface.cpp" />
 		<Unit filename="main_menu.cpp" />
