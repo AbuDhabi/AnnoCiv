@@ -7,6 +7,7 @@
 
 typedef struct GameState {
     long unsigned int turn;
+    int player_faction; // which faction is the human player's?
     GameMap gm;
     City cities[MAX_CITIES];
     Unit units[MAX_UNITS];

@@ -21,6 +21,7 @@ typedef struct Faction {
     SDL_Color color;
     Language language; // the language the faction uses for names and stuff
     Unit unit_types[FACTION_MAX_UNIT_TYPES];
+    int money; // budgetary reserve of the faction
 } Faction;
 
 #endif // FACTION_H_INCLUDED

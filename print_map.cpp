@@ -9,23 +9,23 @@ int print_map(int x,int y) {
             // tiles
             print_image_at((i-x)*64,(j-y)*64,BITMAPS[gs.gm.tiles[i][j].tile_id]);
             // any river on the tile?
-            if (gs.gm.rivers[i][j] == 1) { /// TODO: Improve prettiness
+            if (gs.gm.tiles[i][j].flags&TILE_FLAGS_RIVER) { /// TODO: Improve prettiness
                 int done=0;
-                if ((are_coords_valid(i-1,j-1) && (gs.gm.rivers[i-1][j-1] == 1 || gs.gm.tiles[i-1][j-1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i-1,j-1)) {
+                if ((are_coords_valid(i-1,j-1) && (gs.gm.tiles[i-1][j-1].flags&TILE_FLAGS_RIVER || gs.gm.tiles[i-1][j-1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i-1,j-1)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64,(j-y)*64,(i-x)*64+32,(j-y)*64+32,0,0,150,255); done++;}
-                if ((are_coords_valid(i,j-1) && (gs.gm.rivers[i][j-1] == 1 || gs.gm.tiles[i][j-1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i,j-1))  {
+                if ((are_coords_valid(i,j-1) && (gs.gm.tiles[i][j-1].flags&TILE_FLAGS_RIVER || gs.gm.tiles[i][j-1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i,j-1))  {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64,(i-x)*64+32,(j-y)*64+32,0,0,150,255);done++;}
-                if ((are_coords_valid(i+1,j-1) && (gs.gm.rivers[i+1][j-1] == 1 || gs.gm.tiles[i+1][j-1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i+1,j-1)) {
+                if ((are_coords_valid(i+1,j-1) && (gs.gm.tiles[i+1][j-1].flags&TILE_FLAGS_RIVER || gs.gm.tiles[i+1][j-1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i+1,j-1)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+63,(j-y)*64,(i-x)*64+32,(j-y)*64+32,0,0,150,255);done++;}
-                if ((are_coords_valid(i-1,j) && (gs.gm.rivers[i-1][j] == 1 || gs.gm.tiles[i-1][j].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i-1,j)) {
+                if ((are_coords_valid(i-1,j) && (gs.gm.tiles[i-1][j].flags&TILE_FLAGS_RIVER || gs.gm.tiles[i-1][j].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i-1,j)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64,(j-y)*64+32,(i-x)*64+32,(j-y)*64+32,0,0,150,255);done++;}
-                if ((are_coords_valid(i+1,j) && (gs.gm.rivers[i+1][j] == 1 || gs.gm.tiles[i+1][j].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i+1,j)) {
+                if ((are_coords_valid(i+1,j) && (gs.gm.tiles[i+1][j].flags&TILE_FLAGS_RIVER || gs.gm.tiles[i+1][j].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i+1,j)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+63,(j-y)*64+32,(i-x)*64+32,(j-y)*64+32,0,0,150,255); done++;}
-                if ((are_coords_valid(i-1,j+1) && (gs.gm.rivers[i-1][j+1] == 1 || gs.gm.tiles[i-1][j+1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i-1,j+1)) {
+                if ((are_coords_valid(i-1,j+1) && (gs.gm.tiles[i-1][j+1].flags&TILE_FLAGS_RIVER || gs.gm.tiles[i-1][j+1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i-1,j+1)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64,(j-y)*64+63,(i-x)*64+32,(j-y)*64+32,0,0,150,255); done++;}
-                if ((are_coords_valid(i,j+1) && (gs.gm.rivers[i][j+1] == 1 || gs.gm.tiles[i][j+1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i,j+1)) {
+                if ((are_coords_valid(i,j+1) && (gs.gm.tiles[i][j+1].flags&TILE_FLAGS_RIVER || gs.gm.tiles[i][j+1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i,j+1)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+63,(i-x)*64+32,(j-y)*64+32,0,0,150,255); done++;}
-                if ((are_coords_valid(i+1,j+1) && (gs.gm.rivers[i+1][j+1] == 1 || gs.gm.tiles[i+1][j+1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i+1,j+1)) {
+                if ((are_coords_valid(i+1,j+1) && (gs.gm.tiles[i+1][j+1].flags&TILE_FLAGS_RIVER || gs.gm.tiles[i+1][j+1].tile_id == IMG_TILE_WATER)) || !are_coords_valid(i+1,j+1)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+63,(j-y)*64+63,(i-x)*64+32,(j-y)*64+32,0,0,150,255); done++;}
                 if (done == 0) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+16,(j-y)*64+16,(i-x)*64+48,(j-y)*64+48,0,0,150,255);
@@ -36,23 +36,23 @@ int print_map(int x,int y) {
             }
             // any road on the tile?
             /// TODO: Improve prettiness
-            if (gs.gm.roads[i][j] == 1) {
+            if (gs.gm.tiles[i][j].flags&TILE_FLAGS_ROAD) {
                 int done=0;
-                if (are_coords_valid(i-1,j-1) && (gs.gm.roads[i-1][j-1] == 1)) {
+                if (are_coords_valid(i-1,j-1) && (gs.gm.tiles[i-1][j-1].flags&TILE_FLAGS_ROAD)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64,(j-y)*64,(i-x)*64+32,(j-y)*64+32,0,0,0,255); done++;}
-                if (are_coords_valid(i,j-1) && (gs.gm.roads[i][j-1] == 1)) {
+                if (are_coords_valid(i,j-1) && (gs.gm.tiles[i][j-1].flags&TILE_FLAGS_ROAD)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64,(i-x)*64+32,(j-y)*64+32,0,0,0,255); done++;}
-                if (are_coords_valid(i+1,j-1) && (gs.gm.roads[i+1][j-1] == 1)) {
+                if (are_coords_valid(i+1,j-1) && (gs.gm.tiles[i+1][j-1].flags&TILE_FLAGS_ROAD)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+63,(j-y)*64,(i-x)*64+32,(j-y)*64+32,0,0,0,255); done++;}
-                if (are_coords_valid(i-1,j) && (gs.gm.roads[i-1][j] == 1)) {
+                if (are_coords_valid(i-1,j) && (gs.gm.tiles[i-1][j].flags&TILE_FLAGS_ROAD)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64,(j-y)*64+32,(i-x)*64+32,(j-y)*64+32,0,0,0,255); done++;}
-                if (are_coords_valid(i+1,j) && (gs.gm.roads[i+1][j] == 1)) {
+                if (are_coords_valid(i+1,j) && (gs.gm.tiles[i+1][j].flags&TILE_FLAGS_ROAD)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+63,(j-y)*64+32,(i-x)*64+32,(j-y)*64+32,0,0,0,255); done++;}
-                if (are_coords_valid(i-1,j+1) && (gs.gm.roads[i-1][j+1] == 1)) {
+                if (are_coords_valid(i-1,j+1) && (gs.gm.tiles[i-1][j+1].flags&TILE_FLAGS_ROAD)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64,(j-y)*64+63,(i-x)*64+32,(j-y)*64+32,0,0,0,255); done++;}
-                if (are_coords_valid(i,j+1) && (gs.gm.roads[i][j+1] == 1)) {
+                if (are_coords_valid(i,j+1) && (gs.gm.tiles[i][j+1].flags&TILE_FLAGS_ROAD)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+63,(i-x)*64+32,(j-y)*64+32,0,0,0,255); done++;}
-                if (are_coords_valid(i+1,j+1) && (gs.gm.roads[i+1][j+1] == 1)) {
+                if (are_coords_valid(i+1,j+1) && (gs.gm.tiles[i+1][j+1].flags&TILE_FLAGS_ROAD)) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+63,(j-y)*64+63,(i-x)*64+32,(j-y)*64+32,0,0,0,255); done++;}
                 if (done == 0) {
                     lineRGBA(MAIN_SCREEN,(i-x)*64+16,(j-y)*64+16,(i-x)*64+48,(j-y)*64+48,0,0,0,255);
@@ -101,7 +101,7 @@ int print_map(int x,int y) {
                             if (gs.units[k].flags & (UNIT_FLAG_CAVALRY|UNIT_FLAG_SCOUT)) {
                                 // this is a recon/cavalry unit
                                 // one diagonal line
-                                lineRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+48,(i-x)*64+52,(j-y)*64+12,0,0,0,255);
+                                lineRGBA(MAIN_SCREEN,(i-x)*64+52,(j-y)*64+16,(i-x)*64+12,(j-y)*64+48,0,0,0,255);
                             } else {
                                 // otherwise assume it's infantry
                                 lineRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+16,(i-x)*64+52,(j-y)*64+48,0,0,0,255);
@@ -183,14 +183,14 @@ int print_map(int x,int y) {
                             // first triangle
                             vx[0] = (i-x)*64+28; vx[1] = (i-x)*64+32; vx[2] = (i-x)*64+36;
                             vy[0] = (j-y)*64+32; vy[1] = (j-y)*64+28; vy[2] = (j-y)*64+32;
-                            for (int i=0;i<3;i++) vx[i] += get_symbol_offset_x(symbolcount);
-                            for (int i=0;i<3;i++) vy[i] += get_symbol_offset_y(symbolcount);
+                            for (int ii=0;i<3;i++) vx[ii] += get_symbol_offset_x(symbolcount);
+                            for (int ii=0;i<3;i++) vy[ii] += get_symbol_offset_y(symbolcount);
                             filledPolygonRGBA(MAIN_SCREEN, vx,vy, 3, 0, 0,0, 255);
                             // second triangle
                             vx[0] = (i-x)*64+28; vx[1] = (i-x)*64+32; vx[2] = (i-x)*64+36;
                             vy[0] = (j-y)*64+36; vy[1] = (j-y)*64+32; vy[2] = (j-y)*64+36;
-                            for (int i=0;i<3;i++) vx[i] += get_symbol_offset_x(symbolcount);
-                            for (int i=0;i<3;i++) vy[i] += get_symbol_offset_y(symbolcount);
+                            for (int ii=0;i<3;i++) vx[ii] += get_symbol_offset_x(symbolcount);
+                            for (int ii=0;i<3;i++) vy[ii] += get_symbol_offset_y(symbolcount);
                             filledPolygonRGBA(MAIN_SCREEN, vx,vy, 3, 0, 0,0, 255);
                             // vertical line
                             lineRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+28+get_symbol_offset_y(symbolcount),

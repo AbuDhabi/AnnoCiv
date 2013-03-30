@@ -19,6 +19,7 @@ typedef struct City {
     float accumulated_production;
     int production_type; // unit type (ground, air, sea)
     unsigned int production_order; // unit flag
+    int production_counter; // accumulated progress
     int growth_counter; // city growth thing, more means growth
 
 } City;

@@ -32,33 +32,33 @@ bool any_surrounding_tile_match(int x, int y, int tile_code) {
 }
 
 bool any_surrounding_unvisited_river(int x, int y) {
-    if ((gs.gm.rivers[x+1][y+1] == 1) && (gs.gm.roads[x+1][y+1] == 0) && are_coords_valid(x+1,y+1)) { return true; }
-    if ((gs.gm.rivers[x+1][y] == 1) && (gs.gm.roads[x+1][y] == 0) && are_coords_valid(x+1,y)) { return true; }
-    if ((gs.gm.rivers[x+1][y-1] == 1) && (gs.gm.roads[x+1][y-1] == 0) && are_coords_valid(x+1,y-1)) { return true; }
-    if ((gs.gm.rivers[x][y+1] == 1) && (gs.gm.roads[x][y+1] == 0) && are_coords_valid(x,y+1)) { return true; }
-    if ((gs.gm.rivers[x][y-1] == 1) && (gs.gm.roads[x][y-1] == 0) && are_coords_valid(x,y-1)) { return true; }
-    if ((gs.gm.rivers[x-1][y+1] == 1) && (gs.gm.roads[x-1][y+1] == 0) && are_coords_valid(x-1,y+1)) { return true; }
-    if ((gs.gm.rivers[x-1][y] == 1) && (gs.gm.roads[x-1][y] == 0) && are_coords_valid(x-1,y)) { return true; }
-    if ((gs.gm.rivers[x-1][y-1] == 1) && (gs.gm.roads[x-1][y-1] == 0) && are_coords_valid(x-1,y-1)) { return true; }
+    if ((gs.gm.tiles[x+1][y+1].flags&TILE_FLAGS_RIVER) && !(gs.gm.tiles[x+1][y+1].flags&TILE_FLAGS_ROAD) && are_coords_valid(x+1,y+1)) { return true; }
+    if ((gs.gm.tiles[x+1][y].flags&TILE_FLAGS_RIVER) && !(gs.gm.tiles[x+1][y].flags&TILE_FLAGS_ROAD) && are_coords_valid(x+1,y)) { return true; }
+    if ((gs.gm.tiles[x+1][y-1].flags&TILE_FLAGS_RIVER) && !(gs.gm.tiles[x+1][y-1].flags&TILE_FLAGS_ROAD) && are_coords_valid(x+1,y-1)) { return true; }
+    if ((gs.gm.tiles[x][y+1].flags&TILE_FLAGS_RIVER) && !(gs.gm.tiles[x][y+1].flags&TILE_FLAGS_ROAD) && are_coords_valid(x,y+1)) { return true; }
+    if ((gs.gm.tiles[x][y-1].flags&TILE_FLAGS_RIVER) && !(gs.gm.tiles[x][y-1].flags&TILE_FLAGS_ROAD) && are_coords_valid(x,y-1)) { return true; }
+    if ((gs.gm.tiles[x-1][y+1].flags&TILE_FLAGS_RIVER) && !(gs.gm.tiles[x-1][y+1].flags&TILE_FLAGS_ROAD) && are_coords_valid(x-1,y+1)) { return true; }
+    if ((gs.gm.tiles[x-1][y].flags&TILE_FLAGS_RIVER) && !(gs.gm.tiles[x-1][y].flags&TILE_FLAGS_ROAD) && are_coords_valid(x-1,y)) { return true; }
+    if ((gs.gm.tiles[x-1][y-1].flags&TILE_FLAGS_RIVER) && !(gs.gm.tiles[x-1][y-1].flags&TILE_FLAGS_ROAD) && are_coords_valid(x-1,y-1)) { return true; }
     
     return false;
 }
 
 bool any_available_spaces_to_go(int x, int y) {
-    if (are_coords_valid(x+1,y+1) && (gs.gm.roads[x+1][y+1] == 0)) { return true; }
-    if (are_coords_valid(x+1,y) && (gs.gm.roads[x+1][y] == 0)) { return true; }
-    if (are_coords_valid(x+1,y-1) && (gs.gm.roads[x+1][y-1] == 0)) { return true; }
-    if (are_coords_valid(x,y+1) && (gs.gm.roads[x][y+1] == 0)) { return true; }
-    if (are_coords_valid(x,y-1) && (gs.gm.roads[x][y-1] == 0)) { return true; }
-    if (are_coords_valid(x-1,y+1) && (gs.gm.roads[x-1][y+1] == 0)) { return true; }
-    if (are_coords_valid(x-1,y) && (gs.gm.roads[x-1][y] == 0)) { return true; }
-    if (are_coords_valid(x-1,y-1) && (gs.gm.roads[x-1][y-1] == 0)) { return true; }
+    if (are_coords_valid(x+1,y+1) && !(gs.gm.tiles[x+1][y+1].flags&TILE_FLAGS_ROAD)) { return true; }
+    if (are_coords_valid(x+1,y) && !(gs.gm.tiles[x+1][y].flags&TILE_FLAGS_ROAD)) { return true; }
+    if (are_coords_valid(x+1,y-1) && !(gs.gm.tiles[x+1][y-1].flags&TILE_FLAGS_ROAD)) { return true; }
+    if (are_coords_valid(x,y+1) && !(gs.gm.tiles[x][y+1].flags&TILE_FLAGS_ROAD)) { return true; }
+    if (are_coords_valid(x,y-1) && !(gs.gm.tiles[x][y-1].flags&TILE_FLAGS_ROAD)) { return true; }
+    if (are_coords_valid(x-1,y+1) && !(gs.gm.tiles[x-1][y+1].flags&TILE_FLAGS_ROAD)) { return true; }
+    if (are_coords_valid(x-1,y) && !(gs.gm.tiles[x-1][y].flags&TILE_FLAGS_ROAD)) { return true; }
+    if (are_coords_valid(x-1,y-1) && !(gs.gm.tiles[x-1][y-1].flags&TILE_FLAGS_ROAD)) { return true; }
     
     return false;
 }
 
 bool valid_spot(int x, int y) {
-    if (are_coords_valid(x,y) && (gs.gm.roads[x][y] == 0)) return true;
+    if (are_coords_valid(x,y) && !(gs.gm.tiles[x][y].flags&TILE_FLAGS_ROAD)) return true;
     return false;
 }
 
@@ -69,8 +69,8 @@ int generate_map (int seed, int params) {
     for (int i=0;i<MAX_GAME_MAP_X;i++) {
         for (int j=0;j<MAX_GAME_MAP_Y;j++) {
             gs.gm.tiles[i][j]=TILE_ARCTIC;
-            gs.gm.rivers[i][j]=0;
-            gs.gm.roads[i][j]=0;
+            //gs.gm.rivers[i][j]=0;
+            //gs.gm.roads[i][j]=0;
         }
     }
     
@@ -84,27 +84,27 @@ int generate_map (int seed, int params) {
             }
         }
     }
-    // passes of adding water, assigning to rivers as a placeholder
+    // passes of adding water, assigning to flags as a placeholder
     for (int k=0;k<5;k++) {
         for (int i=0;i<MAX_GAME_MAP_X;i++) {
             for (int j=0;j<MAX_GAME_MAP_Y;j++) {
                 if (gs.gm.tiles[i][j].tile_id == IMG_TILE_WATER) {
-                    if (rand()%100 < 10 && j-1 > 0) gs.gm.rivers[i][j-1] = IMG_TILE_WATER;
-                    if (rand()%100 < 10 && j-1 > 0 && i+1 < MAX_GAME_MAP_X) gs.gm.rivers[i+1][j-1] = IMG_TILE_WATER;
-                    if (rand()%100 < 10 && j-1 > 0 && i-1 > 0) gs.gm.rivers[i-1][j-1] = IMG_TILE_WATER;
-                    if (rand()%100 < 10 && i+1 < MAX_GAME_MAP_X) gs.gm.rivers[i+1][j] = IMG_TILE_WATER;
-                    if (rand()%100 < 10 && i-1 > 0) gs.gm.rivers[i-1][j] = IMG_TILE_WATER;
-                    if (rand()%100 < 10 && j+1 < MAX_GAME_MAP_Y && i+1 < MAX_GAME_MAP_X) gs.gm.rivers[i+1][j+1] = IMG_TILE_WATER;
-                    if (rand()%100 < 10 && j+1 < MAX_GAME_MAP_Y) gs.gm.rivers[i][j+1] = IMG_TILE_WATER;
-                    if (rand()%100 < 10 && i-1 > 0 && j+1 < MAX_GAME_MAP_Y) gs.gm.rivers[i-1][j+1] = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && j-1 > 0) gs.gm.tiles[i][j-1].flags = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && j-1 > 0 && i+1 < MAX_GAME_MAP_X) gs.gm.tiles[i+1][j-1].flags = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && j-1 > 0 && i-1 > 0) gs.gm.tiles[i-1][j-1].flags = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && i+1 < MAX_GAME_MAP_X) gs.gm.tiles[i+1][j].flags = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && i-1 > 0) gs.gm.tiles[i-1][j].flags = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && j+1 < MAX_GAME_MAP_Y && i+1 < MAX_GAME_MAP_X) gs.gm.tiles[i+1][j+1].flags = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && j+1 < MAX_GAME_MAP_Y) gs.gm.tiles[i][j+1].flags = IMG_TILE_WATER;
+                    if (rand()%100 < 10 && i-1 > 0 && j+1 < MAX_GAME_MAP_Y) gs.gm.tiles[i-1][j+1].flags = IMG_TILE_WATER;
                 }
             }
         }
         for (int i=0;i<MAX_GAME_MAP_X;i++) {
             for (int j=0;j<MAX_GAME_MAP_Y;j++) {
-                if (gs.gm.rivers[i][j] == IMG_TILE_WATER ) {
+                if (gs.gm.tiles[i][j].flags == IMG_TILE_WATER ) {
                     gs.gm.tiles[i][j]=TILE_WATER;
-                    gs.gm.rivers[i][j] = 0;
+                    //gs.gm.rivers[i][j] = 0;
                 }
             }
         }
@@ -281,8 +281,8 @@ int generate_map (int seed, int params) {
         do { // generate non-water, non-river-adjacent initial tile
             xx = rand()%MAX_GAME_MAP_X;
             yy = rand()%MAX_GAME_MAP_Y;
-        } while (gs.gm.tiles[xx][yy].tile_id == IMG_TILE_WATER || gs.gm.rivers[xx][yy] == 1 || any_surrounding_unvisited_river(xx,yy));
-        gs.gm.rivers[xx][yy] = 1; // place river here
+        } while (gs.gm.tiles[xx][yy].tile_id == IMG_TILE_WATER || gs.gm.tiles[xx][yy].flags&TILE_FLAGS_RIVER || any_surrounding_unvisited_river(xx,yy));
+        gs.gm.tiles[xx][yy].flags = gs.gm.tiles[xx][yy].flags|TILE_FLAGS_RIVER; // place river here
         
         while (!any_surrounding_tile_match(xx,yy,IMG_TILE_WATER) 
                && !any_surrounding_unvisited_river(xx,yy)) {
@@ -314,22 +314,22 @@ int generate_map (int seed, int params) {
             else { break; } // what the shit?
             
             // add river here
-            gs.gm.rivers[xx][yy] = 1;
+            gs.gm.tiles[xx][yy].flags = gs.gm.tiles[xx][yy].flags|TILE_FLAGS_RIVER;
             // visited spots get tracked
-            if (valid_spot(oxx+1,oyy+1)) gs.gm.roads[oxx+1][oyy+1] = 1;
-            if (valid_spot(oxx+1,oyy))   gs.gm.roads[oxx+1][oyy] = 1;
-            if (valid_spot(oxx+1,oyy-1)) gs.gm.roads[oxx+1][oyy-1] = 1;
-            if (valid_spot(oxx,oyy+1))   gs.gm.roads[oxx][oyy+1] = 1;
-            if (valid_spot(oxx,oyy))     gs.gm.roads[oxx][oyy] = 1;
-            if (valid_spot(oxx,oyy-1))   gs.gm.roads[oxx][oyy-1] = 1;
-            if (valid_spot(oxx-1,oyy+1)) gs.gm.roads[oxx-1][oyy+1] = 1;
-            if (valid_spot(oxx-1,oyy))   gs.gm.roads[oxx-1][oyy] = 1;
-            if (valid_spot(oxx-1,oyy-1)) gs.gm.roads[oxx-1][oyy-1] = 1;            
+            if (valid_spot(oxx+1,oyy+1)) gs.gm.tiles[oxx+1][oyy+1].flags = gs.gm.tiles[oxx+1][oyy+1].flags|TILE_FLAGS_ROAD;
+            if (valid_spot(oxx+1,oyy))   gs.gm.tiles[oxx+1][oyy].flags = gs.gm.tiles[oxx+1][oyy+1].flags|TILE_FLAGS_ROAD;
+            if (valid_spot(oxx+1,oyy-1)) gs.gm.tiles[oxx+1][oyy-1].flags = gs.gm.tiles[oxx+1][oyy+1].flags|TILE_FLAGS_ROAD;
+            if (valid_spot(oxx,oyy+1))   gs.gm.tiles[oxx][oyy+1].flags = gs.gm.tiles[oxx+1][oyy+1].flags|TILE_FLAGS_ROAD;
+            if (valid_spot(oxx,oyy))     gs.gm.tiles[oxx][oyy].flags = gs.gm.tiles[oxx+1][oyy+1].flags|TILE_FLAGS_ROAD;
+            if (valid_spot(oxx,oyy-1))   gs.gm.tiles[oxx][oyy-1].flags = gs.gm.tiles[oxx+1][oyy+1].flags|TILE_FLAGS_ROAD;
+            if (valid_spot(oxx-1,oyy+1)) gs.gm.tiles[oxx-1][oyy+1].flags = gs.gm.tiles[oxx+1][oyy+1].flags|TILE_FLAGS_ROAD;
+            if (valid_spot(oxx-1,oyy))   gs.gm.tiles[oxx-1][oyy].flags = gs.gm.tiles[oxx+1][oyy+1].flags|TILE_FLAGS_ROAD;
+            if (valid_spot(oxx-1,oyy-1)) gs.gm.tiles[oxx-1][oyy-1].flags = gs.gm.tiles[oxx+1][oyy+1].flags|TILE_FLAGS_ROAD;            
         }
         // clean up visited
         for (int i=0;i<MAX_GAME_MAP_X;i++) {
             for (int j=0;j<MAX_GAME_MAP_Y;j++) {
-                gs.gm.roads[i][j] = 0;
+                if (gs.gm.tiles[i][j].flags&TILE_FLAGS_ROAD) gs.gm.tiles[i][j].flags = gs.gm.tiles[i][j].flags - TILE_FLAGS_ROAD; // remove road marker
             }
         }
             

@@ -8,7 +8,7 @@ int get_tile_food(int x, int y) {
     if (gs.gm.tiles[x][y].flags&TILE_FLAGS_FERTILE) food += 2; // if fertile, +2
     if (gs.gm.tiles[x][y].flags&TILE_FLAGS_FARMS) food++; // if farms +2
     else if (gs.gm.tiles[x][y].flags&TILE_FLAGS_IRRIGATION) food++; // if irrigated, +1
-    if (gs.gm.rivers[x][y] == 1) food++; // if river, +1
+    if (gs.gm.tiles[x][y].flags&TILE_FLAGS_RIVER) food++; // if river, +1
     if (gs.gm.tiles[x][y].flags&TILE_FLAGS_POLLUTED) food--; // if polluted, -1
     
     return food;
@@ -33,7 +33,7 @@ int get_tile_comm(int x, int y) {
     if (gs.gm.tiles[x][y].flags&TILE_FLAGS_RICH) comm += 2; // if rich, +2
     if (gs.gm.tiles[x][y].flags&TILE_FLAGS_RAILROAD) comm++; // if railroad, +2
     else if (gs.gm.tiles[x][y].flags&TILE_FLAGS_ROAD) comm++; // if road, +1
-    if (gs.gm.rivers[x][y] == 1) comm++; // if river, +1
+    if (gs.gm.tiles[x][y].flags&TILE_FLAGS_RIVER) comm++; // if river, +1
     if (gs.gm.tiles[x][y].flags&TILE_FLAGS_POLLUTED) comm--; // if polluted, -1
     
     return comm;

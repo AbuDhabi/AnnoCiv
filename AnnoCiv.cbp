@@ -46,6 +46,7 @@
 		<Unit filename="clean_up.cpp" />
 		<Unit filename="do_ai.cpp" />
 		<Unit filename="do_turn.cpp" />
+		<Unit filename="faction_ops.cpp" />
 		<Unit filename="generate_map.cpp" />
 		<Unit filename="globals.h" />
 		<Unit filename="header.h" />

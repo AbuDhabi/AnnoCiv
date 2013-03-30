@@ -2,16 +2,16 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="City.h" open="1" top="0" tabpos="11">
-		<Cursor position="151" topLine="0" />
+		<Cursor position="803" topLine="5" />
 	</File>
 	<File name="Faction.h" open="1" top="0" tabpos="5">
-		<Cursor position="622" topLine="5" />
+		<Cursor position="717" topLine="5" />
 	</File>
-	<File name="GameMap.h" open="0" top="0" tabpos="10">
-		<Cursor position="54" topLine="0" />
+	<File name="GameMap.h" open="1" top="0" tabpos="17">
+		<Cursor position="299" topLine="0" />
 	</File>
 	<File name="GameState.h" open="1" top="0" tabpos="12">
-		<Cursor position="366" topLine="1" />
+		<Cursor position="221" topLine="0" />
 	</File>
 	<File name="Language.h" open="0" top="0" tabpos="0">
 		<Cursor position="56" topLine="0" />
@@ -19,32 +19,32 @@
 	<File name="Point.h" open="0" top="0" tabpos="5">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="Research.h" open="0" top="0" tabpos="3">
-		<Cursor position="58" topLine="0" />
+	<File name="Research.h" open="1" top="0" tabpos="20">
+		<Cursor position="1234" topLine="0" />
 	</File>
-	<File name="Tile.h" open="0" top="0" tabpos="0">
-		<Cursor position="678" topLine="5" />
+	<File name="Tile.h" open="1" top="0" tabpos="16">
+		<Cursor position="410" topLine="6" />
 	</File>
 	<File name="Unit.h" open="1" top="0" tabpos="3">
 		<Cursor position="399" topLine="33" />
 	</File>
-	<File name="city_ops.cpp" open="1" top="1" tabpos="10">
-		<Cursor position="4433" topLine="84" />
+	<File name="city_ops.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="6684" topLine="163" />
 	</File>
 	<File name="clean_up.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="42" topLine="0" />
 	</File>
 	<File name="do_turn.cpp" open="1" top="0" tabpos="14">
-		<Cursor position="416" topLine="6" />
+		<Cursor position="652" topLine="7" />
 	</File>
-	<File name="generate_map.cpp" open="0" top="0" tabpos="11">
-		<Cursor position="0" topLine="0" />
+	<File name="generate_map.cpp" open="1" top="0" tabpos="18">
+		<Cursor position="498" topLine="0" />
 	</File>
 	<File name="globals.h" open="0" top="0" tabpos="6">
 		<Cursor position="688" topLine="8" />
 	</File>
 	<File name="header.h" open="1" top="0" tabpos="6">
-		<Cursor position="3226" topLine="109" />
+		<Cursor position="3289" topLine="111" />
 	</File>
 	<File name="language_ops.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="683" topLine="15" />
@@ -56,16 +56,16 @@
 		<Cursor position="219" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="1017" topLine="90" />
+		<Cursor position="4014" topLine="101" />
 	</File>
-	<File name="main_game_interface.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="15554" topLine="122" />
+	<File name="main_game_interface.cpp" open="1" top="1" tabpos="4">
+		<Cursor position="3508" topLine="374" />
 	</File>
 	<File name="main_menu.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="849" topLine="21" />
 	</File>
 	<File name="new_game_setup.cpp" open="1" top="0" tabpos="7">
-		<Cursor position="2068" topLine="57" />
+		<Cursor position="3753" topLine="0" />
 	</File>
 	<File name="print_full_picture.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="0" topLine="0" />
@@ -74,10 +74,10 @@
 		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="print_interface.cpp" open="1" top="0" tabpos="13">
-		<Cursor position="2589" topLine="0" />
+		<Cursor position="473" topLine="47" />
 	</File>
 	<File name="print_map.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="18131" topLine="283" />
+		<Cursor position="8022" topLine="274" />
 	</File>
 	<File name="save_and_load.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="118" topLine="0" />
@@ -85,7 +85,10 @@
 	<File name="show_intro.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="18" />
 	</File>
+	<File name="tile_ops.cpp" open="1" top="0" tabpos="19">
+		<Cursor position="0" topLine="0" />
+	</File>
 	<File name="unit_ops.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="3785" topLine="213" />
+		<Cursor position="7413" topLine="224" />
 	</File>
 </CodeBlocks_layout_file>

@@ -12,6 +12,7 @@
 #define TILE_FLAGS_RESOURCEFUL 256
 #define TILE_FLAGS_RICH 512
 #define TILE_FLAGS_POLLUTED 1024
+#define TILE_FLAGS_RIVER 2048
 
 typedef struct Tile {
     int tile_id; // same as bitmap ID

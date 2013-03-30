@@ -90,9 +90,10 @@ int build_new_city(int x, int y, int faction) {
 // growth, resources, contributions, constructions, etc
 // ONE city only
 int resolve_city_turn(int city_id) {
-    // this is mostly a placeholder so far
+    // do various subroutines related to cities
     city_growth(city_id);
     city_production(city_id);
+    city_money(city_id);
     
     return 0;
 }
@@ -113,6 +114,38 @@ int get_city_food(int city_id) {
     return food;
 }
 
+// returns number of prod units
+int get_city_prod(int city_id) {
+    int x, y;
+    x = gs.cities[city_id].x-1;
+    y = gs.cities[city_id].y-1;
+    int prod=0;
+    for (int i=0;i<3;i++) {
+        for (int j=0;j<3;j++) {
+            if (x+i >= 0 && y+j >=0 && x+i < MAX_GAME_MAP_X && y+j < MAX_GAME_MAP_Y) { 
+                prod += get_tile_prod(x+i,y+j);
+            }
+        }
+    }
+    return prod;
+}
+
+// returns number of comm units
+int get_city_comm(int city_id) {
+    int x, y;
+    x = gs.cities[city_id].x-1;
+    y = gs.cities[city_id].y-1;
+    int comm=0;
+    for (int i=0;i<3;i++) {
+        for (int j=0;j<3;j++) {
+            if (x+i >= 0 && y+j >=0 && x+i < MAX_GAME_MAP_X && y+j < MAX_GAME_MAP_Y) { 
+                comm += get_tile_comm(x+i,y+j);
+            }
+        }
+    }
+    return comm;
+}
+
 // checks whether the city should grow or diminish
 int city_growth(int city_id) {
     // a sanity check - dead cities need not apply
@@ -120,9 +153,9 @@ int city_growth(int city_id) {
     
     // does the city have enough food?
     if (get_city_food(city_id) > gs.cities[city_id].size) {
-        // for now, let it grow as long as it has more food than required
-        gs.cities[city_id].growth_counter++;
-        if (gs.cities[city_id].growth_counter > 10) {
+        // growth formula is pop x food, until food pops, heh.
+        gs.cities[city_id].growth_counter += gs.cities[city_id].size * get_city_food(city_id);
+        if (gs.cities[city_id].growth_counter > 100) {
             gs.cities[city_id].growth_counter = 0; // reset counter
             gs.cities[city_id].size++; // grow city!
         }
@@ -133,7 +166,7 @@ int city_growth(int city_id) {
         gs.cities[city_id].growth_counter--; // decrement growth counter
         // too much starvation! people starve to death, bad player
         if (gs.cities[city_id].growth_counter < 0) {
-            gs.cities[city_id].growth_counter = 0; // reset this
+            gs.cities[city_id].growth_counter = 10; // reset this, every 10 turns of not enough food, population drops
             gs.cities[city_id].size--; // decrement city
         }
         return -1; // ungrowth!
@@ -145,15 +178,39 @@ int city_growth(int city_id) {
 int city_production(int city_id) {
     // check if the city is to produce anything
     if (gs.cities[city_id].production_type != CITY_NO_PRODUCTION && gs.cities[city_id].production_order != CITY_NO_PRODUCTION) {
-        // spawn a unit with designated type and flags
+        // assemble the unit being produced, so we can see how much it costs
         int type = gs.cities[city_id].production_type;
         int flags = gs.cities[city_id].production_order;
         int x = gs.cities[city_id].x;
         int y = gs.cities[city_id].y;
         int faction = gs.cities[city_id].faction_id;
         Unit unit = mould_unit(type, flags);
-        spawn_unit(unit,x,y,faction);
+        // production is pop x prod
+        int prod_this_turn = gs.cities[city_id].size * get_city_prod(city_id);
+        gs.cities[city_id].production_counter += prod_this_turn;
+        // if it's equal to the cost of the unit, it is produced
+        if (gs.cities[city_id].production_counter >= unit.cost) {
+            // decrement counter by unit cost
+            gs.cities[city_id].production_counter -= unit.cost;
+            // spawn a unit with designated type and flags
+            spawn_unit(unit,x,y,faction);
+        }
+        /// TODO: Build many units if overflows, but for the moment, storing production counters is fine
+        
     }
+    
+    return 0;
+}
+
+// handles money production of the city
+int city_money(int city_id) {
+    // money formula is pop x comm
+    int monies = gs.cities[city_id].size * get_city_comm(city_id);
+    
+    gs.factions[gs.cities[city_id].faction_id].money += monies;
+    
+    /// TODO: Things that cost money?    
+    /// TODO: Maybe elsewhere - faction_ops
     
     return 0;
 }

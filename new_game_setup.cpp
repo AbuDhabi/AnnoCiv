@@ -13,6 +13,7 @@ int do_game_setup_stuff(int args) {
         gs.cities[i].x = -1;
         gs.cities[i].y = -1;
         gs.cities[i].size = 0;
+        gs.cities[i].production_counter = 0;
     }
     gs.curx = 0;
     gs.cury = 0;
@@ -32,6 +33,7 @@ int do_game_setup_stuff(int args) {
 
     int rx, ry;
     char temp[80];
+    gs.player_faction = 0;
     temp[0] = 0;
     for (int i=0;i<MAX_FACTIONS;i++) {
         gs.factions[i].type = FACTION_TYPE_AI;
@@ -43,6 +45,7 @@ int do_game_setup_stuff(int args) {
         color.b = rand()%128+128; color.g = rand()%128+128; color.r = rand()%128+128; color.unused = 255;
         gs.factions[i].language = create_language();
         gs.factions[i].color = color;
+        gs.factions[i].money = 0; 
         do {
             rx = rand()%MAX_GAME_MAP_X;
             ry = rand()%MAX_GAME_MAP_Y;
@@ -54,7 +57,9 @@ int do_game_setup_stuff(int args) {
         gs.cities[i].y = ry;
         gs.cities[i].size = 1;
         gs.cities[i].faction_id = i;
-        gs.gm.roads[rx][ry] = 1;
+        gs.gm.tiles[rx][ry].flags = gs.gm.tiles[rx][ry].flags|TILE_FLAGS_ROAD;
+        //gs.gm.tiles[rx+1][ry+1].flags = gs.gm.tiles[rx+1][ry+1].flags|TILE_FLAGS_ROAD; // check if roads
+        //gs.gm.tiles[rx+1][ry+1].flags = gs.gm.tiles[rx+1][ry+1].flags&TILE_FLAGS_RIVER; // check if rivers displayed
         //gs.units[i] = mould_unit(UNIT_TYPE_AIR,UNIT_FLAG_ANTIAIR|UNIT_FLAG_GUERILLA|UNIT_FLAG_ARTILLERY|UNIT_FLAG_ENGINEER|UNIT_FLAG_MISSILE);
         //gs.units[i].faction_id = i;
         //gs.units[i].x = rx;
@@ -66,10 +71,10 @@ int do_game_setup_stuff(int args) {
         gs.cities[i].budget_production = rand()%21;
         gs.cities[i].budget_research = rand()%21;
     }
-    gs.cities[0].size = 12;
+    gs.cities[gs.player_faction].size = 12;
     
-    gs.factions[0].type = FACTION_TYPE_PLAYER;
-    sprintf(gs.factions[0].name,"Mr Human");
+    gs.factions[gs.player_faction].type = FACTION_TYPE_PLAYER;
+    sprintf(gs.factions[gs.player_faction].name,"Mr Human");
     
     return 0;
 }

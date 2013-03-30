@@ -126,5 +126,7 @@ int get_symbol_offset_y(int count);
 int city_production(int city_id);
 int spawn_unit(Unit unit, int x, int y, int faction);
 int write_to_log (char * text);
+int sum_unit_upkeep(int faction);
+int city_money(int city_id);
 
 #endif // HEADER_H_INCLUDED

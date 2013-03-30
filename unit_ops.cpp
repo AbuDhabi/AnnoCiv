@@ -232,3 +232,15 @@ int spawn_unit(Unit unit, int x, int y, int faction) {
     
     return 0;
 }
+
+// how much upkeep do units of this faction need?
+int sum_unit_upkeep(int faction) {
+    int lastunit = get_last_unit_id();
+    int sum = 0;
+    for (int i=0;i<=lastunit;i++) {
+        if (gs.units[i].faction_id == faction) {
+            sum +=  gs.units[i].upkeep;
+        }
+    }
+    return sum;
+}

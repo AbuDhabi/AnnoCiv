@@ -6,8 +6,16 @@ int print_interface() {
     boxRGBA(MAIN_SCREEN,10*64,0,MAXX,7*64,240,0,0,255);
     // botbar
     boxRGBA(MAIN_SCREEN,0,7*64,MAXX,MAXY,0,0,240,255);
-    // sidebar and bottombar information printing
+    // corner bar
+    boxRGBA(MAIN_SCREEN,10*64,7*64,MAXX,MAXY,0,240,0,255);
+    // information printing
     char temp[80];
+    
+    // monies
+    /// TODO: Having a faction selected
+    sprintf(temp,"Reserve: %d",gs.factions[0].money);
+    put_text_at(10*64+5,7*64+5,temp);
+    
     if (gs.selected_type == SELECTED_CITY && gs.selected_thing >= 0) {
         // name location
         sprintf(temp,"%s (%d,%d)",gs.cities[gs.selected_thing].name,gs.cities[gs.selected_thing].x,gs.cities[gs.selected_thing].y);
@@ -51,6 +59,8 @@ int print_interface() {
         put_text_at(0,20,temp);
         sprintf (temp,"last unit ID: %d", get_last_unit_id());
         put_text_at(0,30,temp);
+        sprintf (temp,"tile flags under cursor: %d", gs.gm.tiles[gs.selx][gs.sely].flags);
+        put_text_at(0,40,temp);
     }
 
     return 0;

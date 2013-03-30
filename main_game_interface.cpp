@@ -91,6 +91,8 @@ int main_game_interface() {
                 done = true;
                 break;
                 // check for keypresses
+                /// BUG: Cursor goes off grid
+                /// BUG: Cursor behaves strangely in relation to viewscreen around edges
             case SDL_KEYDOWN:
                 {
                     if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_KP4) {
