@@ -11,10 +11,22 @@ int print_interface() {
     // information printing
     char temp[80];
     
-    // monies
+    // monies and other faction stuff
     /// TODO: Having a faction selected
-    sprintf(temp,"Reserve: %d",gs.factions[0].money);
+    sprintf(temp,"Reserve: %d",gs.factions[gs.player_faction].money);
     put_text_at(10*64+5,7*64+5,temp);
+    sprintf(temp,"AgrEne: %d/%1.2f",gs.factions[gs.player_faction].research.AgrEne,gs.factions[gs.player_faction].research.AgrEne_progress);
+    put_text_at(10*64+5,7*64+20,temp);
+    sprintf(temp,"ComTra: %d/%1.2f",gs.factions[gs.player_faction].research.ComTra,gs.factions[gs.player_faction].research.ComTra_progress);
+    put_text_at(10*64+5,7*64+35,temp);
+    sprintf(temp,"InfCom: %d/%1.2f",gs.factions[gs.player_faction].research.InfCom,gs.factions[gs.player_faction].research.InfCom_progress);
+    put_text_at(10*64+5,7*64+50,temp);
+    sprintf(temp,"ProEng: %d/%1.2f",gs.factions[gs.player_faction].research.ProEng,gs.factions[gs.player_faction].research.ProEng_progress);
+    put_text_at(10*64+5,7*64+65,temp);
+    sprintf(temp,"SocGov: %d/%1.2f",gs.factions[gs.player_faction].research.SocGov,gs.factions[gs.player_faction].research.SocGov_progress);
+    put_text_at(10*64+5,7*64+80,temp);
+    
+    
     
     if (gs.selected_type == SELECTED_CITY && gs.selected_thing >= 0) {
         // name location

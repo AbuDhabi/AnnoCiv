@@ -46,6 +46,16 @@ int do_game_setup_stuff(int args) {
         gs.factions[i].language = create_language();
         gs.factions[i].color = color;
         gs.factions[i].money = 0; 
+        gs.factions[i].research.AgrEne = 0;
+        gs.factions[i].research.ComTra = 0;
+        gs.factions[i].research.InfCom = 0;
+        gs.factions[i].research.ProEng = 0;
+        gs.factions[i].research.SocGov = 0;
+        gs.factions[i].research.AgrEne_progress = 0;
+        gs.factions[i].research.ComTra_progress = 0;
+        gs.factions[i].research.InfCom_progress = 0;
+        gs.factions[i].research.ProEng_progress = 0;
+        gs.factions[i].research.SocGov_progress = 0;
         do {
             rx = rand()%MAX_GAME_MAP_X;
             ry = rand()%MAX_GAME_MAP_Y;
@@ -71,7 +81,8 @@ int do_game_setup_stuff(int args) {
         gs.cities[i].budget_production = rand()%21;
         gs.cities[i].budget_research = rand()%21;
     }
-    gs.cities[gs.player_faction].size = 12;
+    gs.cities[0].size = 12;
+    gs.cities[0].faction_id = gs.player_faction;
     
     gs.factions[gs.player_faction].type = FACTION_TYPE_PLAYER;
     sprintf(gs.factions[gs.player_faction].name,"Mr Human");

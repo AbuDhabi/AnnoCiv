@@ -23,6 +23,12 @@ int do_turn() {
         }
     }
     
+    // resolve faction stuff
+    faction_upkeep();
+    for (int i=0;i<MAX_FACTIONS;i++) {
+        faction_research(i);
+    }
+    
     
     return 0;
 }

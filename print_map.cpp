@@ -1,6 +1,8 @@
 #include "header.h"
 #include "globals.h"
 
+/// BUG: Some unit icons get decoupled from the unit at the edges of the map (left edge)
+
 int print_map(int x,int y) {
     char temp [80];
     int lastunit = get_last_unit_id();

@@ -3,7 +3,7 @@
 	"header.h"
 	"globals.h"
 
-1364578365 /home/jpkociak/programming/AnnoCiv/header.h
+1365077723 /home/jpkociak/programming/AnnoCiv/header.h
 	<cstdlib>
 	<stdlib.h>
 	<stdlib.h>
@@ -23,13 +23,13 @@
 	"City.h"
 	"Language.h"
 	"Unit.h"
+	"Research.h"
 	"Faction.h"
 	"Tile.h"
 	"GameMap.h"
 	"GameState.h"
-	"Research.h"
 
-1286726393 /usr/include/SDL/SDL.h
+1340291017 /usr/include/SDL/SDL.h
 	"SDL_main.h"
 	"SDL_stdinc.h"
 	"SDL_audio.h"
@@ -48,14 +48,14 @@
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_main.h
+1340291017 /usr/include/SDL/SDL_main.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_stdinc.h
+1340291017 /usr/include/SDL/SDL_stdinc.h
 	"SDL_config.h"
 	<sys/types.h>
 	<stdio.h>
@@ -81,17 +81,17 @@
 	<stdlib.h>
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_config.h
+1340291017 /usr/include/SDL/SDL_config.h
 	"SDL_platform.h"
 	<stdarg.h>
 
-1286726393 /usr/include/SDL/SDL_platform.h
+1340291017 /usr/include/SDL/SDL_platform.h
 
-1286726393 /usr/include/SDL/begin_code.h
+1340291017 /usr/include/SDL/begin_code.h
 
-1286726393 /usr/include/SDL/close_code.h
+1340291017 /usr/include/SDL/close_code.h
 
-1286726393 /usr/include/SDL/SDL_audio.h
+1340291017 /usr/include/SDL/SDL_audio.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_endian.h"
@@ -101,23 +101,24 @@
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_error.h
+1340291017 /usr/include/SDL/SDL_error.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_endian.h
+1340291017 /usr/include/SDL/SDL_endian.h
 	"SDL_stdinc.h"
+	<endian.h>
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_mutex.h
+1340291017 /usr/include/SDL/SDL_mutex.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_thread.h
+1340291017 /usr/include/SDL/SDL_thread.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_mutex.h"
@@ -125,24 +126,24 @@
 	<process.h>
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_rwops.h
+1340291017 /usr/include/SDL/SDL_rwops.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_cdrom.h
+1340291017 /usr/include/SDL/SDL_cdrom.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_cpuinfo.h
+1340291017 /usr/include/SDL/SDL_cpuinfo.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_events.h
+1340291017 /usr/include/SDL/SDL_events.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_active.h"
@@ -153,63 +154,63 @@
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_active.h
+1340291017 /usr/include/SDL/SDL_active.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_keyboard.h
+1340291017 /usr/include/SDL/SDL_keyboard.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_keysym.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_keysym.h
+1340291017 /usr/include/SDL/SDL_keysym.h
 
-1286726393 /usr/include/SDL/SDL_mouse.h
+1340291017 /usr/include/SDL/SDL_mouse.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_video.h
+1340291017 /usr/include/SDL/SDL_video.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_rwops.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_joystick.h
+1340291017 /usr/include/SDL/SDL_joystick.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_quit.h
+1340291017 /usr/include/SDL/SDL_quit.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 
-1286726393 /usr/include/SDL/SDL_loadso.h
-	"SDL_stdinc.h"
-	"SDL_error.h"
-	"begin_code.h"
-	"close_code.h"
-
-1286726393 /usr/include/SDL/SDL_timer.h
+1340291017 /usr/include/SDL/SDL_loadso.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_version.h
+1340291017 /usr/include/SDL/SDL_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1340291017 /usr/include/SDL/SDL_version.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1292058855 /usr/include/SDL/SDL_mixer.h
+1348413975 /usr/include/SDL/SDL_mixer.h
 	"SDL_types.h"
 	"SDL_rwops.h"
 	"SDL_audio.h"
@@ -218,15 +219,15 @@
 	"begin_code.h"
 	"close_code.h"
 
-1286726393 /usr/include/SDL/SDL_types.h
+1340291017 /usr/include/SDL/SDL_types.h
 	"SDL_stdinc.h"
 
-1185194442 /usr/include/SDL/SDL_ttf.h
+1330797748 /usr/include/SDL/SDL_ttf.h
 	"SDL.h"
 	"begin_code.h"
 	"close_code.h"
 
-1283649534 /usr/include/SDL/SDL_image.h
+1335919636 /usr/include/SDL/SDL_image.h
 	"SDL.h"
 	"SDL_version.h"
 	"begin_code.h"
@@ -238,7 +239,7 @@
 	"header.h"
 	"globals.h"
 
-1356348429 source:/home/jpkociak/programming/AnnoCiv/main.cpp
+1365077029 source:/home/jpkociak/programming/AnnoCiv/main.cpp
 	"header.h"
 	"globals.h"
 
@@ -254,11 +255,11 @@
 	"header.h"
 	"globals.h"
 
-1364575640 source:/home/jpkociak/programming/AnnoCiv/print_map.cpp
+1364778172 source:/home/jpkociak/programming/AnnoCiv/print_map.cpp
 	"header.h"
 	"globals.h"
 
-1283276426 /usr/include/SDL/SDL_gfxPrimitives.h
+1361202901 /usr/include/SDL/SDL_gfxPrimitives.h
 	<math.h>
 	"SDL.h"
 
@@ -278,7 +279,7 @@
 
 1364396058 /home/jpkociak/programming/AnnoCiv/Unit.h
 
-1364575082 /home/jpkociak/programming/AnnoCiv/Faction.h
+1365074693 /home/jpkociak/programming/AnnoCiv/Faction.h
 
 1351170074 source:/home/jpkociak/programming/AnnoCiv/show_intro.cpp
 	"header.h"
@@ -288,7 +289,7 @@
 	"header.h"
 	"globals.h"
 
-1364464055 source:/home/jpkociak/programming/AnnoCiv/main_game_interface.cpp
+1365076926 source:/home/jpkociak/programming/AnnoCiv/main_game_interface.cpp
 	"header.h"
 	"globals.h"
 
@@ -296,11 +297,11 @@
 	"header.h"
 	"globals.h"
 
-1364577159 source:/home/jpkociak/programming/AnnoCiv/new_game_setup.cpp
+1365076794 source:/home/jpkociak/programming/AnnoCiv/new_game_setup.cpp
 	"header.h"
 	"globals.h"
 
-1364576631 source:/home/jpkociak/programming/AnnoCiv/print_interface.cpp
+1365077290 source:/home/jpkociak/programming/AnnoCiv/print_interface.cpp
 	"header.h"
 	"globals.h"
 
@@ -308,7 +309,7 @@
 	"header.h"
 	"globals.h"
 
-1364430704 source:/home/jpkociak/programming/AnnoCiv/do_turn.cpp
+1365075170 source:/home/jpkociak/programming/AnnoCiv/do_turn.cpp
 	"header.h"
 	"globals.h"
 
@@ -335,6 +336,10 @@
 	"globals.h"
 
 1364422289 source:/home/jpkociak/programming/AnnoCiv/log.cpp
+	"header.h"
+	"globals.h"
+
+1365076752 source:/home/jpkociak/programming/AnnoCiv/faction_ops.cpp
 	"header.h"
 	"globals.h"
 

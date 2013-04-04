@@ -314,7 +314,7 @@ int main_game_interface() {
                             gs.cury = gs.cities[gs.selected_thing].y;
                             gs.selx = gs.cities[gs.selected_thing].x;
                             gs.sely = gs.cities[gs.selected_thing].y;
-                        } while (gs.cities[gs.selected_thing].size < 1);
+                        } while (gs.cities[gs.selected_thing].size < 1 || gs.cities[gs.selected_thing].faction_id != gs.player_faction);
                         gs.curx -= 5; gs.cury -= 3;
                         sanitize_coords();
                         print_map(gs.curx,gs.cury);

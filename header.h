@@ -80,11 +80,11 @@
 #include "City.h"
 #include "Language.h"
 #include "Unit.h"
+#include "Research.h"
 #include "Faction.h"
 #include "Tile.h"
 #include "GameMap.h"
 #include "GameState.h"
-#include "Research.h"
 
 
 
@@ -128,5 +128,8 @@ int spawn_unit(Unit unit, int x, int y, int faction);
 int write_to_log (char * text);
 int sum_unit_upkeep(int faction);
 int city_money(int city_id);
+int get_city_comm(int city_id);
+int faction_research(int faction);
+int faction_upkeep();
 
 #endif // HEADER_H_INCLUDED
