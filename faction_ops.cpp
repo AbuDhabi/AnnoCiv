@@ -44,6 +44,7 @@ int faction_research(int faction) {
         gs.factions[faction].research.SocGov++;
         gs.factions[faction].research.SocGov_progress -= 100;
     }
+    return 0;
 }
 
 int faction_upkeep () {

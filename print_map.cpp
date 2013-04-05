@@ -92,18 +92,19 @@ int print_map(int x,int y) {
             for (int k=0;k<=lastunit;k++) {
                 if (gs.units[k].hp > 0) {
                     if (i==gs.units[k].x && j==gs.units[k].y) {
-                        /// TODO: complete figuring out the edge cases
-                        /// TODO: Make the unimplemented graphical symbols and stuff
-                        /// TODO: also make symbol placement so that everything is visible
                         // the basic box with black outline
                         boxRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+16,(i-x)*64+52,(j-y)*64+48,gs.factions[gs.cities[k].faction_id].color.r,gs.factions[gs.cities[k].faction_id].color.g,gs.factions[gs.cities[k].faction_id].color.b,gs.factions[gs.cities[k].faction_id].color.unused);
                         rectangleRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+16,(i-x)*64+52,(j-y)*64+48,0,0,0,255);
+                        // primaries
                         if (gs.units[k].type == UNIT_TYPE_GROUND) {
                             // figure out which basic type it is
                             if (gs.units[k].flags & (UNIT_FLAG_CAVALRY|UNIT_FLAG_SCOUT)) {
                                 // this is a recon/cavalry unit
                                 // one diagonal line
                                 lineRGBA(MAIN_SCREEN,(i-x)*64+52,(j-y)*64+16,(i-x)*64+12,(j-y)*64+48,0,0,0,255);
+                            } else if (gs.units[k].flags & UNIT_FLAG_ARMORED) {
+                                // stylized tank treads in center
+                                ellipseRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+32,15,8,0,0,0,255);
                             } else {
                                 // otherwise assume it's infantry
                                 lineRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+16,(i-x)*64+52,(j-y)*64+48,0,0,0,255);
@@ -130,56 +131,123 @@ int print_map(int x,int y) {
                             lineRGBA(MAIN_SCREEN,(i-x)*64+28,(j-y)*64+28,(i-x)*64+36,(j-y)*64+28,0,0,0,255);
                             symbolcount++;
                         }
-                        // now for modifiers
+                        // now for secondaries
+                        // they each get a place in a corner
+                        // UL
+                        if (gs.units[k].flags & UNIT_FLAG_SETTLER) {
+                            // chevron
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+18,(j-y)*64+18,(i-x)*64+14,(j-y)*64+22,0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+18,(j-y)*64+18,(i-x)*64+22,(j-y)*64+22,0,0,0,255);
+                            // box
+                            rectangleRGBA(MAIN_SCREEN,(i-x)*64+14,(j-y)*64+22,(i-x)*64+22,(j-y)*64+30,0,0,0,255);
+                            symbolcount++;
+                        }
+                        // LL
+                        if (gs.units[k].flags & UNIT_FLAG_ATROCITY) {
+                            // skull head
+                            ellipseRGBA(MAIN_SCREEN,(i-x)*64+18,(j-y)*64+38,3,3,0,0,0,255);
+                            // eyes
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+17,(j-y)*64+37,(i-x)*64+17,(j-y)*64+38,0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+19,(j-y)*64+37,(i-x)*64+19,(j-y)*64+38,0,0,0,255);
+                            // bones
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+16,(j-y)*64+45,(i-x)*64+18,(j-y)*64+44,0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+16,(j-y)*64+43,(i-x)*64+18,(j-y)*64+44,0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+20,(j-y)*64+45,(i-x)*64+18,(j-y)*64+44,0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+20,(j-y)*64+43,(i-x)*64+18,(j-y)*64+44,0,0,0,255);
+                            
+                        }
+                        // UR
+                        if (gs.units[k].flags & UNIT_FLAG_ENGINEER) {
+                            // a little E
+                            // horizontal 1
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+44,(j-y)*64+20,
+                                                 (i-x)*64+48,(j-y)*64+20,0,0,0,255);
+                            // horizontal 2
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+44,(j-y)*64+22,
+                                                 (i-x)*64+48,(j-y)*64+22,0,0,0,255);
+                            // horizontal 3
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+44,(j-y)*64+24,
+                                                 (i-x)*64+48,(j-y)*64+24,0,0,0,255);
+                            // vertical
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+44,(j-y)*64+20,
+                                                 (i-x)*64+44,(j-y)*64+24,0,0,0,255);
+                        }
+                        // LR
+                        if (gs.units[k].flags & UNIT_FLAG_INFILTRATOR) {
+                            // SOF in corner
+                            // S
+                            // horizontal 1
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+39,(j-y)*64+40,
+                                                 (i-x)*64+41,(j-y)*64+40,0,0,0,255);
+                            // horizontal 2
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+39,(j-y)*64+42,
+                                                 (i-x)*64+41,(j-y)*64+42,0,0,0,255);
+                            // horizontal 3
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+39,(j-y)*64+44,
+                                                 (i-x)*64+41,(j-y)*64+44,0,0,0,255);
+                            // vertical 1
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+39,(j-y)*64+40,
+                                                 (i-x)*64+39,(j-y)*64+42,0,0,0,255);
+                            // vertical 2
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+41,(j-y)*64+42,
+                                                 (i-x)*64+41,(j-y)*64+44,0,0,0,255);
+                            // O
+                            // horizontal 1
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+43,(j-y)*64+40,
+                                                 (i-x)*64+45,(j-y)*64+40,0,0,0,255);
+                            // horizontal 3
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+43,(j-y)*64+44,
+                                                 (i-x)*64+45,(j-y)*64+44,0,0,0,255);
+                            // vertical 1
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+43,(j-y)*64+40,
+                                                 (i-x)*64+43,(j-y)*64+44,0,0,0,255);
+                            // vertical 2
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+45,(j-y)*64+40,
+                                                 (i-x)*64+45,(j-y)*64+44,0,0,0,255);
+                            // F
+                            // horizontal 1
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+47,(j-y)*64+40,
+                                                 (i-x)*64+49,(j-y)*64+40,0,0,0,255);
+                            // horizontal 2
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+47,(j-y)*64+42,
+                                                 (i-x)*64+49,(j-y)*64+42,0,0,0,255);
+                            // vertical
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+47,(j-y)*64+40,
+                                                 (i-x)*64+47,(j-y)*64+44,0,0,0,255);
+                            
+                        }
+                        // all other are vertical dashes on the lower part of the box
                         if (gs.units[k].flags & UNIT_FLAG_ANTIAIR) {
                             // top of a dome at the bottom of the box
-                            arcRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+73,32,230,310,0,0,0,255);
+                            //arcRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+73,32,230,310,0,0,0,255);
                             // centerx, centery, radius, degrees starting at right-center going down, end degrees, rgba
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+12+23,(j-y)*64+47,(i-x)*64+12+23,(j-y)*64+49,0,0,0,255);
                         }
                         if (gs.units[k].flags & UNIT_FLAG_ANTITANK) {
                             // triangle across whole
-                            lineRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+48,(i-x)*64+32,(j-y)*64+16,0,0,0,255);
-                            lineRGBA(MAIN_SCREEN,(i-x)*64+52,(j-y)*64+48,(i-x)*64+32,(j-y)*64+16,0,0,0,255);
+                            //lineRGBA(MAIN_SCREEN,(i-x)*64+12,(j-y)*64+48,(i-x)*64+32,(j-y)*64+16,0,0,0,255);
+                            //lineRGBA(MAIN_SCREEN,(i-x)*64+52,(j-y)*64+48,(i-x)*64+32,(j-y)*64+16,0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+12+25,(j-y)*64+47,(i-x)*64+12+25,(j-y)*64+49,0,0,0,255);
                             
-                        }
-                        if (gs.units[k].flags & UNIT_FLAG_ARMORED) {
-                            // stylized tank treads in center
-                            ellipseRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+32,15,8,0,0,0,255);
                         }
                         if (gs.units[k].flags & UNIT_FLAG_ARTILLERY) {
                             // dot in the middle
-                            filledCircleRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),
-                                                         (j-y)*64+32+get_symbol_offset_y(symbolcount),2,0,0,0,255);
-                            symbolcount++;
+                            //filledCircleRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),
+                            //                             (j-y)*64+32+get_symbol_offset_y(symbolcount),2,0,0,0,255);
+                            //symbolcount++;
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+12+15,(j-y)*64+47,(i-x)*64+12+15,(j-y)*64+49,0,0,0,255);
                         }
-                        if (gs.units[k].flags & UNIT_FLAG_ATROCITY) {
-                            // perhaps a skull? or a twist of the CBRN defence
-                            
-                        }
-                        // cavalry already handled
                         if (gs.units[k].flags & UNIT_FLAG_ELITE) {
                             //boxed SF for special forces maybe
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+12+11,(j-y)*64+47,(i-x)*64+12+11,(j-y)*64+49,0,0,0,255);
                         }
-                        if (gs.units[k].flags & UNIT_FLAG_ENGINEER) {
-                            // lopsided E in the middle
-                            // horizontal line
-                            lineRGBA(MAIN_SCREEN,(i-x)*64+20,(j-y)*64+32,
-                                                 (i-x)*64+44,(j-y)*64+32,0,0,0,255);
-                            // vertical 1
-                            lineRGBA(MAIN_SCREEN,(i-x)*64+20,(j-y)*64+32,
-                                                 (i-x)*64+20,(j-y)*64+36,0,0,0,255);
-                            // vertical 2
-                            lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+32,
-                                                 (i-x)*64+32,(j-y)*64+36,0,0,0,255);
-                            // vertical 3
-                            lineRGBA(MAIN_SCREEN,(i-x)*64+44,(j-y)*64+32,
-                                                 (i-x)*64+44,(j-y)*64+36,0,0,0,255);
-                            symbolcount++;
-                        }
+
                         if (gs.units[k].flags & UNIT_FLAG_FANATIC) {
                             // not sure what I'd use here
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+12+19,(j-y)*64+47,(i-x)*64+12+19,(j-y)*64+49,0,0,0,255);
                         }
                         if (gs.units[k].flags & UNIT_FLAG_GUERILLA) {
+                            /*
                             // also not sure, perhaps the mountain
                             // lets go with a tree
                             // first triangle
@@ -198,18 +266,17 @@ int print_map(int x,int y) {
                             lineRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+28+get_symbol_offset_y(symbolcount),
                                                  (i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+38+get_symbol_offset_y(symbolcount),0,0,0,255);
                             symbolcount++;
-                        }
-                        if (gs.units[k].flags & UNIT_FLAG_INFILTRATOR) {
-                            // boxed SOF for special operations forces, probably
-                            put_text_at((i-x)*64+16,(j-y)*64+24,"SOF");
-                            symbolcount++;
+                            */
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+12+17,(j-y)*64+47,(i-x)*64+12+17,(j-y)*64+49,0,0,0,255);
                         }
                         if (gs.units[k].flags & UNIT_FLAG_MECHANIZED) {
                             // vertical line
-                            lineRGBA(MAIN_SCREEN,(i-x)*64+20,(j-y)*64+16,(i-x)*64+20,(j-y)*64+48,0,0,0,255);
+                            //lineRGBA(MAIN_SCREEN,(i-x)*64+20,(j-y)*64+16,(i-x)*64+20,(j-y)*64+48,0,0,0,255);
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+12+7,(j-y)*64+47,(i-x)*64+12+7,(j-y)*64+49,0,0,0,255);
                         }
                         if (gs.units[k].flags & UNIT_FLAG_MISSILE) {
                             // two chevrons in the middle
+                            /*
                             // chevron 1
                             lineRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+28+get_symbol_offset_y(symbolcount),
                                                  (i-x)*64+28+get_symbol_offset_x(symbolcount),(j-y)*64+32+get_symbol_offset_y(symbolcount),0,0,0,255);
@@ -221,20 +288,13 @@ int print_map(int x,int y) {
                             lineRGBA(MAIN_SCREEN,(i-x)*64+32+get_symbol_offset_x(symbolcount),(j-y)*64+30+get_symbol_offset_y(symbolcount),
                                                  (i-x)*64+36+get_symbol_offset_x(symbolcount),(j-y)*64+34+get_symbol_offset_y(symbolcount),0,0,0,255);
                             symbolcount++;
+                            */
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+12+21,(j-y)*64+47,(i-x)*64+12+21,(j-y)*64+49,0,0,0,255);
                         }
                         // scout already handled
-                        if (gs.units[k].flags & UNIT_FLAG_SETTLER) {
-                            // Boxed SET? or maybe a little housey
-                            //put_text_at((i-x)*64+16,(j-y)*64+24,"SET");
-                            // chevron
-                            lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+24,(i-x)*64+28,(j-y)*64+28,0,0,0,255);
-                            lineRGBA(MAIN_SCREEN,(i-x)*64+32,(j-y)*64+24,(i-x)*64+36,(j-y)*64+28,0,0,0,255);
-                            // box
-                            rectangleRGBA(MAIN_SCREEN,(i-x)*64+28,(j-y)*64+28,(i-x)*64+36,(j-y)*64+36,0,0,0,255);
-                            symbolcount++;
-                        }
                         if (gs.units[k].flags & UNIT_FLAG_STEALTH) {
                             // EW in middle for Electronic Warfare?
+                            lineRGBA(MAIN_SCREEN,(i-x)*64+12+13,(j-y)*64+47,(i-x)*64+12+13,(j-y)*64+49,0,0,0,255);
                         }
                         // a simple health bar
                         // now with more colours!
